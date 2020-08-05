@@ -6,7 +6,7 @@
             <li v-for="(todo, key) in todos" v-bind:key="key">
                 <div>
                     <!-- checkbox绑定todo的状态 -->
-                    <input type="checkbox" v-model="todo.status" v-on="toggleTaskStatus(key)">
+                    <input type="checkbox" v-model="todo.status" v-on:click="toggleTaskStatus(key)">
                     <span>{{todo.content}}</span>
                     <!-- 删除todo事件 -->
                     <button v-on:click="deleteTodo(key)"></button>
@@ -41,10 +41,16 @@ export default {
     methods: {
         toggleTaskStatus: function(key) {
             this.todos[key].status = !this.todos[key].status;
+            let todoNums = 0;
+            this.todos.forEach(function(item) {
+                if (item.status === false) {
+                    todoNums++;
+                }
+            });
+            this.todoNums = todoNums;
         },
         addTodo: function() {
             // 确保输入有内容
-            console.log(this.task);
             if (this.task.length > 0) {
                 var newTodo = {};
                 newTodo.content = this.task;
@@ -65,5 +71,11 @@ export default {
 }
 </script>
 <style scoped>
-
+ul, li {
+    margin: 0px;
+    padding: 0px;
+}
+li {
+    list-style: none;
+}
 </style>
