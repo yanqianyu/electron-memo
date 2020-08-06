@@ -3,7 +3,7 @@
         <!-- 搜索框 -->
         <input type="text" value="" placeholder="What needs to be done?" v-model="task" v-on:keydown.enter="addTodo">
         <ul>
-            <li v-for="(todo, key) in todos" v-bind:key="key">
+            <li v-for="(todo, key) in tmpTodos" v-bind:key="key">
                 <div>
                     <!-- checkbox绑定todo的状态 -->
                     <input type="checkbox" v-model="todo.status" v-on:click="toggleTaskStatus(key)">
@@ -17,9 +17,9 @@
         <div>
             <div>{{todoNums}} items left</div>
             <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+                <button v-on:click="allTodos">All</button>
+                <button v-on:click="activeTodos">Active</button>
+                <button v-on:click="completedTodos">Completed</button>
             </div>
         </div>
     </div>
@@ -31,7 +31,8 @@ export default {
         return {
             todos: [],
             task: "",
-            todoNums: 0
+            todoNums: 0,
+            tmpTodos: []
         }
     },
     created: function() {
@@ -48,6 +49,7 @@ export default {
                 }
             });
             this.todoNums = todoNums;
+            this.tmpTodos = this.todos;
         },
         addTodo: function() {
             // 确保输入有内容
@@ -59,6 +61,8 @@ export default {
                 // 清空文本框
                 this.task = "";
                 this.todoNums = this.todos.length;
+                // todo: 这里应该是当前显示的
+                this.tmpTodos = this.todos;
             }
         },
         deleteTodo: function(key) {
@@ -66,6 +70,30 @@ export default {
             // 响应式原理
             this.todos.splice(key, 1);
             this.todoNums = this.todos.length;
+            this.tmpTodos = this.todos;
+        },
+        allTodos: function() {
+            this.tmpTodos = this.todos;
+        },
+        activeTodos: function() {
+            let tmpTodos = [];
+            this.todos.forEach(function(item) {
+                // 还没有完成的事
+                if (item.status === false) {
+                    tmpTodos.push(item);
+                }
+            })
+            this.tmpTodos = tmpTodos;
+        },
+        completedTodos: function() {
+            let tmpTodos = [];
+            this.todos.forEach(function(item) {
+                // 完成的事
+                if (item.status === true) {
+                    tmpTodos.push(item);
+                }
+            })
+            this.tmpTodos = tmpTodos;
         }
     }
 }
