@@ -69,6 +69,7 @@ data: {
 ```
 
 ## 文件结构
+```
 |-- ELECTRON-MEMO
     |-- README.md
     |-- babel.config.js
@@ -97,3 +98,4 @@ data: {
         |   |-- index.js
         |-- store
             |-- index.js
+```
