@@ -5,11 +5,11 @@ A tiny memo based on Electron8 and Vue
 
 
 ## 需求分析
-[ ] 查询所有的待办事项
-[ ] 新增待办事项
-[ ] 修改已有待办事项
-[ ] 删除已有待办事项
-[ ] 未完成的待办事项的计数
+- [ ] 查询所有的待办事项
+- [ ] 新增待办事项
+- [ ] 修改已有待办事项
+- [ ] 删除已有待办事项
+- [ ] 未完成的待办事项的计数
 
 ## 每一条待办事项的数据结构
 ```
@@ -69,6 +69,31 @@ data: {
 ```
 
 ## 文件结构
-├── mock // 测试
-├── components
-    item.vue -- 单项待办事项
+|-- ELECTRON-MEMO
+    |-- README.md
+    |-- babel.config.js
+    |-- package-lock.json
+    |-- package.json
+    |-- dist_electron
+    |   |-- index.js
+    |   |-- package.json
+    |-- public
+    |   |-- favicon.ico
+    |   |-- index.html
+    |-- src
+        |-- App.vue
+        |-- background.js
+        |-- main.js
+        |-- apis
+        |   |-- api.js
+        |-- assets
+        |   |-- logo.png
+        |-- components
+        |   |-- Note.vue
+        |   |-- filter.vue
+        |   |-- item.vue
+        |   |-- layout.vue
+        |-- router
+        |   |-- index.js
+        |-- store
+            |-- index.js
