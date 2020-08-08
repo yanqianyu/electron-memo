@@ -61,7 +61,7 @@ export default {
                 // 清空文本框
                 this.task = "";
                 this.todoNums = this.todos.length;
-                // todo: 这里应该是当前显示的
+                // todo: 这里应该是当前显示的, 强行跳回all页面
                 this.tmpTodos = this.todos;
             }
         },
