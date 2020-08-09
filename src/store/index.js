@@ -1,22 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import axios from '../http/api'
 
 Vue.use(Vuex)
-axios.defaults.baseURL = 'http://localhost:5000'
 
-export const store = new Vuex.store({
+export const store = new Vuex.Store({
     state: {
         filter: 'all',
         todos: []
     },
     getters: {
         todosFilter(state) {
-            if (state.filter == 'all') {
+            if (state.filter === 'all') {
                 return state.todos
-            } else if (state.filter == 'active') {
+            } else if (state.filter === 'active') {
                 return state.todos.filter(todo => !todo.isDone)
-            } else if (state.filter == 'completed') {
+            } else if (state.filter === 'completed') {
                 return state.todos.filter(todo => todo.isDone)
             }
             return state.todos
@@ -29,13 +28,13 @@ export const store = new Vuex.store({
             })
         },
         updateTodo(state, todo) {
-            const index = state.todos.findIndex(item => item.id == todo.id)
+            const index = state.todos.findIndex(item => item.id === todo.id)
             state.todos.splice(index, 1, {
                 todo
             })
         },
         deleteTodo(state, id) {
-            const index = state.todos.findIndex(item => item.id == id)
+            const index = state.todos.findIndex(item => item.id === id)
             state.todos.splice(index, 1)
         },
         updateFilter(state, filter) {

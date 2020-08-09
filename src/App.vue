@@ -1,16 +1,15 @@
 <template>
   <div id="app">
-    <Note></Note>
+    <layout></layout>
   </div>
 </template>
 
 <script>
-import Note from './components/Note.vue'
-
+import layout from "./components/layout";
 export default {
   name: 'App',
   components: {
-    Note
+    layout
   }
 }
 </script>

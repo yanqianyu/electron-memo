@@ -16,8 +16,7 @@ A tiny memo based on Electron8 and Vue
 {
     id: Number,
     content: String, // 文字内容
-    isDone: Boolean, // 是否已经完成
-    isDeleted: Boolean //是否已经删除
+    isDone: Boolean // 是否已经完成
 }
 ```
 
