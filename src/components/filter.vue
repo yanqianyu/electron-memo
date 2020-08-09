@@ -10,13 +10,13 @@ export default {
     name: "todo-filter",
     methods: {
         allTodos: function() {
-
+            this.$store.dispatch('updateFilter', 'all')
         },
         activeTodos: function() {
-
+            this.$store.dispatch('updateFilter', 'active')
         },
         completedTodos: function() {
-            
+            this.$store.dispatch('updateFilter', 'completed')
         }
     }
 }

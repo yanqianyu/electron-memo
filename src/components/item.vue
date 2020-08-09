@@ -2,30 +2,35 @@
     <div class="todo-item">
         <input type="checkbox" v-model="todo.isDone" v-on:click="toggleTaskStatus(key)">
         <span>{{todo.content}}</span>
-        <button v-on:click="deleteTodo(key)"></button>
+        <button v-on:click="deleteTodo(todo.id)"></button>
     </div>
 </template>
 <script>
 export default {
     name: "todo-item",
     props: {
-        type: Object,
-        required: true,
+        todo: {
+            type: Object,
+            required: true,
+        }
     },
     data: function() {
         return {
             'id': this.todo.id,
             'content': this.todo.content,
-            'isDone': this.todo.isDone,
-            'isDeleted': this.todo.isDeleted
+            'isDone': this.todo.isDone
         }
     },
     methods: {
         toggleTaskStatus: function() {
-
+            this.$store.dispatch('updateTodo', {
+                'id': this.todo.id,
+                'content': this.todo.content,
+                'isDone': !this.todo.isDone
+            })
         },
-        deleteTodo: function() {
-            
+        deleteTodo: function(id) {
+            this.$store.dispatch('deleteTodo', id)
         }
     }
 }

@@ -31,7 +31,6 @@ return : [
         id: Number,
         content: String,
         isDone: Boolean,
-        isDeleted: Boolean
     }, 
     ...
 ]
@@ -41,30 +40,37 @@ return : [
 ```
 api: /todo/add POST
 params: {
-    title: String,
-    text: String
+    content: String,
+    isDone: Boolean
 }
 return: {
     id: Number,
     content: String,
     isDone: Boolean,
-    isDeleted: Boolean
 }
 ```
-3. 修改待办事项（包括删除，完成状态的改变）
+3. 修改待办事项
 ```
 api: /todo/edit POST
 params: {
     id: Number,
     content: String,
     isDone: Boolean,
-    isDeleted: Boolean
 }
-data: {
+return: {
     id: Number,
     content: String,
     isDone: Boolean,
-    isDeleted: Boolean
+}
+```
+4. 删除待办事项
+```
+api: /todo/delete POST
+params: {
+    id: Number
+}
+return: {
+    id: Number
 }
 ```
 
