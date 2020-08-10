@@ -6,6 +6,7 @@
     </div>
 </template>
 <script>
+import '../mock/mock'
 export default {
     name: "todo-filter",
     methods: {

@@ -14,6 +14,7 @@
 <script>
 import TodoItem from './item'
 import TodoFilter from './filter'
+import '../mock/mock'
 export default {
     name: "todo-list",
     components: {
@@ -38,10 +39,15 @@ export default {
             if (this.newTodo.trim().length === 0) {
                 return
             }
-            this.$store.dispatch('addTodo', {
+            this.axios.post('/todo/add', {
                 content: this.newTodo,
                 isDone: false
+            }).then(res => {
+                this.$store.dispatch('addTodo', res.date)
+            }).catch(err => {
+                console.log(err)
             })
+
             this.newTodo = ''
         }
     }

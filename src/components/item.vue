@@ -6,6 +6,7 @@
     </div>
 </template>
 <script>
+import '../mock/mock'
 export default {
     name: "todo-item",
     props: {
@@ -23,14 +24,25 @@ export default {
     },
     methods: {
         toggleTaskStatus: function() {
-            this.$store.dispatch('updateTodo', {
+            this.axios.post('/todo/edit', {
                 'id': this.todo.id,
                 'content': this.todo.content,
                 'isDone': !this.todo.isDone
+            }).then(res => {
+                this.$store.dispatch('updateTodo', res.data)
+            }).catch(err => {
+                console.log(err)
             })
+
         },
         deleteTodo: function(id) {
-            this.$store.dispatch('deleteTodo', id)
+            this.axios.post('/todo/delete', {
+                id
+            }).then(res => {
+                this.$store.dispatch('deleteTodo', res.data)
+            }).catch(err => {
+                console.log(err)
+            })
         }
     }
 }

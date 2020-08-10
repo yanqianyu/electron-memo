@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from '../http/api'
+import '../mock/mock'
 
 Vue.use(Vuex)
 
@@ -44,31 +44,13 @@ export const store = new Vuex.Store({
     actions: {
         // 和后端api交互
         addTodo(context, todo) {
-            axios.post('/todo/add', {
-                todo
-            }).then(res => {
-                context.commit('addTodo', res.data)
-            }).catch(err => {
-                console.log(err)
-            })
+            context.commit('addTodo', todo)
         },
         updateTodo(context, todo) {
-            axios.post('/todo/edit', {
-                todo
-            }).then(res => {
-                context.commit('updateTodo', res.data)
-            }).catch(err => {
-                console.log(err)
-            })
+            context.commit('updateTodo', todo)
         },
         deleteTodo(context, id) {
-            axios.post('/todo/delete', {
-                id
-            }).then(res => {
-                context.commit('deleteTodo', res.data)
-            }).catch(err => {
-                console.log(err)
-            })
+            context.commit('deleteTodo', id)
         },
         updateFilter(context, filter) {
             context.commit('updateFilter', filter)

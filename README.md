@@ -104,3 +104,6 @@ return: {
         |-- store
             |-- index.js
 ```
+
+## todo
+- [ ] Mock: 404
