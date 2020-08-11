@@ -14,7 +14,6 @@
 <script>
 import TodoItem from './item'
 import TodoFilter from './filter'
-import '../mock/mock'
 export default {
     name: "todo-list",
     components: {
@@ -27,11 +26,17 @@ export default {
         }
     },
     created() {
-
+        this.$axios.get('/todo/list')
+                    .then(res => {
+                        res.data.forEach(item => this.$store.dispatch('addTodo', item))
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
     },
     computed: {
         todosFiltered() {
-            return this.$store.getters.todosFilter
+            return this.$store.getters.todosFiltered
         }
     },
     methods: {
@@ -39,11 +44,11 @@ export default {
             if (this.newTodo.trim().length === 0) {
                 return
             }
-            this.axios.post('/todo/add', {
+            this.$axios.post('/todo/add', {
                 content: this.newTodo,
                 isDone: false
             }).then(res => {
-                this.$store.dispatch('addTodo', res.date)
+                this.$store.dispatch('addTodo', res.data)
             }).catch(err => {
                 console.log(err)
             })

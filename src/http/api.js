@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 // product 和 dev分开
-axios.defaults.baseURL = ''
 
 axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded'
 

@@ -1,12 +1,11 @@
 <template>
     <div class="todo-item">
-        <input type="checkbox" v-model="todo.isDone" v-on:click="toggleTaskStatus(key)">
+        <input type="checkbox" v-model="todo.isDone" v-on:click="toggleTaskStatus">
         <span>{{todo.content}}</span>
         <button v-on:click="deleteTodo(todo.id)"></button>
     </div>
 </template>
 <script>
-import '../mock/mock'
 export default {
     name: "todo-item",
     props: {
@@ -24,7 +23,7 @@ export default {
     },
     methods: {
         toggleTaskStatus: function() {
-            this.axios.post('/todo/edit', {
+            this.$axios.post('/todo/edit', {
                 'id': this.todo.id,
                 'content': this.todo.content,
                 'isDone': !this.todo.isDone
@@ -36,7 +35,7 @@ export default {
 
         },
         deleteTodo: function(id) {
-            this.axios.post('/todo/delete', {
+            this.$axios.post('/todo/delete', {
                 id
             }).then(res => {
                 this.$store.dispatch('deleteTodo', res.data)

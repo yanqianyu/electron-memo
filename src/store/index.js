@@ -10,7 +10,7 @@ export const store = new Vuex.Store({
         todos: []
     },
     getters: {
-        todosFilter(state) {
+        todosFiltered(state) {
             if (state.filter === 'all') {
                 return state.todos
             } else if (state.filter === 'active') {
@@ -23,15 +23,11 @@ export const store = new Vuex.Store({
     },
     mutations: {
         addTodo(state, todo) {
-            state.todos.push({
-                todo
-            })
+            state.todos.push(todo)
         },
         updateTodo(state, todo) {
             const index = state.todos.findIndex(item => item.id === todo.id)
-            state.todos.splice(index, 1, {
-                todo
-            })
+            state.todos.splice(index, 1, todo)
         },
         deleteTodo(state, id) {
             const index = state.todos.findIndex(item => item.id === id)
