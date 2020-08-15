@@ -34,4 +34,44 @@ router.post('/add', (req, res) => {
     })
 })
 
+router.get('/list', (req, res) => {
+    var sql = $sql.todo.query;
+    conn.query(sql, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        if (res) {
+            jsonWrite(res, result);
+        }
+    })
+})
+
+router.post('/edit', (req, res) => {
+    var sql = $sql.todo.update;
+    var params = req.body;
+    console.log(params);
+    conn.query(sql, [params.id, params.content, params.isDone], function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        if (result) {
+            jsonWrite(res, result);
+        }
+    })
+})
+
+router.post('/delete', (req, res) => {
+    var sql = $sql.todo.delete;
+    var params = req.body;
+    console.log(params);
+    conn.query(sql, [params.id], function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        if (result) {
+            jsonWrite(res, result);
+        }
+    })
+})
+
 module.exports = router;

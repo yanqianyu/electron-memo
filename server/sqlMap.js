@@ -2,9 +2,9 @@
 var sqlMap = {
     todo: {
         add: 'insert into todo(content, isDone) values(?, ?)',
-        update: '',
-        delete: '',
-        query: ''
+        update: 'update todo set content = ?, isDone = ? where id = ?',
+        delete: 'delete * from todo where id = ?',
+        query: 'select * from todo'
     }
 }
 
