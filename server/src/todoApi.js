@@ -23,7 +23,8 @@ router.post('/add', (req, res) => {
     var sql = $sql.todo.add;
     var params = req.body;
     console.log(params);
-    // 前端给的参数没有id，需要数据库自增
+    // 前端给的参数没有id
+    // 根据当前时间计算id
     conn.query(sql, [params.content, params.isDone], function(err, result) {
         if (err) {
             console.log(err);

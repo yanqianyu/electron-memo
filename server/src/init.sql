@@ -1,5 +1,4 @@
---创建数据库的脚本
-CREATE DATASET IF NOT EXISTS todos CHARACTER SET UTF8;
+CREATE SCHEMA todos;
 
 USE todos;
 
@@ -7,7 +6,8 @@ SET FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS `todo`;
 CREATE TABLE `todo` (
-    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id` int(11) NOT NULL COMMENT '主键',
     `content` TEXT NOT NULL COMMENT '内容',
-    `isDone` boolean NOT NULL COMMENT '完成情况'
+    `isDone` boolean NOT NULL COMMENT '完成情况',
+    PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='待办事项';
