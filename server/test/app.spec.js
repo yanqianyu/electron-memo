@@ -31,7 +31,7 @@ describe('App', () => {
             .end((err, res) => {
                 should.not.exist(err);
                 res.should.have.status(200);
-                res.body.should.have.property('id').eql('待办事项添加成功');
+                res.body.should.have.property('id');
                 res.body.should.have.property('content');
                 res.body.should.have.property('isDone');
                 done();
@@ -42,12 +42,12 @@ describe('App', () => {
         chai.request(app)
             .post('/todo/delete')
             .send({
-                id: 1
+                id: 'c3cb806aec76948de8635fb88e96a1bbef76fdd3e909c2dbc145e99104036a1c'
             })
             .end((err, res) => {
                 res.should.have.status(200);
                 should.not.exist(err);
-                res.body.should.have.property('id').eql('待办事项删除成功');
+                res.body.should.have.property('id');
                 done();
             })
     });
@@ -57,7 +57,7 @@ describe('App', () => {
         chai.request(app)
             .post('/todo/update')
             .send({
-                id: 1,
+                id: 'd2e1d8d68ed1be04f3cff3a1ad680ac913ea7ff103d167a7740e7f9685fe5b02',
                 content: 'new todo',
                 isDone: true
             })

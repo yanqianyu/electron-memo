@@ -108,3 +108,7 @@ return: {
 ## 测试
 - Mock
 - Mocha
+
+## keynote
+- [ ] 组件之间的CSS的权重
+- [ ] 组件情况下的flex布局

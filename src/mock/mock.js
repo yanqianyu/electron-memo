@@ -1,5 +1,7 @@
 // 模拟ajax请求的接口，生成并返回模拟数据
 import {todos} from "./todolist"
+var crypto = require('crypto');
+const hash = crypto.createHash('sha256');
 const Mock  = require('mockjs')
 
 function getTodoList() {
@@ -17,7 +19,11 @@ function editTodo(params) {
 
 function addTodo(params) {
     const paramsObj = JSON.parse(params.body);
-    paramsObj["id"] = todos.length + 1;
+    // 根据时间计算id
+    var time = new Date().getTime().toString();
+    hash.update(time);
+    var id = hash.digest('hex');
+    paramsObj["id"] = id;
     todos.push(paramsObj);
     return paramsObj;
 }

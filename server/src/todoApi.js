@@ -1,4 +1,7 @@
 var express = require('express');
+var crypto = require('crypto');
+const hash = crypto.createHash('sha256');
+
 var router = express.Router();
 var mysql = require('mysql');
 var model = require('./db');
@@ -25,12 +28,19 @@ router.post('/add', (req, res) => {
     console.log(params);
     // 前端给的参数没有id
     // 根据当前时间计算id
-    conn.query(sql, [params.content, params.isDone], function(err, result) {
+    var time = new Date().getTime().toString();
+    hash.update(time);
+    var id = hash.digest('hex');
+    conn.query(sql, [id, params.content, params.isDone], function(err, result) {
         if (err) {
             console.log(err);
         }
         if (result) {
-            jsonWrite(res, result);
+            jsonWrite(res, {
+                id: id,
+                content: params.content,
+                isDone: params.isDone
+            });
         }
     })
 })
@@ -41,7 +51,7 @@ router.get('/list', (req, res) => {
         if (err) {
             console.log(err);
         }
-        if (res) {
+        if (result) {
             jsonWrite(res, result);
         }
     })
@@ -56,7 +66,7 @@ router.post('/edit', (req, res) => {
             console.log(err);
         }
         if (result) {
-            jsonWrite(res, result);
+            jsonWrite(res, params);
         }
     })
 })
@@ -70,7 +80,7 @@ router.post('/delete', (req, res) => {
             console.log(err);
         }
         if (result) {
-            jsonWrite(res, result);
+            jsonWrite(res, params);
         }
     })
 })

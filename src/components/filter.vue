@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="filter">
         <button v-on:click="allTodos">All</button>
         <button v-on:click="activeTodos">Active</button>
         <button v-on:click="completedTodos">Completed</button>
@@ -21,3 +21,14 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+    .filter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    button {
+        font-size: 14px;
+
+    }
+</style>

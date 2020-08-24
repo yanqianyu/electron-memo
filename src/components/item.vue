@@ -38,7 +38,7 @@ export default {
             this.$axios.post('/todo/delete', {
                 id
             }).then(res => {
-                this.$store.dispatch('deleteTodo', res.data)
+                this.$store.dispatch('deleteTodo', res.data.id)
             }).catch(err => {
                 console.log(err)
             })

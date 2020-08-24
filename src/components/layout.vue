@@ -6,7 +6,7 @@
             <todo-item v-for="todo in todosFiltered" :key="todo.id" :todo="todo"></todo-item>
         </div>
 
-        <div class="filter">
+        <div class="filter-container">
             <todo-filter></todo-filter>
         </div>
     </div>
@@ -58,3 +58,31 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+    .todo-input {
+        order: -1;
+        width: 100%;
+        font-size: 18px;
+        margin-bottom: 16px;
+        &:focus {
+            // 伪类：获得焦点的元素
+            outline: 0; // 轮廓线
+        }
+    }
+    .content {
+        flex-grow: 1;
+
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        margin-bottom: 12px;
+        align-items: flex-start; // flex 与交叉轴的起点对齐
+        justify-content: space-between;
+    }
+
+</style>
