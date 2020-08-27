@@ -46,3 +46,20 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+    .todo-item {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        input {
+
+        }
+        span {
+
+        }
+        button {
+
+        }
+    }
+</style>

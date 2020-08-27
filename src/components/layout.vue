@@ -75,7 +75,7 @@ export default {
     }
     .content {
         flex-grow: 1;
-
+        height: 200px;
         display: flex;
         flex-direction: column;
         overflow: hidden;
