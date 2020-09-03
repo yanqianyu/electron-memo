@@ -1,9 +1,15 @@
 import App from '../App'
+import Login from "../components/auth/Login";
 
 const routes = [
     {
         path: '/',
-        name: 'todo',
+        name: 'login',
+        component: Login
+    },
+    {
+        path: '/app',
+        name: 'app',
         component: App
     }
 ]
