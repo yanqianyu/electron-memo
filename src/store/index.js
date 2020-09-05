@@ -6,10 +6,14 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
+        token: localStorage.getItem('token') || null,
         filter: 'all',
         todos: []
     },
     getters: {
+        logIn(state) {
+            return state.token != null
+        },
         todosFiltered(state) {
             if (state.filter === 'all') {
                 return state.todos
@@ -22,6 +26,9 @@ export const store = new Vuex.Store({
         }
     },
     mutations: {
+        login(state, token) {
+            state.toekn = token
+        },
         addTodo(state, todo) {
             state.todos.push(todo)
         },
@@ -38,6 +45,18 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
+        login(context, userInfo) {
+            this.$axios.post('/todo/login', {
+                email: userInfo.email,
+                password: userInfo.password
+            }).then(resp => {
+                const token = resp.data.token
+                localStorage.setItem('token', token)
+                context.commit('login', token)
+            }).catch(err => {
+                console.log(err)
+            })
+        },
         // 和后端api交互
         addTodo(context, todo) {
             context.commit('addTodo', todo)

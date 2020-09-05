@@ -26,6 +26,7 @@ export default {
         }
     },
     created() {
+        // todo: login成功后通过actions获取
         this.$axios.get('/todo/list')
                     .then(res => {
                         res.data.forEach(item => this.$store.dispatch('addTodo', item))

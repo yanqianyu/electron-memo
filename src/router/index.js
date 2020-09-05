@@ -10,7 +10,10 @@ const routes = [
     {
         path: '/app',
         name: 'app',
-        component: App
+        component: App,
+        meta: {
+            requiresAuth: true
+        }
     }
 ]
 
