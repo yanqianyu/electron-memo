@@ -1,13 +1,13 @@
 <template>
     <div class="login">
+        <div class="slogan">欢迎使用ToDo</div>
+        <div class="picture"><img src=""></div>
         <div class="login-form">
             <div class="login-username">
-                <label for="email">邮箱</label>
-                <input type="email" name="email" id="email" class="login-un" v-model="email">
+                <input type="email" name="email" id="email" class="login-email" placeholder="邮箱地址" v-model="email">
             </div>
             <div class="login-password">
-                <label for="password">密码</label>
-                <input type="password" name="password" id="password" class="login-pwd" v-model="password">
+                <input type="password" name="password" id="password" class="login-pwd" placeholder="密码" v-model="password">
             </div>
             <div class="login-btn">
                 <button onclick="login">登录</button>
@@ -15,8 +15,8 @@
 
         </div>
         <div class="to-register">
-            <span>没有账户</span>
-            <span>免费注册</span>
+            <span style="color: darkgrey">没有账户</span>
+            <span onclick="" style="color: #4e89ae; cursor: pointer">免费注册</span>
         </div>
     </div>
 </template>
@@ -52,5 +52,55 @@
 </script>
 
 <style lang="scss" scoped>
-
+.login {
+    .slogan {
+        text-align: center;
+        font-size: 2rem; // rem em px的区别
+    }
+    .login-form {
+        text-align: center;
+        .login-username {
+            padding: 0.5rem;
+            input {
+                padding: 0.2rem;
+                outline: none; // 去掉选中状态边框
+                border: 0.08rem solid #4e89ae; // 只设置color会有阴影样式
+                border-radius: 0.3rem;
+                width: 75%;
+                height: 2rem;
+            }
+        }
+        .login-password {
+            padding: 0.5rem;
+            input {
+                padding: 0.2rem;
+                outline: none; // 去掉选中状态边框
+                border: 0.08rem solid #4e89ae; // 只设置color会有阴影样式
+                border-radius: 0.3rem;
+                width: 75%;
+                height: 2rem;
+            }
+        }
+        .login-btn {
+            /*padding: 0.5rem;*/
+            button {
+                margin: 1rem;
+                padding: 0;
+                border: none;
+                border-radius: 0.3rem;
+                width: 73%;
+                height: 2.3rem;
+                background-color: #4e89ae;
+                color: white; // 字体颜色
+                font-size: 0.8rem;
+            }
+        }
+    }
+    .to-register {
+        text-align: center;
+        span {
+            margin: 0.5rem;
+        }
+    }
+}
 </style>

@@ -21,7 +21,11 @@ A tiny memo based on Electron8 and Vue
 ```
 
 ## API
-1. 获取待办事项列表
+1.登录
+```
+api: /todo/login POST
+```
+2.获取待办事项列表
 ```
 api: /todo/list GET
 params: {}
@@ -34,8 +38,7 @@ return : [
     ...
 ]
 ```
-
-2. 新增待办事项
+3.新增待办事项
 ```
 api: /todo/add POST
 params: {
@@ -48,7 +51,7 @@ return: {
     isDone: Boolean,
 }
 ```
-3. 修改待办事项
+4.修改待办事项
 ```
 api: /todo/edit POST
 params: {
@@ -62,7 +65,7 @@ return: {
     isDone: Boolean,
 }
 ```
-4. 删除待办事项
+5.删除待办事项
 ```
 api: /todo/delete POST
 params: {
@@ -112,3 +115,4 @@ return: {
 ## keynote
 - [ ] 组件之间的CSS的权重
 - [ ] 组件情况下的flex布局
+- [ ] electron如何控制/固定页面大小
