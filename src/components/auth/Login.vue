@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <div class="slogan">欢迎使用ToDo</div>
-        <div class="picture"><img src=""></div>
+        <div class="picture"><img src="../../assets/data_organization_monochromatic.svg"></div>
         <div class="login-form">
             <div class="login-username">
                 <input type="email" name="email" id="email" class="login-email" placeholder="邮箱地址" v-model="email">
@@ -30,7 +30,11 @@
                 password: ''
             }
         },
-        methods: {
+      mounted() {
+          console.log(window.ipcRender)
+          window.ipcRender.send('login-window')
+      },
+      methods: {
             login() {
                 // 通过store向后台发送登录表单
                 // 登录成功跳转
@@ -56,6 +60,9 @@
     .slogan {
         text-align: center;
         font-size: 2rem; // rem em px的区别
+    }
+    .picture {
+
     }
     .login-form {
         text-align: center;
@@ -97,6 +104,7 @@
         }
     }
     .to-register {
+      font-size: 1rem;
         text-align: center;
         span {
             margin: 0.5rem;
