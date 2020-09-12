@@ -10,7 +10,7 @@
                 <input type="password" name="password" id="password" class="login-pwd" placeholder="密码" v-model="password">
             </div>
             <div class="login-btn">
-                <button onclick="login">登录</button>
+                <button v-on:click="login">登录</button>
             </div>
 
         </div>
@@ -38,18 +38,19 @@
             login() {
                 // 通过store向后台发送登录表单
                 // 登录成功跳转
-                this.$store.dispatch('login', {
-                    email: this.email,
-                    password: this.password
-                    // eslint-disable-next-line no-unused-vars
-                }).then(resp => {
-                    this.$route.push({name: 'app'})
-                }).catch(err => {
-                    // todo：error信息的显示
-                    console.log(err)
-                    this.email = ''
-                    this.password = ''
-                })
+              this.$router.push({name: 'todo'})
+                // this.$store.dispatch('login', {
+                //     email: this.email,
+                //     password: this.password
+                //     // eslint-disable-next-line no-unused-vars
+                // }).then(resp => {
+                //     this.$route.push({name: 'app'})
+                // }).catch(err => {
+                //     // todo：error信息的显示
+                //     console.log(err)
+                //     this.email = ''
+                //     this.password = ''
+                // })
             }
         }
     }

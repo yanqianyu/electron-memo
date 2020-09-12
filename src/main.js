@@ -5,7 +5,7 @@ import axios from './http/api'
 import './mock/mock.js'
 import routes from "./router";
 import {store} from "./store";
-import Login from "./components/auth/Login";
+import App from "@/App";
 
 Vue.use(VueRouter)
 Vue.config.productionTip = false
@@ -28,7 +28,7 @@ router.beforeEach((to, from, next) => {
 })
 
 new Vue({
-  render: h => h(Login),
+  render: h => h(App),
   router,
   store
 }).$mount('#app')

@@ -1,18 +1,23 @@
-import App from '../App'
-import Login from "../components/auth/Login";
+import layout from "@/components/layout";
+import Login from "@/components/auth/Login";
 
 const routes = [
     {
         path: '/',
+        redirect: '/login',
+        name: 'app',
+    },
+    {
+        path: '/login',
         name: 'login',
         component: Login
     },
     {
-        path: '/app',
-        name: 'app',
-        component: App,
+        path: '/todo',
+        name: 'todo',
+        component: layout,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     }
 ]

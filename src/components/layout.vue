@@ -25,6 +25,9 @@ export default {
             newTodo: ''
         }
     },
+    mounted() {
+      window.ipcRender.send('todo-window')
+    },
     created() {
         // todo: login成功后通过actions获取
         this.$axios.get('/todo/list')
