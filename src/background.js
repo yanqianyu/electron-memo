@@ -42,11 +42,13 @@ function createWindow() {
     win.setSize(490, 720)
     // can not change the size
     win.resizable = false
+    win.maximizable = false
   })
 
   ipcMain.on('register-window', () => {
     win.setSize(490, 720)
     win.resizable = false
+    win.maximizable = false
   })
 
   ipcMain.on('todo-window', () => {

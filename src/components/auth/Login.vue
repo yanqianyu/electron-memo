@@ -38,7 +38,7 @@
             login() {
                 // 通过store向后台发送登录表单
                 // 登录成功跳转
-              this.$router.push({name: 'todo'})
+              this.$router.push({path: '/todo'})
                 // this.$store.dispatch('login', {
                 //     email: this.email,
                 //     password: this.password
