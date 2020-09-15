@@ -1,7 +1,7 @@
 <template>
   <div class="todo-set">
     <div class="todo-title">
-      <button class="confirm-button" onclick="changeConfirmTodo"></button>
+      <button class="done-button" onclick="changeDoneTodo"></button>
       <!--editable-->
       {{todo.title}}
       <button class="star-button" onclick="changeImportant"></button>
@@ -10,7 +10,7 @@
     <div class="todo-setting">
       <div class="add-step">
         <div class="todo-steps" v-for="step in todo.steps" :key="step.id">
-          <button class="confirm-button" onclick="changeConfirmStep"></button>
+          <button class="done-button" onclick="changeDoneStep(step.id)"></button>
           <!--editable-->
           {{step.content}}
           <button class="delete-button" onclick="deleteStep"></button>
@@ -34,17 +34,40 @@
       </div>
 
       <div class="time-set">
-        <div class="time-reminder" onclick="showReminder">
+        <div class="time-reminder" ref="reminderBox" onclick="showReminder">
           <img src="../assets/icons/reminder.svg">
-          提醒我
+          <span>提醒我</span>
         </div>
-        <div class="time-add-ddl" onclick="showDDL">
+        <div v-show="reminderShow">
+          <ul>
+            <li></li>
+            <li></li>
+            <input type="date">
+          </ul>
+        </div>
+        <div class="time-add-ddl" ref="ddlBox" onclick="showDDL">
           <img src="../assets/icons/calender.svg">
-          添加截止日期
+          <span>添加截止日期</span>
         </div>
-        <div class="time-repeat" onclick="showRepeat">
+        <div v-show="ddlShow">
+          <ul>
+            <li></li>
+            <li></li>
+            <input type="date">
+          </ul>
+        </div>
+        <div class="time-repeat" ref="repeatBox" onclick="showRepeat">
           <img src="../assets/icons/repeat.svg">
-          重复
+          <span>重复</span>
+        </div>
+        <div v-show="repeatShow">
+          <ul>
+            <li></li>
+            <li></li>
+            <div class="repeat-choice">
+
+            </div>
+          </ul>
         </div>
       </div>
 
@@ -65,7 +88,7 @@
     </div>
 
     <div class="buttom-bar">
-      <button class="claspe-button" onclick="chanegColpase"></button>
+      <button class="claspe-button" onclick="changeColpase"></button>
       <div class="create-time">{{todo.createTime}}</div>
       <button class="delete-button" onclick="deleteTodo"></button>
     </div>
@@ -80,11 +103,17 @@ export default {
       newStep: "",
       notes: "",
       todo: {
+        id: "",
         title: "",
+        checklists: [],
         isDone: "",
         isImportant: "",
         steps: [
-          {}
+          {
+            id: "",
+            content: "",
+            isDone: ""
+          }
         ],
         times: {
           reminder: "",
@@ -92,55 +121,129 @@ export default {
           repeat: ""
         },
         files: [
-
+          {
+            id: "",
+            content: ""
+          }
         ],
         createTime: ""
       },
-      isOnMyDay: false
+      isOnMyDay: false,
+      reminderShow: false,
+      ddlShow: false,
+      repeatShow: false
     }
   },
   created() {
 
   },
-  methods: {
-    changeConfirmTodo() {
+  mounted() {
+    // 通过target事件 判定 只要点击的不是包裹住按钮和内容区域的Div就让v-show为false
+    let _this = this;
+    document.addEventListener('click', function (e) {
+      if(_this.$refs.reminderBox.contains(e.target)) {
+        return ;
+      }
+      else {
+        _this.reminderShow = false;
+      }
 
+      if(_this.$refs.ddlBox.contains(e.target)) {
+        return ;
+      }
+      else {
+        _this.ddlShow = false;
+      }
+
+      if(_this.$refs.repeatBox.contains(e.target)) {
+        return ;
+      }
+      else {
+        _this.repeatShow = false;
+      }
+
+    })
+  },
+  methods: {
+    changeDoneTodo() {
+      this.todo.isDone = !this.todo.isDone;
     },
     changeImportant() {
-
+      this.todo.isImportant = !this.todo.isImportant;
     },
-    changeConfirmStep() {
-
+    changeDoneStep(step_id) {
+      this.steps.forEach(function (step) {
+        if (step.id === step_id) {
+          step.isDone = !step.isDone
+        }
+      })
     },
-    deleteStep() {
-
+    deleteStep(step_id) {
+      this.steps.forEach(function (step, index) {
+        if (step.id === step_id) {
+          this.steps.splice(index)
+        }
+      })
     },
-    addStep() {
-
+    addStep(value) {
+      let max_id = 0;
+      this.todo.steps.forEach(function (step) {
+        if (step.id > max_id) {
+          max_id = step.id;
+        }
+      })
+      this.steps.push({
+        id: max_id + 1,
+        content: value,
+        isDone: false
+      })
     },
     changeAddMyDay() {
-
+      this.isOnMyDay = !this.isOnMyDay
+      if(this.isOnMyDay === true) {
+        this.todo.checklists.push("Myday")
+      }
+      else {
+        this.todo.checklists.forEach(function (list_name, index) {
+          if (list_name === "MyDay") {
+            this.todo.checklists.splice(index)
+          }
+        })
+      }
     },
     showReminder() {
-
+      this.reminderShow = !this.reminderShow;
     },
     showDDL() {
-
+      this.ddlShow = !this.ddlShow;
     },
     showRepeat() {
-
+      this.repeatShow = !this.repeatShow;
     },
-    deleteFile() {
-
+    deleteFile(file_id) {
+      this.files.forEach(function (file, index) {
+        if (file.id === file_id) {
+          this.files.splice(index);
+        }
+      })
     },
-    addFile() {
-
+    addFile(file) {
+      let max_id = 0
+      this.files.forEach(function (file) {
+        if (file.id > max_id) {
+          max_id = file.id
+        }
+      })
+      this.files.add({
+        id: max_id + 1,
+        content: file
+      })
     },
-    chanegColpase() {
+    changeColpase() {
 
     },
     deleteTodo() {
-
+      // show alert
     }
   }
 }
