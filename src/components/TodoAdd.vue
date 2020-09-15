@@ -1,7 +1,7 @@
 <template>
   <div class="todo-add">
     <img src="../assets/icons/add.svg">
-    <input type="text" placeholder="add you task" v-model="todo">
+    <input type="text" placeholder="add you task" v-model="todo" v-on:keyup.enter="addTodo">
   </div>
 </template>
 
@@ -14,7 +14,11 @@ export default {
     }
   },
   methods: {
-
+    addTodo() {
+      // todo
+      this.todo.createTime = new Date();
+      this.todo = ""
+    }
   }
 }
 </script>

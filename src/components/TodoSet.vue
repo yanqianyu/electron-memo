@@ -17,7 +17,8 @@
         </div>
         <div class="add-steps-input" onclick="addStep">
           <button class="add-button"></button>
-          <input type="text" placeholder="下一步" v-model="newStep">
+          <!-- todo-->
+          <input type="text" placeholder="下一步" v-model="newStep" v-on:keyup.enter="addStep">
         </div>
       </div>
 
@@ -42,6 +43,7 @@
           <ul>
             <li></li>
             <li></li>
+            <!--todo-->
             <input type="date">
           </ul>
         </div>
@@ -53,6 +55,7 @@
           <ul>
             <li></li>
             <li></li>
+            <!--todo-->
             <input type="date">
           </ul>
         </div>
@@ -64,6 +67,7 @@
           <ul>
             <li></li>
             <li></li>
+            <!--todo-->
             <div class="repeat-choice">
 
             </div>
