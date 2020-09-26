@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     addTodo() {
-      // todo
+      // todo: commit -> vuex
       this.todo.createTime = new Date();
       this.todo = ""
     }
@@ -23,6 +23,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

@@ -1,8 +1,8 @@
-import layout from "@/components/layout";
 import Login from "@/components/auth/Login";
-import {store} from "../store";
+import {store} from "@/store";
 import Vue from "vue";
 import Router from "vue-router";
+import Layout from "@/views/Layout";
 
 Vue.use(Router)
 
@@ -18,7 +18,7 @@ export const router = new Router({
             {
                 path: '/todo',
                 name: 'todo',
-                component: layout,
+                component: Layout,
                 meta: {
                     requireAuth: false
                 }
