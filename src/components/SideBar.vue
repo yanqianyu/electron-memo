@@ -7,12 +7,14 @@
     </div>
     <div class="builtin-list">
       <div class="builtin-item" v-for="builtin in builtins" :key="builtin.id">
-        {{builtin.name}}
+        <img v-bind:src="builtin.icon">
+        <span>{{builtin.name}}</span>
       </div>
     </div>
     <div class="customize-list">
       <div class="customize-item" v-for="customize in customizes" :key="customize.id">
-          {{customize.name}}
+        <img src="">
+        <span>{{customize.name}}</span>
       </div>
     </div>
 
@@ -33,26 +35,26 @@ export default {
         {
           id: "1",
           name: "My day",
-          icon: "",
+          icon: require('../assets/icons/myday.svg'),
           url: ""
         },
         {
           id: "2",
           name: "Important",
-          icon: "",
+          icon: require('../assets/icons/important.svg'),
           url: ""
         },
         {
           id: "3",
           name: "Planned schedule",
-          icon: "",
+          icon: require('../assets/icons/calender.svg'),
           url: ""
         },
         {
           // the todos having no lists
           id: "4",
           name: "Task",
-          icon: "",
+          icon: require('../assets/icons/tasks.svg'),
           url: ""
         }
       ],
@@ -119,7 +121,23 @@ export default {
     }
   }
   .builtin-list {
+    margin-left: 1rem;
     height: 20rem;
+    .builtin-item {
+      cursor: default;
+      text-align: left;
+      box-sizing: border-box;
+      img {
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        margin: 0.5rem;
+      }
+      span {
+        vertical-align: middle;
+        height: 20px;
+      }
+    }
   }
   .customize-list {
     flex-grow: 1;
@@ -138,7 +156,7 @@ export default {
       height: 20px;
     }
   }
-  .create-list hover {
+  .create-list :hover {
     cursor: default;
   }
 }
