@@ -8,6 +8,7 @@
 <script>
 export default {
   name: "TodoAdd",
+  props: ['listType'],
   data: function () {
     return {
       todo: ""
@@ -15,6 +16,7 @@ export default {
   },
   methods: {
     addTodo() {
+      // 向对应的列表增加item
       // todo: commit -> vuex
       this.todo.createTime = new Date();
       this.todo = ""

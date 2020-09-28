@@ -3,6 +3,7 @@ import {store} from "@/store";
 import Vue from "vue";
 import Router from "vue-router";
 import Layout from "@/views/Layout";
+import ToDoList from "../components/ToDoList";
 
 Vue.use(Router)
 
@@ -19,9 +20,22 @@ export const router = new Router({
                 path: '/todo',
                 name: 'todo',
                 component: Layout,
+                redirect: '/builtinList/myday', // 默认路由
                 meta: {
                     requireAuth: false
-                }
+                },
+                children: [
+                    {
+                        path: "/builtinList/:listname", // listname作为参数决定子组件渲染的数据
+                        name: 'builtinList',
+                        component: ToDoList
+                    },
+                    {
+                        path: "/customizeList/:listname",
+                        name: 'customizeList',
+                        component: ToDoList
+                    }
+                ]
             },
             {
                 path: '/login',
