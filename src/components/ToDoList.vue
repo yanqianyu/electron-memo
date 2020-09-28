@@ -19,7 +19,10 @@
         name: "ToDoList",
         components: {TodoItem, TodoAdd},
         mounted() {
+            // 获取路由中携带的参数
+            console.log(this.$route.params.listname);
             this.listType = this.$route.params.listname;
+            this.title = this.listType;
         },
         data: function () {
             return {

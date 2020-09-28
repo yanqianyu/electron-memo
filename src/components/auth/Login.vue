@@ -31,7 +31,7 @@
             }
         },
       mounted() {
-          console.log(window.ipcRender)
+          // console.log(window.ipcRender)
           window.ipcRender.send('login-window')
       },
       methods: {

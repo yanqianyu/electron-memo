@@ -1,31 +1,35 @@
 <template>
     <div class="side-bar">
-        <!--    todo: add border -> position change -->
-        <div :class="['search', isSearchActive? 'active': 'unactive']">
-            <img src="../assets/icons/search.svg">
-            <input type="text" placeholder="search..." @focus="toFocus('search')" @blur="toBlur('search')">
-        </div>
-        <div class="builtin-list">
-            <div class="builtin-item" v-for="builtin in builtins" :key="builtin.id">
-                <router-link v-bind:to="builtin.url">
-                    <img v-bind:src="builtin.icon">
-                    <span>{{builtin.name}}</span>
-                </router-link>
+        <div class="bar-main">
+            <!--    todo: add border -> position change -->
+            <div :class="['search', isSearchActive? 'active': 'unactive']">
+                <img src="../assets/icons/search.svg">
+                <input type="text" placeholder="search..." @focus="toFocus('search')" @blur="toBlur('search')">
             </div>
-        </div>
-        <div class="customize-list">
-            <div class="customize-item" v-for="customize in customizes" :key="customize.id">
-                <router-link v-bind:to="customize.url">
-                    <img v-bind:src="customize.icon">
-                    <span>{{customize.name}}</span>
-                </router-link>
+            <div class="builtin-list">
+                <div class="builtin-item" v-for="builtin in builtins" :key="builtin.id">
+                    <router-link :to="builtin.url">
+                        <img v-bind:src="builtin.icon">
+                        <span>{{builtin.name}}</span>
+                    </router-link>
+                </div>
+            </div>
+            <div class="customize-list">
+                <div class="customize-item" v-for="customize in customizes" :key="customize.id">
+                    <router-link :to="customize.url">
+                        <img v-bind:src="customize.icon">
+                        <span>{{customize.name}}</span>
+                    </router-link>
+                </div>
+            </div>
+
+            <div class="create-list" v-on:click="addCustomizeList">
+                <img src="../assets/icons/add.svg">
+                <span>create new list</span>
             </div>
         </div>
 
-        <div class="create-list" v-on:click="addCustomizeList">
-            <img src="../assets/icons/add.svg">
-            <span>create new list</span>
-        </div>
+        <router-view class="bar-list" :key="key"></router-view>
     </div>
 </template>
 
@@ -63,19 +67,25 @@
                     }
                 ],
                 customizes: [
-                    {}
+                    // {}
                 ]
+            }
+        },
+        computed: {
+            // 路由跳转不更新问题https://blog.csdn.net/w390058785/article/details/82813032
+            key(){
+                return this.$route.path + Math.random();
             }
         },
         created() {
             // todo: action at customize lists
-            this.$axios.get('/customizeList')
-                .then(res => {
-                    res.data.forEach(item => this.$store.dispatch('addList', item))
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+            // this.$axios.get('/customizeList')
+            //     .then(res => {
+            //         res.data.forEach(item => this.$store.dispatch('addList', item))
+            //     })
+            //     .catch(err => {
+            //         console.log(err)
+            //     })
         },
         methods: {
             toFocus(input) {
@@ -99,48 +109,76 @@
     .side-bar {
         height: 100%;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
 
-        .search {
-            background-color: lightgray;
-            //border: none;
-            border-radius: 0.5rem;
-            margin: 1rem;
-            //todo: box-sizing means
-            box-sizing: border-box;
+        .bar-main {
             order: -1;
-            padding: 0.2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
 
-            img {
-                padding: 0 0.5rem;
-                float: left;
-                width: 20px;
-                height: 20px;
-            }
-
-            input {
+            .search {
                 background-color: lightgray;
+                //border: none;
+                border-radius: 0.5rem;
+                margin: 1rem;
+                //todo: box-sizing means
                 box-sizing: border-box;
-                height: 20px;
-                outline: none;
-                border: 0;
+                order: -1;
+                padding: 0.2rem;
+
+                img {
+                    padding: 0 0.5rem;
+                    float: left;
+                    width: 20px;
+                    height: 20px;
+                }
+
+                input {
+                    background-color: lightgray;
+                    box-sizing: border-box;
+                    height: 20px;
+                    outline: none;
+                    border: 0;
+                }
+
+                input::placeholder {
+                    color: black;
+                }
             }
 
-            input::placeholder {
-                color: black;
+            .builtin-list {
+                margin-left: 1rem;
+                height: 20rem;
+
+                .builtin-item {
+                    cursor: default;
+                    text-align: left;
+                    box-sizing: border-box;
+
+                    img {
+                        vertical-align: middle;
+                        width: 20px;
+                        height: 20px;
+                        margin: 0.5rem;
+                    }
+
+                    span {
+                        vertical-align: middle;
+                        height: 20px;
+                    }
+                }
             }
-        }
 
-        .builtin-list {
-            margin-left: 1rem;
-            height: 20rem;
+            .customize-list {
+                flex-grow: 1;
+            }
 
-            .builtin-item {
-                cursor: default;
-                text-align: left;
+            .create-list {
                 box-sizing: border-box;
 
                 img {
+                    // span and img vertical-img
                     vertical-align: middle;
                     width: 20px;
                     height: 20px;
@@ -152,31 +190,14 @@
                     height: 20px;
                 }
             }
-        }
 
-        .customize-list {
-            flex-grow: 1;
-        }
-
-        .create-list {
-            box-sizing: border-box;
-
-            img {
-                // span and img vertical-img
-                vertical-align: middle;
-                width: 20px;
-                height: 20px;
-                margin: 0.5rem;
-            }
-
-            span {
-                vertical-align: middle;
-                height: 20px;
+            .create-list :hover {
+                cursor: default;
             }
         }
 
-        .create-list :hover {
-            cursor: default;
+        .bar-list {
+
         }
     }
 

@@ -2,8 +2,8 @@ import Login from "@/components/auth/Login";
 import {store} from "@/store";
 import Vue from "vue";
 import Router from "vue-router";
-import Layout from "@/views/Layout";
 import ToDoList from "../components/ToDoList";
+import SideBar from "../components/SideBar";
 
 Vue.use(Router)
 
@@ -19,7 +19,7 @@ export const router = new Router({
             {
                 path: '/todo',
                 name: 'todo',
-                component: Layout,
+                component: SideBar,
                 redirect: '/builtinList/myday', // 默认路由
                 meta: {
                     requireAuth: false
