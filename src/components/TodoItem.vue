@@ -12,9 +12,10 @@
           {{todo.customlist}}
         </div>
         <div class="todo-steps">
-          {{stepsProps}}
+          <span>{{stepsProps}}</span>
         </div>
         <div class="todo-date">
+          <img src="../assets/icons/calender.svg">
           <span v-if="outOfTime">{{todo.ddl}}</span>
           <span v-else>{{todo.ddl}}</span>
         </div>
@@ -52,13 +53,16 @@ export default {
           content: "",
           isDone: ""
         }],
-        ddl: "",
+        ddl: "今天",
         notes: "",
         files: ""
       }
     }
   },
   computed: {
+    outOtTime: function () {
+      return false;
+    },
     stepsProps: function () {
       let count = this.todo.steps.reduce(function (prev, cur) {
         if(cur.isDone === true) {
@@ -89,11 +93,18 @@ export default {
 
 <style lang="scss" scoped>
 .todo-item {
+  margin: 5px;
+  border: 2px solid bisque;
   display: flex;
   flex-direction: row;
   .todo-done {
     order: -1;
+    // img -> todo-done center
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img {
+      margin: 5px;
       width: 30px;
       height: 30px;
     }
@@ -104,6 +115,10 @@ export default {
     flex-direction: column;
     .todo-title {
       order: -1;
+      // text -> left
+      text-align: left;
+      margin: 0 5px;
+      font-size: 1.5rem;
     }
     .todo-info {
       flex-grow: 1;
@@ -113,27 +128,55 @@ export default {
         order: -1;
       }
       .todo-steps {
-
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 5px;
+        span {
+          vertical-align: middle;
+        }
       }
       .todo-date {
-
-      }
-      .todo-file {
+        margin: 0 5px;
         img {
+          vertical-align: middle;
           width: 15px;
           height: 15px;
         }
+        span {
+          vertical-align: middle;
+        }
       }
-      .todo-note {
+      .todo-file {
+        margin: 0 5px;
         img {
+          vertical-align: middle;
           width: 15px;
           height: 15px;
+        }
+        span {
+          vertical-align: middle;
+        }
+      }
+      .todo-note {
+        margin: 0 5px;
+        img {
+          vertical-align: middle;
+          width: 15px;
+          height: 15px;
+        }
+        span {
+          vertical-align: middle;
         }
       }
     }
   }
   .todo-important {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img {
+      margin: 5px;
       width: 20px;
       height: 20px;
     }

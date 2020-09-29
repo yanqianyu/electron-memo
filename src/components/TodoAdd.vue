@@ -27,13 +27,26 @@ export default {
 
 <style lang="scss" scoped>
 .todo-add {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid palegreen;
+  border-radius: 10px;
   img {
+    margin: 5px;
+    order: -1;
     vertical-align: middle;
-    width: 20px;
-    size: 20px;
+    width: 30px;
+    size: 30px;
   }
   input {
+    flex-grow: 1;
     vertical-align: middle;
+    border: 0;
+    border-radius: 10px;
+    outline: none;
+    padding-left: 5px;
   }
 }
 </style>

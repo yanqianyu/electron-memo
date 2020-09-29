@@ -208,6 +208,7 @@
     }
 
     .unactive {
-        border: none;
+      // todo
+        border: 1px solid white;
     }
 </style>

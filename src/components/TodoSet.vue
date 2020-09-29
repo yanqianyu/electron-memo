@@ -108,10 +108,10 @@ export default {
       notes: "",
       todo: {
         id: "",
-        title: "",
+        title: "test",
         checklists: [],
         isDone: "",
-        isImportant: "",
+        isImportant: false,
         steps: [
           {
             id: "",
@@ -254,5 +254,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.todo-set {
+  display: flex;
+  flex-direction: column;
+  .todo-title {
+    order: -1;
+    height: 50px;
+  }
+  .todo-setting {
+    flex-grow: 1;
+  }
+  .buttom-bar {
+    height: 40px;
+  }
+}
 </style>
