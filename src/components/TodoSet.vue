@@ -77,7 +77,7 @@
 
       <div class="add-file">
         <div class="file-lists">
-          <div class="file" v-for="file in todo.files" :key="file"></div>
+          <div class="file" v-for="file in todo.files" :key="file.id"></div>
           <button class="delete-button" onclick="deleteFile"></button>
         </div>
         <div class="add-file-button" onclick="addFile">
@@ -263,6 +263,60 @@ export default {
   }
   .todo-setting {
     flex-grow: 1;
+    .add-step {
+      .todo-steps {
+
+      }
+      .add-steps-input {
+
+      }
+    }
+
+    .add-to-my-day {
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .time-set {
+      .time-reminder {
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+      .time-add-ddl {
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+      .time-repeat {
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    .add-file {
+      .file-lists {
+        .file {
+
+        }
+      }
+      .add-file-button {
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    .add-notes {
+
+    }
   }
   .buttom-bar {
     height: 40px;
