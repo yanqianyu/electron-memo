@@ -35,7 +35,6 @@
 <style lang="scss" scoped>
 .todo-list {
   display: flex;
-  height: 100%;
   flex-direction: column;
   .todo-title {
     order: -1;
@@ -44,7 +43,6 @@
     flex: 1;
   }
   .todo-add {
-    height: 15%;
   }
 }
 </style>

@@ -4,11 +4,11 @@
       <img v-if="!todo.isDone" src="../assets/icons/nodone.svg" v-on:click="changeDoneState">
       <img v-else src="../assets/icons/done.svg" v-on:click="changeDoneState">
     </div>
-    
+
     <div class="todo-content">
       <div class="todo-title">{{todo.title}}</div>
       <div class="todo-info">
-        <div class="todo-list">
+        <div class="todo-in-list">
           {{todo.customlist}}
         </div>
         <div class="todo-steps">
@@ -20,14 +20,15 @@
         </div>
         <div class="todo-file">
           <img src="../assets/icons/file.svg">
-          <span>File has attached.</span>
+          <span>文件已附加</span>
         </div>
         <div class="todo-note">
           <img src="../assets/icons/note.svg">
-          <span>bei zhu</span>
+          <span>备注</span>
         </div>
       </div>
     </div>
+
     <div class="todo-important">
       <img v-if="!todo.isImportant" src="../assets/icons/notImportant.svg" v-on:click="changeImportantState">
       <img v-else src="../assets/icons/important.svg" v-on:click="changeImportantState">
@@ -42,6 +43,7 @@ export default {
   data: function () {
     return {
       todo: {
+        title: "test",
         isDone: "",
         customlist: "",
         isImportant: false,
@@ -92,8 +94,8 @@ export default {
   .todo-done {
     order: -1;
     img {
-      height: 30px;
       width: 30px;
+      height: 30px;
     }
   }
   .todo-content {
@@ -104,8 +106,11 @@ export default {
       order: -1;
     }
     .todo-info {
-      .todo-list {
-
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+      .todo-in-list {
+        order: -1;
       }
       .todo-steps {
 
@@ -128,9 +133,9 @@ export default {
     }
   }
   .todo-important {
-    .img {
-      width: 30px;
-      height: 30px;
+    img {
+      width: 20px;
+      height: 20px;
     }
   }
 }

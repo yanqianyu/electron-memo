@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <router-view :key="key"></router-view>
+        <router-view class="todo-lists" :key="key"></router-view>
     </div>
 </template>
 
@@ -197,6 +197,9 @@
             .create-list :hover {
                 cursor: default;
             }
+        }
+        .todo-lists {
+            flex-grow: 1;
         }
     }
 
