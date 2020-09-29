@@ -20,7 +20,6 @@
         components: {TodoItem, TodoAdd},
         mounted() {
             // 获取路由中携带的参数
-            console.log(this.$route.params.listname);
             this.listType = this.$route.params.listname;
             this.title = this.listType;
         },
@@ -34,5 +33,18 @@
 </script>
 
 <style lang="scss" scoped>
-
+.todo-list {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  .todo-title {
+    order: -1;
+  }
+  .todo-list-container {
+    flex: 1;
+  }
+  .todo-add {
+    height: 15%;
+  }
+}
 </style>

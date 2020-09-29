@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <router-view class="bar-list" :key="key"></router-view>
+        <router-view :key="key"></router-view>
     </div>
 </template>
 
@@ -71,7 +71,10 @@
                 ]
             }
         },
-        computed: {
+      mounted() {
+        window.ipcRender.send('todo-window')
+      },
+      computed: {
             // 路由跳转不更新问题https://blog.csdn.net/w390058785/article/details/82813032
             key(){
                 return this.$route.path + Math.random();
@@ -194,10 +197,6 @@
             .create-list :hover {
                 cursor: default;
             }
-        }
-
-        .bar-list {
-
         }
     }
 

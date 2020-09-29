@@ -20,7 +20,7 @@
         </div>
         <div class="todo-file">
           <img src="../assets/icons/file.svg">
-          <span>ile has attached.</span>
+          <span>File has attached.</span>
         </div>
         <div class="todo-note">
           <img src="../assets/icons/note.svg">
@@ -44,7 +44,7 @@ export default {
       todo: {
         isDone: "",
         customlist: "",
-        isImportant: "",
+        isImportant: false,
         steps: [{
           id: "",
           content: "",
@@ -91,14 +91,47 @@ export default {
   flex-direction: row;
   .todo-done {
     order: -1;
+    img {
+      height: 30px;
+      width: 30px;
+    }
   }
   .todo-content {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    .todo-title {
+      order: -1;
+    }
+    .todo-info {
+      .todo-list {
+
+      }
+      .todo-steps {
+
+      }
+      .todo-date {
+
+      }
+      .todo-file {
+        img {
+          width: 15px;
+          height: 15px;
+        }
+      }
+      .todo-note {
+        img {
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
   }
   .todo-important {
-
+    .img {
+      width: 30px;
+      height: 30px;
+    }
   }
 }
 </style>

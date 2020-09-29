@@ -26,5 +26,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.todo-add {
+  img {
+    vertical-align: middle;
+    width: 20px;
+    size: 20px;
+  }
+  input {
+    vertical-align: middle;
+  }
+}
 </style>
