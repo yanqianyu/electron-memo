@@ -1,22 +1,25 @@
 <template>
   <div class="todo-set">
     <div class="todo-title">
-      <button class="done-button" onclick="changeDoneTodo"></button>
+      <img src="../assets/icons/nodone.svg" v-if="!todo.isDone" class="done-button" onclick="changeDoneTodo">
+      <img src="../assets/icons/done.svg" v-else onclick="changeDoneTodo">
       <!--editable-->
       {{todo.title}}
-      <button class="star-button" onclick="changeImportant"></button>
+      <img src="../assets/icons/notImportant.svg" v-if="!todo.isImportant" class="star-button" onclick="changeImportant">
+      <img src="../assets/icons/important.svg" v-else onclick="changeImportant">
     </div>
 
     <div class="todo-setting">
       <div class="add-step">
         <div class="todo-steps" v-for="step in todo.steps" :key="step.id">
-          <button class="done-button" onclick="changeDoneStep(step.id)"></button>
+          <img src="../assets/icons/nodone.svg" v-if="!step.isDone" onclick="changeDoneStep(step.id)">
+          <img src="../assets/icons/done.svg" v-else onclick="changeDoneStep(step.id)">
           <!--editable-->
           {{step.content}}
-          <button class="delete-button" onclick="deleteStep"></button>
+          <img src="../assets/icons/cross.svg" onclick="deleteStep">
         </div>
         <div class="add-steps-input" onclick="addStep">
-          <button class="add-button"></button>
+          <img src="../assets/icons/add.svg" class="add-button">
           <!-- todo-->
           <input type="text" placeholder="下一步" v-model="newStep" v-on:keyup.enter="addStep">
         </div>
@@ -30,7 +33,7 @@
         <div v-else>
           <img src="../assets/icons/myday.svg">
           已添加到"我的一天"
-          <img src="../assets/icons/delete.svg">
+          <img src="../assets/icons/cross.svg">
         </div>
       </div>
 
@@ -77,9 +80,10 @@
 
       <div class="add-file">
         <div class="file-lists">
-          <div class="file" v-for="file in todo.files" :key="file.id"></div>
-          <button class="delete-button" onclick="deleteFile"></button>
-        </div>
+          <div class="file" v-for="file in todo.files" :key="file.id">
+            <img src="../assets/icons/cross.svg" class="delete-button" onclick="deleteFile">
+          </div>
+          </div>
         <div class="add-file-button" onclick="addFile">
           <img src="../assets/icons/file.svg">
           添加文件
@@ -92,9 +96,9 @@
     </div>
 
     <div class="buttom-bar">
-      <button class="claspe-button" onclick="changeColpase"></button>
+      <img src="../assets/icons/right.svg" class="claspe-button" onclick="changeColpase">
       <div class="create-time">{{todo.createTime}}</div>
-      <button class="delete-button" onclick="deleteTodo"></button>
+      <img src="../assets/icons/delete.svg" class="delete-button" onclick="deleteTodo">
     </div>
   </div>
 </template>
@@ -260,15 +264,25 @@ export default {
   .todo-title {
     order: -1;
     height: 50px;
+    img {
+      width: 30px;
+      height: 30px;
+    }
   }
   .todo-setting {
     flex-grow: 1;
     .add-step {
       .todo-steps {
-
+        img {
+          width: 25px;
+          height: 25px;
+        }
       }
       .add-steps-input {
-
+        img {
+          width: 25px;
+          height: 25px;
+        }
       }
     }
 
@@ -303,13 +317,16 @@ export default {
     .add-file {
       .file-lists {
         .file {
-
+          img {
+            width: 25px;
+            height: 25px;
+          }
         }
       }
       .add-file-button {
         img {
-          width: 20px;
-          height: 20px;
+          width: 25px;
+          height: 25px;
         }
       }
     }
@@ -320,6 +337,21 @@ export default {
   }
   .buttom-bar {
     height: 40px;
+    display: flex;
+    flex-direction: row;
+    img {
+      width: 25px;
+      height: 25px;
+    }
+    .claspe-button {
+      order: -1;
+    }
+    .create-time {
+      flex-grow: 1;
+    }
+    .delete-button {
+
+    }
   }
 }
 </style>
