@@ -115,6 +115,7 @@
         flex-direction: row;
 
         .bar-main {
+          width: 200px;
             order: -1;
             height: 100%;
             display: flex;
@@ -130,7 +131,11 @@
                 order: -1;
                 padding: 0.2rem;
 
+              display: flex;
+              flex-direction: row;
+
                 img {
+                  order: -1;
                     padding: 0 0.5rem;
                     float: left;
                     width: 20px;
@@ -138,6 +143,8 @@
                 }
 
                 input {
+                  width: 100%;
+                  flex-grow: 1;
                     background-color: lightgray;
                     box-sizing: border-box;
                     height: 20px;

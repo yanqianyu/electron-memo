@@ -1,44 +1,44 @@
 <template>
   <div class="todo-set">
     <div class="todo-title">
-      <img src="../assets/icons/nodone.svg" v-if="!todo.isDone" class="done-button" onclick="changeDoneTodo">
-      <img src="../assets/icons/done.svg" v-else onclick="changeDoneTodo">
+      <img src="../assets/icons/nodone.svg" v-if="!todo.isDone" class="done-button" v-on:click="changeDoneTodo">
+      <img src="../assets/icons/done.svg" v-else v-on:click="changeDoneTodo">
       <!--editable-->
-      {{todo.title}}
-      <img src="../assets/icons/notImportant.svg" v-if="!todo.isImportant" class="star-button" onclick="changeImportant">
-      <img src="../assets/icons/important.svg" v-else onclick="changeImportant">
+      <span>{{todo.title}}</span>
+      <img src="../assets/icons/notImportant.svg" v-if="!todo.isImportant" class="star-button" v-on:click="changeImportant">
+      <img src="../assets/icons/important.svg" v-else v-on:click="changeImportant">
     </div>
 
     <div class="todo-setting">
       <div class="add-step">
         <div class="todo-steps" v-for="step in todo.steps" :key="step.id">
-          <img src="../assets/icons/nodone.svg" v-if="!step.isDone" onclick="changeDoneStep(step.id)">
-          <img src="../assets/icons/done.svg" v-else onclick="changeDoneStep(step.id)">
+          <img src="../assets/icons/nodone.svg" v-if="!step.isDone" v-on:click="changeDoneStep(step.id)">
+          <img src="../assets/icons/done.svg" v-else v-on:click="changeDoneStep(step.id)">
           <!--editable-->
-          {{step.content}}
-          <img src="../assets/icons/cross.svg" onclick="deleteStep">
+          <span>{{step.content}}</span>
+          <img src="../assets/icons/cross.svg" v-on:click="deleteStep">
         </div>
-        <div class="add-steps-input" onclick="addStep">
+        <div class="add-steps-input" v-on:click="addStep">
           <img src="../assets/icons/add.svg" class="add-button">
           <!-- todo-->
           <input type="text" placeholder="下一步" v-model="newStep" v-on:keyup.enter="addStep">
         </div>
       </div>
 
-      <div class="add-to-my-day" onclick="changeAddMyDay">
-        <div v-if="isOnMyDay">
+      <div class="add-to-my-day" v-on:click="changeAddMyDay">
+        <div v-if="!isOnMyDay">
           <img src="../assets/icons/myday.svg">
-          添加到"我的一天"
+          <span>添加到"我的一天"</span>
         </div>
         <div v-else>
           <img src="../assets/icons/myday.svg">
-          已添加到"我的一天"
+          <span>已添加到"我的一天"</span>
           <img src="../assets/icons/cross.svg">
         </div>
       </div>
 
       <div class="time-set">
-        <div class="time-reminder" ref="reminderBox" onclick="showReminder">
+        <div class="time-reminder" ref="reminderBox" v-on:click="showReminder">
           <img src="../assets/icons/reminder.svg">
           <span>提醒我</span>
         </div>
@@ -50,7 +50,7 @@
             <input type="date">
           </ul>
         </div>
-        <div class="time-add-ddl" ref="ddlBox" onclick="showDDL">
+        <div class="time-add-ddl" ref="ddlBox" v-on:click="showDDL">
           <img src="../assets/icons/calender.svg">
           <span>添加截止日期</span>
         </div>
@@ -62,7 +62,7 @@
             <input type="date">
           </ul>
         </div>
-        <div class="time-repeat" ref="repeatBox" onclick="showRepeat">
+        <div class="time-repeat" ref="repeatBox" v-on:click="showRepeat">
           <img src="../assets/icons/repeat.svg">
           <span>重复</span>
         </div>
@@ -81,24 +81,24 @@
       <div class="add-file">
         <div class="file-lists">
           <div class="file" v-for="file in todo.files" :key="file.id">
-            <img src="../assets/icons/cross.svg" class="delete-button" onclick="deleteFile">
+            <img src="../assets/icons/cross.svg" class="delete-button" v-on:click="deleteFile">
           </div>
           </div>
-        <div class="add-file-button" onclick="addFile">
+        <div class="add-file-button" v-on:click="addFile">
           <img src="../assets/icons/file.svg">
-          添加文件
+          <span>添加文件</span>
         </div>
       </div>
 
       <div class="add-notes">
-        <textarea cols="25" rows="5" v-model="notes">添加备注</textarea>
+        <textarea cols="25" rows="5" v-model="notes" placeholder="添加备注"></textarea>
       </div>
     </div>
 
     <div class="buttom-bar">
-      <img src="../assets/icons/right.svg" class="claspe-button" onclick="changeColpase">
+      <img src="../assets/icons/right.svg" class="claspe-button" v-on:click="changeColpase">
       <div class="create-time">{{todo.createTime}}</div>
-      <img src="../assets/icons/delete.svg" class="delete-button" onclick="deleteTodo">
+      <img src="../assets/icons/delete.svg" class="delete-button" v-on:click="deleteTodo">
     </div>
   </div>
 </template>
@@ -114,13 +114,13 @@ export default {
         id: "",
         title: "test",
         checklists: [],
-        isDone: "",
+        isDone: false,
         isImportant: false,
         steps: [
           {
-            id: "",
-            content: "",
-            isDone: ""
+            id: 1,
+            content: "test step 1",
+            isDone: false
           }
         ],
         times: {
@@ -259,57 +259,158 @@ export default {
 
 <style lang="scss" scoped>
 .todo-set {
+  margin: 10px;
   display: flex;
   flex-direction: column;
   .todo-title {
     order: -1;
-    height: 50px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    img:first-child {
+      order: -1;
+    }
+    span {
+      padding: 15px;
+      font-size: 20px;
+      text-align: left;
+      flex-grow: 1;
+      vertical-align: middle;
+    }
     img {
-      width: 30px;
-      height: 30px;
+      vertical-align: middle;
+      width: 25px;
+      height: 25px;
     }
   }
   .todo-setting {
     flex-grow: 1;
     .add-step {
       .todo-steps {
+        padding-left: 3px;
+        padding-right: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-items: center;
         img {
-          width: 25px;
-          height: 25px;
+          vertical-align: middle;
+        }
+        img:first-child {
+          order: -1;
+          width: 20px;
+          height: 20px;
+        }
+        img:last-child {
+          width: 15px;
+          height: 15px;
+        }
+        span {
+          margin: 0 18px;
+          flex-grow: 1;
+          vertical-align: middle;
+          text-align: left;
         }
       }
       .add-steps-input {
+        display: flex;
+        flex-direction: row;
+        padding: 3px;
         img {
-          width: 25px;
-          height: 25px;
+          order: -1;
+          width: 20px;
+          height: 20px;
+        }
+        input {
+          margin-left: 15px;
+          flex-grow: 1;
+          outline: none;
+          border: none;
+        }
+        input::placeholder {
+          color: #4e89ae;
         }
       }
     }
 
     .add-to-my-day {
+      display: flex;
+      flex-direction: row;
+      padding: 0 5px;
+      justify-items: center;
+      align-items: center;
       img {
+        order: -1;
         width: 20px;
         height: 20px;
+        vertical-align: middle;
+      }
+      span {
+        flex-grow: 1;
+        vertical-align: middle;
+        margin-left: 12px;
+        font-size: 15px;
       }
     }
 
     .time-set {
       .time-reminder {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-items: center;
+        padding: 0 5px;
         img {
+          order: -1;
           width: 20px;
           height: 20px;
+          vertical-align: middle;
+        }
+        span {
+          flex-grow: 1;
+          vertical-align: middle;
+          text-align: left;
+          margin-left: 12px;
         }
       }
       .time-add-ddl {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-items: center;
+        padding: 0 5px;
         img {
+          order: -1;
           width: 20px;
           height: 20px;
+          vertical-align: middle;
+        }
+        span {
+          flex-grow: 1;
+          vertical-align: middle;
+          text-align: left;
+          margin-left: 12px;
         }
       }
       .time-repeat {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-items: center;
+        padding: 0 5px;
         img {
+          order: -1;
           width: 20px;
           height: 20px;
+          vertical-align: middle;
+        }
+        span {
+          flex-grow: 1;
+          vertical-align: middle;
+          text-align: left;
+          margin-left: 12px;
         }
       }
     }
@@ -318,27 +419,44 @@ export default {
       .file-lists {
         .file {
           img {
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
           }
         }
       }
       .add-file-button {
+        display: flex;
+        flex-direction: row;
+        justify-items: center;
+        align-items: center;
+        padding: 0 5px;
         img {
-          width: 25px;
-          height: 25px;
+          order: -1;
+          width: 20px;
+          height: 20px;
+          vertical-align: middle;
+        }
+        span {
+          flex-grow: 1;
+          vertical-align: middle;
+          text-align: left;
+          margin-left: 12px;
         }
       }
     }
 
     .add-notes {
-
+      textarea {
+        outline: none;
+        border: none;
+      }
     }
   }
   .buttom-bar {
     height: 40px;
     display: flex;
     flex-direction: row;
+    padding: 0 5px;
     img {
       width: 25px;
       height: 25px;

@@ -60,7 +60,7 @@
     }
   }
   .list-right-part {
-    width: 200px;
+    width: 300px;
   }
 }
 </style>

@@ -53,7 +53,7 @@ function createWindow() {
 
   ipcMain.on('todo-window', () => {
     win.resizable = true
-    win.setSize(768, 576)
+    win.setSize(1024, 576)
   })
 
   win.on('closed', () => {
