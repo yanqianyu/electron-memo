@@ -18,9 +18,20 @@ export default {
   text-align: center;
   color: #2c3e50;
   /*margin-top: 60px;*/
+  height: 100%;
+  width: 100%;
 }
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
+  overflow: hidden;
+  border: none;
+}
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border: none;
 }
 </style>

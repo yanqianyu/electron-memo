@@ -30,15 +30,15 @@ export default {
   display: flex;
   flex-direction: row;
   padding: 5px;
-  margin: 5px;
+  margin: 15px;
   border: 1px solid palegreen;
   border-radius: 10px;
   img {
     margin: 5px;
     order: -1;
     vertical-align: middle;
-    width: 30px;
-    size: 30px;
+    width: 25px;
+    size: 25px;
   }
   input {
     flex-grow: 1;
@@ -47,6 +47,9 @@ export default {
     border-radius: 10px;
     outline: none;
     padding-left: 5px;
+  }
+  input::placeholder {
+    font-size: 18px;
   }
 }
 </style>

@@ -259,6 +259,7 @@ export default {
 
 <style lang="scss" scoped>
 .todo-set {
+  height: 100%;
   margin: 10px;
   display: flex;
   flex-direction: column;
@@ -446,9 +447,13 @@ export default {
     }
 
     .add-notes {
+      padding: 0 5px;
       textarea {
         outline: none;
-        border: none;
+        //border: none;
+        resize: none;
+        width: 100%;
+        height: 100%;
       }
     }
   }
@@ -457,6 +462,7 @@ export default {
     display: flex;
     flex-direction: row;
     padding: 0 5px;
+    margin-bottom: 5px;
     img {
       width: 25px;
       height: 25px;

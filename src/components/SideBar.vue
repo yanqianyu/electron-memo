@@ -186,7 +186,7 @@
 
             .create-list {
                 box-sizing: border-box;
-
+              margin-bottom: 5px;
                 img {
                     // span and img vertical-img
                     vertical-align: middle;
