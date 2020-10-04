@@ -10,45 +10,54 @@ export const store = new Vuex.Store({
         filter: 'all',
         todos: [],
         currentList: "", // 当前显示的是哪个list
-        customLists: []  // 所有自定义的list
+        customLists: [], // 所有自定义的list
+        builtinLists: [] // 内置list
     },
     getters: {
-        //
-        todosByLists(state) {
+        todosFilteredByLists(state) {
             // 根据列表名获取todos
-            return state.todos.filter(todo => todo.list === state.currentList);
+            return state.todos.filter(todo => todo.checklists.includes(state.currentList));
         },
         logIn(state) {
-            return state.token != null
+            return state.token != null;
         },
-        todosFiltered(state) {
-            if (state.filter === 'all') {
-                return state.todos
-            } else if (state.filter === 'active') {
-                return state.todos.filter(todo => !todo.isDone)
-            } else if (state.filter === 'completed') {
-                return state.todos.filter(todo => todo.isDone)
-            }
-            return state.todos
-        }
     },
     mutations: {
         login(state, token) {
-            state.toekn = token
+            state.toekn = token;
         },
         addTodo(state, todo) {
-            state.todos.push(todo)
+            // 增添todo的记录
+            state.todos.push(todo);
         },
         updateTodo(state, todo) {
-            const index = state.todos.findIndex(item => item.id === todo.id)
-            state.todos.splice(index, 1, todo)
+            // 更新todo的信息
+            const index = state.todos.findIndex(item => item.id === todo.id);
+            state.todos.splice(index, 1, todo);
         },
         deleteTodo(state, id) {
-            const index = state.todos.findIndex(item => item.id === id)
-            state.todos.splice(index, 1)
+            // 删除todo
+            const index = state.todos.findIndex(item => item.id === id);
+            state.todos.splice(index, 1);
         },
-        updateFilter(state, filter) {
-            state.filter = filter
+        updateListFilter(state, curList) {
+            // 更新当前显示的list
+            state.currentList = curList;
+        },
+        addCusList(state, newList) {
+            // 增加新的自定义清单
+            state.customLists.add(newList);
+        },
+        deleteCusList(state, list) {
+            // todo: 删除一整个清单以及内部的todo
+            const listIdx = state.customLists.findIndex(item => item.id === list.id);
+            state.customLists.splice(listIdx, 1);
+            state.todos = state.todos.filter(item => !item.checklists.includes(list.id));
+        },
+        updateCusList(state, oldList, newListName) {
+            // todo: 更新自定义清单的信息（主要是名字）
+            const listIdx = state.customLists.findIndex(item => item.id === oldList.id);
+            state.customLists[listIdx].name = newListName;
         }
     },
     actions: {
@@ -57,11 +66,11 @@ export const store = new Vuex.Store({
                 email: userInfo.email,
                 password: userInfo.password
             }).then(resp => {
-                const token = resp.data.token
-                localStorage.setItem('token', token)
-                context.commit('login', token)
+                const token = resp.data.token;
+                localStorage.setItem('token', token);
+                context.commit('login', token);
             }).catch(err => {
-                console.log(err)
+                console.log(err);
             })
         },
         // 和后端api交互
@@ -74,8 +83,21 @@ export const store = new Vuex.Store({
         deleteTodo(context, id) {
             context.commit('deleteTodo', id)
         },
-        updateFilter(context, filter) {
-            context.commit('updateFilter', filter)
+        updateList(context, curList) {
+            // 切换显示的清单
+            context.commit('updateListFilter', curList)
+        },
+        addCusList(context, newList) {
+            // 增加自定义清单
+            context.commit('addCusList', newList)
+        },
+        deleteCusList(context, list) {
+            // 删除自定义清单
+            context.commit('deleteCusList', list)
+        },
+        updateCusList(context, oldList, newListName) {
+            // 更新自定义清单
+            context.commit('updateCusList', oldList, newListName)
         }
     }
-})
+});
