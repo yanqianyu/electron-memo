@@ -124,3 +124,28 @@ manypixels.co
 
 ##
 todo数据设计
+```
+{
+    "id": "", // 每一条todo都有独特的id标记
+    "title": "", // todo的内容/标题
+    "isDone": false, // todo是否已经完成
+    "isImportant": false, // todo是否重要
+    "checklists": [], // 所属的list
+    "steps": [{
+        "id": "", // step id
+        "content": "",
+        "isDone": false
+    }],
+    "times": {
+        "reminder": "", // 提醒我
+        "ddl": "", // 截止时间
+        "repeat": "" // 重复
+    },
+    "files": [{
+        "id": "",
+        "content": "s"
+    }],
+    "createTime": "", // 创建todo的时间
+    "notes": "", // 备注
+}
+```

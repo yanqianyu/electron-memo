@@ -8,9 +8,16 @@ export const store = new Vuex.Store({
     state: {
         token: localStorage.getItem('token') || null,
         filter: 'all',
-        todos: []
+        todos: [],
+        currentList: "", // 当前显示的是哪个list
+        customLists: []  // 所有自定义的list
     },
     getters: {
+        //
+        todosByLists(state) {
+            // 根据列表名获取todos
+            return state.todos.filter(todo => todo.list === state.currentList);
+        },
         logIn(state) {
             return state.token != null
         },
