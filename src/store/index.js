@@ -22,10 +22,23 @@ export const store = new Vuex.Store({
         },
         noNameCustomListsSuffix(state) {
             // 无标题清单的最大后缀
-            let tmp = state.customLists.filter(list => list.name.indexOf('无标题清单') !== -1)
-                .map(list => parseInt(list.name.substring(5)));
-            tmp.sort();
-            return tmp[tmp.length - 1] + 1;
+            let tmp = [];
+            for(let i = 0; i < state.customLists.length; i++) {
+                if(state.customLists[i].name.indexOf('无标题清单') !== -1) {
+                    tmp.push(state.customLists[i].name);
+                }
+            }
+            if(tmp.length === 0) {
+                return '';
+            }
+            let max = 0;
+            for(let i = 0; i < tmp.length; i++) {
+                if(tmp[i] !== '无标题清单') {
+                    max = parseInt(tmp[i].substring(5)) > max ? parseInt(tmp[i].substring(5)) : max;
+                }
+            }
+
+            return max + 1;
         }
     },
     mutations: {
