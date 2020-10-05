@@ -34,6 +34,11 @@ export const router = new Router({
                         path: "/customizeList/:listname",
                         name: 'customizeList',
                         component: ToDoList
+                    },
+                    {
+                        path: "/search/:entry", // todo搜索结果
+                        name: 'searchList',
+                        component: ToDoList
                     }
                 ]
             },

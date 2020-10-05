@@ -7,7 +7,6 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
     state: {
         token: localStorage.getItem('token') || null,
-        filter: 'all',
         todos: [],
         currentList: "", // 当前显示的是哪个list
         customLists: [], // 所有自定义的list
@@ -21,6 +20,13 @@ export const store = new Vuex.Store({
         logIn(state) {
             return state.token != null;
         },
+        noNameCustomListsSuffix(state) {
+            // 无标题清单的最大后缀
+            let tmp = state.customLists.filter(list => list.name.indexOf('无标题清单') !== -1)
+                .map(list => parseInt(list.name.substring(5)));
+            tmp.sort();
+            return tmp[tmp.length - 1] + 1;
+        }
     },
     mutations: {
         login(state, token) {
@@ -46,7 +52,7 @@ export const store = new Vuex.Store({
         },
         addCusList(state, newList) {
             // 增加新的自定义清单
-            state.customLists.add(newList);
+            state.customLists.push(newList);
         },
         deleteCusList(state, list) {
             // todo: 删除一整个清单以及内部的todo

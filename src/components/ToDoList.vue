@@ -27,6 +27,7 @@
         mounted() {
             // 获取路由中携带的参数
             this.listType = this.$route.params.listname;
+            // 在store中查找对应的name?
             this.title = this.listType;
         },
         data: function () {
