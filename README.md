@@ -117,6 +117,7 @@ return: {
 - [ ] 组件情况下的flex布局
 - [ ] electron如何控制/固定页面大小
 - [ ] background.js -> main process
+- [ ] v-if 和 v-show的区别
 
 ## asserts
 freeicons.io

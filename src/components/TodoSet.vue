@@ -91,7 +91,7 @@
       </div>
 
       <div class="add-notes">
-        <textarea cols="25" rows="5" v-model="notes" placeholder="添加备注"></textarea>
+        <textarea cols="25" rows="5" v-model="todo.notes" placeholder="添加备注"></textarea>
       </div>
     </div>
 
@@ -106,36 +106,11 @@
 <script>
 export default {
   name: "TodoSet",
+  props: ['todo'],
   data: function () {
     return {
       newStep: "",
-      notes: "",
-      todo: {
-        id: "",
-        title: "test",
-        checklists: [],
-        isDone: false,
-        isImportant: false,
-        steps: [
-          {
-            id: 1,
-            content: "test step 1",
-            isDone: false
-          }
-        ],
-        times: {
-          reminder: "",
-          ddl: "",
-          repeat: ""
-        },
-        files: [
-          {
-            id: "",
-            content: ""
-          }
-        ],
-        createTime: ""
-      },
+
       isOnMyDay: false,
       reminderShow: false,
       ddlShow: false,
@@ -187,9 +162,9 @@ export default {
       })
     },
     deleteStep(step_id) {
-      this.steps.forEach(function (step, index) {
+      this.todo.steps.forEach(function (step, index) {
         if (step.id === step_id) {
-          this.steps.splice(index)
+          this.todo.steps.splice(index)
         }
       })
     },
