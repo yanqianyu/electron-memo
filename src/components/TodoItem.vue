@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-item" @click="changeTodoSet">
+  <div class="todo-item">
     <div class="todo-done">
       <img v-if="!todo.isDone" src="../assets/icons/nodone.svg" v-on:click="changeDoneState">
       <img v-else src="../assets/icons/done.svg" v-on:click="changeDoneState">
@@ -41,9 +41,10 @@
 <script>
 export default {
   name: "TodoItem",
-  props: ['todo'],
+  props: ['initTodo'],
   data: function () {
     return {
+      todo: this.initTodo // 在子组件中修改值会commit到vuex中？
     }
   },
   computed: {
@@ -66,11 +67,6 @@ export default {
     }
   },
   methods: {
-    changeTodoSet() {
-      // 改变当前显示的todo设置部分
-      // 向父组件传值
-      this.$emit("", this.todo);
-    },
     changeDoneState() {
       this.todo.isDone = !this.todo.isDone;
       // todo: commit to vuex

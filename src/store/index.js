@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import '../mock/mock'
+import {builtins} from "../mock/builtins";
 
 Vue.use(Vuex)
 
@@ -10,9 +11,15 @@ export const store = new Vuex.Store({
         todos: [],
         currentList: "", // 当前显示的是哪个list
         customLists: [], // 所有自定义的list
-        builtinLists: [] // 内置list
+        builtinLists: builtins // 内置list
     },
     getters: {
+        titleByList(state) {
+            // 根据当前list获取对应的title
+            let tmp = state.customLists.concat(state.builtinLists);
+            let id =  tmp.todos.findIndex(item => item.url.split("/").pop() === state.currentList);
+            return tmp[id].name;
+        },
         todosFilteredByLists(state) {
             // 根据列表名获取todos
             return state.todos.filter(todo => todo.checklists.includes(state.currentList));

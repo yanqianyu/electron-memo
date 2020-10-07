@@ -4,8 +4,9 @@
             <div class="todo-title">
                 {{title}}
             </div>
-            <div class="todo-list-container">
-                <todo-item v-bind:todo="todo" v-for="todo in todos" v-bind:key="todo.id" v-on:changeTodoSet="changeCurTodo"></todo-item>
+            <!--@click.stop取消事件冒泡-->
+            <div class="todo-list-container" @click.stop>
+                <todo-item v-bind:todo="todo" v-for="todo in todos" v-bind:key="todo.id" v-on:click="changeCurTodo"></todo-item>
             </div>
             <div class="todo-add">
                 <todo-add list-type="listType"></todo-add>
@@ -26,11 +27,17 @@
         name: "ToDoList",
         components: {TodoSet, TodoItem, TodoAdd},
         mounted() {
-            // 获取路由中携带的参数
+            // 获取路由中携带的参数 是url的最后一部分
             this.listType = this.$route.params.listname;
             // 更改store中存储的currentList
-            // 在store中查找对应的name?
-            this.title = this.listType;
+            this.$store.commit("updateList", this.listType);
+            // 在store中查找对应的title
+            this.title = this.$store.getters.titleByList;
+
+            // 给body增加点击事件
+            document.addEventListener('click', () => {
+                this.showTodoDetail = false;
+            })
         },
         data: function () {
             return {
@@ -43,6 +50,7 @@
         },
         methods: {
             changeCurTodo(todo) {
+              // 改变当前显示的todo set部分的信息
               this.showTodoDetail = true;
               this.curTodo = todo
             }

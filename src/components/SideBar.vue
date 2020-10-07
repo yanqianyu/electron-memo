@@ -45,33 +45,7 @@
             return {
                 searchEntry: "", // 搜索词条
                 isSearchActive: false,  // 是否处于search状态
-                builtins: [
-                    {
-                        id: "1",
-                        name: "My day",
-                        icon: require('../assets/icons/myday.svg'),
-                        url: "/builtinList/myday" // router 路由
-                    },
-                    {
-                        id: "2",
-                        name: "Important",
-                        icon: require('../assets/icons/important.svg'),
-                        url: "/builtinList/important"
-                    },
-                    {
-                        id: "3",
-                        name: "Planned schedule",
-                        icon: require('../assets/icons/calender.svg'),
-                        url: "/builtinList/haveplanned"
-                    },
-                    {
-                        // the todos having no lists
-                        id: "4",
-                        name: "Task",
-                        icon: require('../assets/icons/tasks.svg'),
-                        url: "/builtinList/task"
-                    }
-                ],
+                builtins: this.$store.state.builtinLists,
                 customizes: this.$store.state.customLists
             }
         },
@@ -108,6 +82,7 @@
                 }
             },
             addCustomizeList() {
+                // 不重名
                 // https://stackoverflow.com/questions/32649704/how-to-generate-hash-from-timestamp
                 let id = escape(Number(new Date).toString(36));
                 let newList = {
