@@ -23,7 +23,7 @@
           <img src="../assets/icons/file.svg">
           <span>文件已附加</span>
         </div>
-        <div class="todo-note">
+        <div class="todo-note" v-if="todo.note">
           <img src="../assets/icons/note.svg">
           <span>备注</span>
         </div>

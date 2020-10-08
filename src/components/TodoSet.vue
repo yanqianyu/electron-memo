@@ -33,7 +33,7 @@
         <div v-else>
           <img src="../assets/icons/myday.svg">
           <span>已添加到"我的一天"</span>
-          <img src="../assets/icons/cross.svg">
+          <img src="../assets/icons/cross.svg" v-on:click="removeFromMyDay">
         </div>
       </div>
 
@@ -44,8 +44,10 @@
         </div>
         <div v-show="reminderShow">
           <ul>
-            <li></li>
-            <li></li>
+            <li>今天晚些时候</li>
+            <li>明天</li>
+            <li>下周</li>
+            <li>选择日期和时间</li>
             <!--todo-->
             <input type="date">
           </ul>
@@ -56,8 +58,10 @@
         </div>
         <div v-show="ddlShow">
           <ul>
-            <li></li>
-            <li></li>
+            <li>今天</li>
+            <li>明天</li>
+            <li>下周</li>
+            <li>选择日期</li>
             <!--todo-->
             <input type="date">
           </ul>
@@ -68,8 +72,12 @@
         </div>
         <div v-show="repeatShow">
           <ul>
-            <li></li>
-            <li></li>
+            <li>每天</li>
+            <li>每周</li>
+            <li>工作日</li>
+            <li>每月</li>
+            <li>每年</li>
+            <li>自定义</li>
             <!--todo-->
             <div class="repeat-choice">
 
@@ -193,6 +201,9 @@ export default {
           }
         })
       }
+    },
+    removeFromMyDay() {
+      // 从我的一天中删除
     },
     showReminder() {
       this.reminderShow = !this.reminderShow;

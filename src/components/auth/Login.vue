@@ -7,7 +7,8 @@
                 <input type="email" name="email" id="email" class="login-email" placeholder="邮箱地址" v-model="email">
             </div>
             <div class="login-password">
-                <input type="password" name="password" id="password" class="login-pwd" placeholder="密码" v-model="password">
+                <input type="password" name="password" id="password" class="login-pwd" placeholder="密码"
+                       v-model="password">
             </div>
             <div class="login-btn">
                 <button v-on:click="login">登录</button>
@@ -30,15 +31,16 @@
                 password: ''
             }
         },
-      mounted() {
-          // console.log(window.ipcRender)
-          window.ipcRender.send('login-window')
-      },
-      methods: {
+        mounted() {
+            // console.log(window.ipcRender)
+            window.ipcRender.send('login-window')
+        },
+        methods: {
             login() {
                 // 通过store向后台发送登录表单
                 // 登录成功跳转
-              this.$router.push({path: '/todo'})
+                this.$router.push({path: '/todo'})
+                // 登陆成功，服务端返回所有的todo，存在localstorage中？
                 // this.$store.dispatch('login', {
                 //     email: this.email,
                 //     password: this.password
@@ -57,59 +59,68 @@
 </script>
 
 <style lang="scss" scoped>
-.login {
-    .slogan {
-        text-align: center;
-        font-size: 2rem; // rem em px的区别
-    }
-    .picture {
+    .login {
+        .slogan {
+            text-align: center;
+            font-size: 2rem; // rem em px的区别
+        }
 
-    }
-    .login-form {
-        text-align: center;
-        .login-username {
-            padding: 0.5rem;
-            input {
-                padding: 0.2rem;
-                outline: none; // 去掉选中状态边框
-                border: 0.08rem solid #4e89ae; // 只设置color会有阴影样式
-                border-radius: 0.3rem;
-                width: 75%;
-                height: 2rem;
+        .picture {
+
+        }
+
+        .login-form {
+            text-align: center;
+
+            .login-username {
+                padding: 0.5rem;
+
+                input {
+                    padding: 0.2rem;
+                    outline: none; // 去掉选中状态边框
+                    border: 0.08rem solid #4e89ae; // 只设置color会有阴影样式
+                    border-radius: 0.3rem;
+                    width: 75%;
+                    height: 2rem;
+                }
+            }
+
+            .login-password {
+                padding: 0.5rem;
+
+                input {
+                    padding: 0.2rem;
+                    outline: none; // 去掉选中状态边框
+                    border: 0.08rem solid #4e89ae; // 只设置color会有阴影样式
+                    border-radius: 0.3rem;
+                    width: 75%;
+                    height: 2rem;
+                }
+            }
+
+            .login-btn {
+                /*padding: 0.5rem;*/
+                button {
+                    margin: 1rem;
+                    padding: 0;
+                    border: none;
+                    border-radius: 0.3rem;
+                    width: 73%;
+                    height: 2.3rem;
+                    background-color: #4e89ae;
+                    color: white; // 字体颜色
+                    font-size: 0.8rem;
+                }
             }
         }
-        .login-password {
-            padding: 0.5rem;
-            input {
-                padding: 0.2rem;
-                outline: none; // 去掉选中状态边框
-                border: 0.08rem solid #4e89ae; // 只设置color会有阴影样式
-                border-radius: 0.3rem;
-                width: 75%;
-                height: 2rem;
-            }
-        }
-        .login-btn {
-            /*padding: 0.5rem;*/
-            button {
-                margin: 1rem;
-                padding: 0;
-                border: none;
-                border-radius: 0.3rem;
-                width: 73%;
-                height: 2.3rem;
-                background-color: #4e89ae;
-                color: white; // 字体颜色
-                font-size: 0.8rem;
+
+        .to-register {
+            font-size: 1rem;
+            text-align: center;
+
+            span {
+                margin: 0.5rem;
             }
         }
     }
-    .to-register {
-      font-size: 1rem;
-        text-align: center;
-        span {
-            margin: 0.5rem;
-        }
-    }
-}
 </style>

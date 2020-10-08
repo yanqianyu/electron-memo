@@ -12,7 +12,7 @@
                 <todo-add list-type="listType"></todo-add>
             </div>
         </div>
-        <div class="list-right-part" v-if="showTodoDetail">
+        <div class="list-right-part" v-if="showTodoDetail" @click.stop>
             <todo-set v-bind:todo-item="curTodo"></todo-set>
         </div>
     </div>
