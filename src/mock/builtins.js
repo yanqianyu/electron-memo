@@ -25,6 +25,57 @@ let builtins = [
         url: "/builtinList/task"
     }
 ];
+
+let todos = [
+    {
+        id: 0,
+        title: "test todo 1",
+        isDone: false,
+        isImportant: false,
+        checklists: ["myday"],
+        steps: [],
+        times: {
+            reminder: '',
+            ddl: '',
+            repeat: ''
+        },
+        files: [],
+        createTime: '',
+        notes: null
+    },
+    {
+        id: 0,
+        title: "test todo 1",
+        isDone: false,
+        isImportant: false,
+        checklists: [2],
+        steps: [],
+        times: {
+            reminder: '',
+            ddl: '',
+            repeat: ''
+        },
+        files: [],
+        createTime: '',
+        notes: null
+    },
+    {
+        id: 0,
+        title: "test todo 1",
+        isDone: false,
+        isImportant: false,
+        checklists: [3],
+        steps: [],
+        times: {
+            reminder: '',
+            ddl: '',
+            repeat: ''
+        },
+        files: [],
+        createTime: '2020-9-21 14:58:43',
+        notes: null
+    }
+]
 export {
-    builtins
+    builtins, todos
 }

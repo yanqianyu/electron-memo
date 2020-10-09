@@ -41,16 +41,15 @@
 <script>
 export default {
   name: "TodoItem",
-  props: ['initTodo'],
+  props: {
+    initTodo: Object
+  },
   data: function () {
     return {
       todo: this.initTodo // 在子组件中修改值会commit到vuex中？
     }
   },
   computed: {
-    outOtTime: function () {
-      return false;
-    },
     stepsProps: function () {
       let count = this.todo.steps.reduce(function (prev, cur) {
         if(cur.isDone === true) {

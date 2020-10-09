@@ -118,6 +118,8 @@ return: {
 - [ ] electron如何控制/固定页面大小
 - [ ] background.js -> main process
 - [ ] v-if 和 v-show的区别
+- [ ] vuejian chushihuashunxu
+- [ ] https://www.jianshu.com/p/f918cb6e210c
 
 ## asserts
 freeicons.io
