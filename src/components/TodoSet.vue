@@ -1,11 +1,11 @@
 <template>
   <div class="todo-set">
     <div class="todo-title">
-      <img src="../assets/icons/nodone.svg" v-if="!todo.isDone" class="done-button" v-on:click="changeDoneTodo">
-      <img src="../assets/icons/done.svg" v-else v-on:click="changeDoneTodo">
+      <img v-if="!todo.isDone" src="../assets/icons/nodone.svg" v-on:click="changeDoneTodo">
+      <img v-else src="../assets/icons/done.svg" v-on:click="changeDoneTodo">
       <!--editable-->
       <span>{{todo.title}}</span>
-      <img src="../assets/icons/notImportant.svg" v-if="!todo.isImportant" class="star-button" v-on:click="changeImportant">
+      <img src="../assets/icons/notImportant.svg" v-if="!todo.isImportant" v-on:click="changeImportant">
       <img src="../assets/icons/important.svg" v-else v-on:click="changeImportant">
     </div>
 
@@ -16,7 +16,7 @@
           <img src="../assets/icons/done.svg" v-else v-on:click="changeDoneStep(step.id)">
           <!--editable-->
           <span>{{step.content}}</span>
-          <img src="../assets/icons/cross.svg" v-on:click="deleteStep">
+          <img src="../assets/icons/cross.svg" v-on:click="deleteStep(step.id)">
         </div>
         <div class="add-steps-input" v-on:click="addStep">
           <img src="../assets/icons/add.svg" class="add-button">
@@ -114,11 +114,13 @@
 <script>
 export default {
   name: "TodoSet",
-  props: ['todo'],
+  props: {
+    initTodo: Object
+  },
   data: function () {
     return {
+      todo: this.initTodo,
       newStep: "",
-
       isOnMyDay: false,
       reminderShow: false,
       ddlShow: false,
@@ -126,68 +128,55 @@ export default {
     }
   },
   created() {
-
+    console.log(this.todo)
   },
   mounted() {
     // 通过target事件 判定 只要点击的不是包裹住按钮和内容区域的Div就让v-show为false
-    let _this = this;
-    document.addEventListener('click', function (e) {
-      if(_this.$refs.reminderBox.contains(e.target)) {
-        return ;
-      }
-      else {
-        _this.reminderShow = false;
-      }
-
-      if(_this.$refs.ddlBox.contains(e.target)) {
-        return ;
-      }
-      else {
-        _this.ddlShow = false;
-      }
-
-      if(_this.$refs.repeatBox.contains(e.target)) {
-        return ;
-      }
-      else {
-        _this.repeatShow = false;
-      }
-
-    })
   },
   methods: {
     changeDoneTodo() {
       this.todo.isDone = !this.todo.isDone;
+      this.$store.commit("updateTodo", this.todo)
     },
     changeImportant() {
       this.todo.isImportant = !this.todo.isImportant;
+      this.$store.commit("updateTodo", this.todo)
     },
     changeDoneStep(step_id) {
-      this.steps.forEach(function (step) {
+      this.todo.steps.forEach(function (step) {
         if (step.id === step_id) {
           step.isDone = !step.isDone
         }
       })
+      this.$store.commit("updateTodo", this.todo)
     },
     deleteStep(step_id) {
+      let idx = 0;
       this.todo.steps.forEach(function (step, index) {
         if (step.id === step_id) {
-          this.todo.steps.splice(index)
+          idx = index
         }
       })
+      this.todo.steps.splice(idx, 1)
+      this.$store.commit("updateTodo", this.todo)
     },
-    addStep(value) {
-      let max_id = 0;
-      this.todo.steps.forEach(function (step) {
-        if (step.id > max_id) {
-          max_id = step.id;
-        }
-      })
-      this.steps.push({
-        id: max_id + 1,
-        content: value,
-        isDone: false
-      })
+    addStep() {
+      if(this.newStep.length > 0) {
+        // todo: id改为hash计算
+        let max_id = 0;
+        this.todo.steps.forEach(function (step) {
+          if (step.id > max_id) {
+            max_id = step.id;
+          }
+        })
+        this.todo.steps.push({
+          id: max_id + 1,
+          content: this.newStep,
+          isDone: false
+        })
+        this.$store.commit("updateTodo", this.todo)
+        this.newStep = ""
+      }
     },
     changeAddMyDay() {
       this.isOnMyDay = !this.isOnMyDay
@@ -195,12 +184,14 @@ export default {
         this.todo.checklists.push("Myday")
       }
       else {
+        // todo
         this.todo.checklists.forEach(function (list_name, index) {
           if (list_name === "MyDay") {
             this.todo.checklists.splice(index)
           }
         })
       }
+      this.$store.commit("updateTodo", this.todo)
     },
     removeFromMyDay() {
       // 从我的一天中删除
@@ -215,26 +206,31 @@ export default {
       this.repeatShow = !this.repeatShow;
     },
     deleteFile(file_id) {
-      this.files.forEach(function (file, index) {
+      let idx = 0;
+      this.todo.files.forEach(function (file, index) {
         if (file.id === file_id) {
-          this.files.splice(index);
+          idx = index
         }
       })
+      this.files.splice(idx, 1);
+      this.$store.commit("updateTodo", this.todo)
     },
     addFile(file) {
       let max_id = 0
-      this.files.forEach(function (file) {
+      this.todo.files.forEach(function (file) {
         if (file.id > max_id) {
           max_id = file.id
         }
       })
-      this.files.add({
+      this.todo.files.add({
         id: max_id + 1,
         content: file
       })
+      this.$store.commit("updateTodo", this.todo)
     },
     changeColpase() {
-
+      // 修改父组件中的showTodoDetail
+      this.$emit("no-show-todo-detail")
     },
     deleteTodo() {
       // show alert

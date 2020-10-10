@@ -8,7 +8,7 @@
       <div class="todo-list-container">
         <div @click.stop>
           <todo-item v-bind:init-todo="todo" v-for="todo in todos" v-bind:key="todo.id"
-                     @click.native="changeCurTodo"></todo-item>
+                     @click.native="changeCurTodo(todo)"></todo-item>
         </div>
       </div>
       <div class="todo-add" @click.stop>
@@ -17,7 +17,7 @@
     </div>
     <!-- todo: transition-->
     <div class="list-right-part" v-if="showTodoDetail" @click.stop>
-      <todo-set v-bind:todo="curTodo"></todo-set>
+      <todo-set v-bind:init-todo="curTodo" v-on:no-show-todo-detail="noShowTodoDetail"></todo-set>
     </div>
   </div>
 </template>
@@ -53,6 +53,9 @@ export default {
     }
   },
   methods: {
+    noShowTodoDetail() {
+      this.showTodoDetail = false;
+    },
     changeCurTodo(todo) {
       // 改变当前显示的todo set部分的信息
       this.curTodo = todo
