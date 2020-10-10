@@ -5,11 +5,13 @@
         {{ title }}
       </div>
       <!--@click.stop取消事件冒泡-->
-      <div class="todo-list-container" @click.stop>
-        <todo-item v-bind:init-todo="todo" v-for="todo in todos" v-bind:key="todo.id"
-                   @click.native="changeCurTodo"></todo-item>
+      <div class="todo-list-container">
+        <div @click.stop>
+          <todo-item v-bind:init-todo="todo" v-for="todo in todos" v-bind:key="todo.id"
+                     @click.native="changeCurTodo"></todo-item>
+        </div>
       </div>
-      <div class="todo-add">
+      <div class="todo-add" @click.stop>
         <todo-add list-type="listType"></todo-add>
       </div>
     </div>
@@ -39,7 +41,6 @@ export default {
     // 给body增加点击事件
     document.addEventListener('click', () => {
       this.showTodoDetail = false;
-      console.log(this.showTodoDetail)
     })
   },
   data: function () {
