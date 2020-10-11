@@ -20,7 +20,6 @@
         </div>
         <div class="add-steps-input" v-on:click="addStep">
           <img src="../assets/icons/add.svg" class="add-button">
-          <!-- todo-->
           <input type="text" placeholder="下一步" v-model="newStep" v-on:keyup.enter="addStep">
         </div>
       </div>
@@ -43,14 +42,7 @@
           <span>提醒我</span>
         </div>
         <div v-show="reminderShow">
-          <ul>
-            <li>今天晚些时候</li>
-            <li>明天</li>
-            <li>下周</li>
-            <li>选择日期和时间</li>
-            <!--todo-->
-            <input type="date">
-          </ul>
+          <time-choose></time-choose>
         </div>
         <div class="time-add-ddl" ref="ddlBox" v-on:click="showDDL">
           <img src="../assets/icons/calender.svg">
@@ -112,8 +104,10 @@
 </template>
 
 <script>
+import TimeChoose from "./TimeChoose";
 export default {
   name: "TodoSet",
+  components: {TimeChoose},
   props: {
     initTodo: Object
   },
