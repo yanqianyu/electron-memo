@@ -37,45 +37,15 @@
       </div>
 
       <div class="time-set">
-        <div class="time-reminder" ref="reminderBox" v-on:click="showReminder">
+        <time-choose type="reminder">
           <img src="../assets/icons/reminder.svg">
-          <span>提醒我</span>
-        </div>
-        <div v-show="reminderShow">
-          <time-choose></time-choose>
-        </div>
-        <div class="time-add-ddl" ref="ddlBox" v-on:click="showDDL">
+        </time-choose>
+        <time-choose type="ddl">
           <img src="../assets/icons/calender.svg">
-          <span>添加截止日期</span>
-        </div>
-        <div v-show="ddlShow">
-          <ul>
-            <li>今天</li>
-            <li>明天</li>
-            <li>下周</li>
-            <li>选择日期</li>
-            <!--todo-->
-            <input type="date">
-          </ul>
-        </div>
-        <div class="time-repeat" ref="repeatBox" v-on:click="showRepeat">
+        </time-choose>
+        <time-choose type="repeat">
           <img src="../assets/icons/repeat.svg">
-          <span>重复</span>
-        </div>
-        <div v-show="repeatShow">
-          <ul>
-            <li>每天</li>
-            <li>每周</li>
-            <li>工作日</li>
-            <li>每月</li>
-            <li>每年</li>
-            <li>自定义</li>
-            <!--todo-->
-            <div class="repeat-choice">
-
-            </div>
-          </ul>
-        </div>
+        </time-choose>
       </div>
 
       <div class="add-file">
@@ -189,15 +159,6 @@ export default {
     },
     removeFromMyDay() {
       // 从我的一天中删除
-    },
-    showReminder() {
-      this.reminderShow = !this.reminderShow;
-    },
-    showDDL() {
-      this.ddlShow = !this.ddlShow;
-    },
-    showRepeat() {
-      this.repeatShow = !this.repeatShow;
     },
     deleteFile(file_id) {
       let idx = 0;
@@ -333,25 +294,6 @@ export default {
     }
 
     .time-set {
-      .time-reminder {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-items: center;
-        padding: 0 5px;
-        img {
-          order: -1;
-          width: 20px;
-          height: 20px;
-          vertical-align: middle;
-        }
-        span {
-          flex-grow: 1;
-          vertical-align: middle;
-          text-align: left;
-          margin-left: 12px;
-        }
-      }
       .time-add-ddl {
         display: flex;
         flex-direction: row;
