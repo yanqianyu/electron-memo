@@ -20,7 +20,7 @@
         </div>
         <div class="add-steps-input" v-on:click="addStep">
           <img src="../assets/icons/add.svg" class="add-button">
-          <input type="text" placeholder="下一步" v-model="newStep" v-on:keyup.enter="addStep">
+          <input type="text" placeholder="添加步骤" v-model="newStep" v-on:keyup.enter="addStep">
         </div>
       </div>
 
@@ -171,6 +171,7 @@ export default {
       this.$store.commit("updateTodo", this.todo)
     },
     addFile(file) {
+      // todo
       let max_id = 0
       this.todo.files.forEach(function (file) {
         if (file.id > max_id) {
@@ -344,6 +345,7 @@ export default {
         }
       }
       .add-file-button {
+        cursor: pointer;
         display: flex;
         flex-direction: row;
         justify-items: center;

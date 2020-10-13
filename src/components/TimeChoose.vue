@@ -1,25 +1,30 @@
 <template>
-    <div class="time-choose" v-on:click.stop="arrowDown">
-        <div class="select-title">
-            <slot></slot>
-            <span>{{selectRes}}</span>
-        </div>
-        <div class="select-list" v-show="isShowSelect">
-            <div class="select-item" v-for="item in timeItem" v-bind:key="item.id" @click.stop="select(item)">
-                <span>{{item.first}}</span>
-                <span v-if="item.second">{{item.second}}</span>
+    <div class="time-choose-container" >
+        <div class="time-choose" v-on:click.stop="arrowDown">
+            <div class="select-title">
+                <slot></slot>
+                <span>{{selectRes}}</span>
             </div>
-            <div class="select-cust">
-                <p>自定义</p>
+            <div class="select-list" v-show="isShowSelect">
+                <div class="select-item" v-for="item in timeItem" v-bind:key="item.id" @click.stop="select(item)">
+                    <span>{{item.first}}</span>
+                    <span v-if="item.second">{{item.second}}</span>
+                </div>
+                <div class="select-cust" v-on:click.stop="showDatePicker">
+                    <p>自定义</p>
+                </div>
             </div>
         </div>
         <!--todo: date-picker-->
+        <DateChoose :type="type" @settingTime="settingTime" @cancelDatePicker="cancelDatePicker" v-show="isDatePickerShow"></DateChoose>
     </div>
 </template>
 
 <script>
+    import DateChoose from "./DateChoose";
     export default {
         name: "TimeChoose",
+        components: {DateChoose},
         props: {
             type: String
         },
@@ -95,7 +100,9 @@
             return {
                 selectRes: "提醒我",
                 isShowSelect: false,
-                timeItem: []
+                timeItem: [],
+                isDatePickerShow: false,
+                finalTime: null
             }
         },
         computed: {
@@ -120,13 +127,29 @@
         },
         methods: {
             arrowDown() {
-                this.isShowSelect = !this.isShowSelect
+                this.isShowSelect = !this.isShowSelect;
             },
             select(item) {
                 // todo: 计算显示的结果
                 // commit to vuex
-                this.selectRes = item.first
-                this.isShowSelect = false
+                this.selectRes = item.first;
+                this.isShowSelect = false;
+
+                let type = this.type;
+                // todo 将item转为date格式
+                this.$store.commit("", {type, item});
+            },
+            showDatePicker() {
+                this.isShowSelect = false;
+                this.isDatePickerShow = true;
+            },
+            cancelDatePicker()  {
+                this.isDatePickerShow = false;
+            },
+            settingTime(value) {
+                // commit 到vuex
+                let type = this.type;
+                this.$store.commit("", {type, value})
             }
         }
     }
