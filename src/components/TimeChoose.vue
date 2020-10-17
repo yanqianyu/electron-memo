@@ -16,15 +16,17 @@
             </div>
         </div>
         <!--todo: date-picker-->
-        <DateChoose :type="type" @settingTime="settingTime" @cancelDatePicker="cancelDatePicker" v-show="isDatePickerShow"></DateChoose>
+        <Picker v-if="isDatePickerShow" :date-only="dateOnly"
+                :init-date="finalTime"
+                :type="type"></Picker>
     </div>
 </template>
 
 <script>
-    import DateChoose from "./DateChoose";
+    import Picker from "./DatePicker/Picker";
     export default {
         name: "TimeChoose",
-        components: {DateChoose},
+        components: {Picker},
         props: {
             type: String
         },
@@ -106,6 +108,9 @@
             }
         },
         computed: {
+            dateOnly: function () {
+                return this.type !== 'reminder';
+            },
             todayLater: function () {
                 // 获取当前时间
                 let now = new Date().getHours();
@@ -135,6 +140,8 @@
                 this.selectRes = item.first;
                 this.isShowSelect = false;
 
+                // todo: finalTime
+
                 let type = this.type;
                 // todo 将item转为date格式
                 this.$store.commit("", {type, item});
@@ -146,10 +153,8 @@
             cancelDatePicker()  {
                 this.isDatePickerShow = false;
             },
-            settingTime(value) {
-                // commit 到vuex
-                let type = this.type;
-                this.$store.commit("", {type, value})
+            deleteTimeChoose() {
+                // todo: 删除选择的时间
             }
         }
     }

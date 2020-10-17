@@ -1,7 +1,14 @@
 <template>
     <div class="time-picker">
-        <Switcher :year="year" :month="month" @back="handleSwitchBack" @forward="handleSwitchForward"></Switcher>
-        <Day :year="year" :month="month" :day="day" @day="setDay"></Day>
+        <Switcher :year="year"
+                  :month="month"
+                  @back="handleSwitchBack"
+                  @forward="handleSwitchForward"></Switcher>
+        <Day :year="year"
+             :month="month"
+             :day="day"
+             :selected-day="day"
+             @day="setDay"></Day>
         <Time :date-only="dateOnly"
               :init-year="year"
               :init-month="month"
@@ -14,6 +21,9 @@
               @changeHour="setHour"
               @changeMinute="setMinute"
         ></Time>
+        <buttons :had-init="haveInit"
+                 @cancel="handleCancel"
+                 @ok="handleOk"></buttons>
     </div>
 </template>
 
@@ -21,9 +31,11 @@
     import Switcher from "./Switcher";
     import Day from "./Day";
     import Time from "./Time";
+    import Buttons from "./Buttons";
+
     export default {
         name: "Picker",
-        components: {Time, Switcher, Day},
+        components: {Buttons, Time, Switcher, Day},
         props: {
             dateOnly: {
                 type: Boolean,
@@ -31,6 +43,10 @@
             },
             initDate: {
                 type: Date
+            },
+            type: {
+                type: String,
+                required: true
             }
         },
         data: function() {
@@ -45,6 +61,9 @@
             }
         },
         computed: {
+            haveInit () {
+                return !!this.initDate;
+            },
             year () {
                 return this.date.getFullYear();
             },
@@ -52,7 +71,7 @@
                 return this.date.getMonth();
             },
             day () {
-                return this.date.getDay();
+                return this.date.getDate();
             },
             hour () {
                 return this.date.getHours();
@@ -63,30 +82,48 @@
         },
         methods: {
             handleSwitchBack() {
-
+                // 一个月前
+                let tmp = this.date;
+                this.date = new Date(tmp.getTime() - 24 * 60 * 60 * 1000 * tmp.getDate());
             },
             handleSwitchForward() {
-
+                // 一个月后
+                let tmp = this.date;
+                this.date = new Date(tmp.getTime() + 24 * 60 * 60 * 1000 * tmp.getDate());
             },
-            setDay() {
-
+            setDay(day) {
+                this.date.setDate(day);
             },
-            setYear() {
-
+            setYear(year) {
+                this.date.setYear(year);
             },
-            setMonth() {
-
+            setMonth(month) {
+              this.date.setMonth(month);
             },
-            setHour() {
-
+            setHour(hour) {
+                this.date.setHour(hour);
             },
-            setMinute() {
-
+            setMinute(minute) {
+                this.date.setMinute(minute);
+            },
+            handleCancel() {
+                // 如果已经有初始化值，则cancel实际为删除
+                // 否则是取消picker的显示？
+                if(this.initDate) {
+                    // 向上通知删除时间设定
+                    this.$emit('deleteTimeChoose')
+                }
+                // 向上通知？
+                this.$emit('cancelDatePicker')
+            },
+            handleOk() {
+                // commit to vuex
+                // 根据type
             }
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

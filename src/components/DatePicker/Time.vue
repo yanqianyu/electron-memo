@@ -40,7 +40,6 @@
                 year: this.initYear,
                 month: this.initMonth,
                 day: this.initDay,
-                part: this.initPart,
                 hour: this.initHour,
                 minute: this.initMinute
             }
@@ -60,7 +59,7 @@
                 this.$emit('changeMonth', this.month)
             },
             changeDay() {
-                this.$emit('changeDay', this.month)
+                this.$emit('changeDay', this.day)
             },
             changeHour() {
                 this.$emit('changeHour', this.hour)

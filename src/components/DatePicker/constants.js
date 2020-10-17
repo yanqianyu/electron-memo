@@ -6,12 +6,12 @@ export const MODE = {
     MINUTE: 4
 };
 
-export const WEEK_SET = {
-    0: '周日',
-    1: '周一',
-    2: '周二',
-    3: '周三',
-    4: '周四',
-    5: '周五',
-    6: '周六'
-};
+export const WEEK_SET = [
+    {'name': '周日'},
+    {'name': '周一'},
+    {'name': '周二'},
+    {'name': '周三'},
+    {'name': '周四'},
+    {'name': '周五'},
+    {'name': '周六'},
+];
