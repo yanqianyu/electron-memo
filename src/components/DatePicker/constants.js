@@ -4,4 +4,9 @@ export const MODE = {
     DATE: 2,
     HOUR: 3,
     MINUTE: 4
-}
+};
+
+export const HALFDAY = {
+    0: '上午',
+    1: '下午'
+};
