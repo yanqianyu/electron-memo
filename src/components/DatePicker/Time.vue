@@ -3,17 +3,19 @@
         <input class="year-choosen" type="number" min="0" v-model="year" @change="changeYear">
         <input class="month-choosen" type="number" min="1" max="12" v-model="month" @change="changeMonth">
         <input class="day-choosen" type="number" min="1" :max="maxDays" v-model="day" @change="changeDay">
-        <input class="part-choosen" type="number" min="0" max="1" v-model="part" @change="changePart">
-        <input class="hour-choosen" type="number" min="1" max="12" v-model="hour" @change="changeHour">
-        <input class="minute-choosen" type="number" min="0" max="59" v-model="minute" @change="changeMinute">
+        <input v-if="!dateOnly" class="hour-choosen" type="number" min="0" max="23" v-model="hour" @change="changeHour">
+        <input v-if="!dateOnly" class="minute-choosen" type="number" min="0" max="59" v-model="minute" @change="changeMinute">
     </div>
 </template>
 
 <script>
-    import {EventBus} from "./event-bus";
     export default {
         name: "Time",
         props: {
+            dateOnly: {
+                type: Number,
+                required: true
+            },
             initYear: {
                 type: Number,
                 required: true
@@ -25,9 +27,6 @@
             initDay: {
                 type: Number,
                 required: true
-            },
-            initPart: {
-                type: Number
             },
             initHour: {
                 type: Number
@@ -55,28 +54,19 @@
         },
         methods: {
             changeYear() {
-                EventBus.$emit('changeYear', {
-                    year: this.year
-                })
+                this.$emit('changeYear', this.year)
             },
             changeMonth() {
-                EventBus.$emit('changeMonth', {
-                    month: this.month
-                })
+                this.$emit('changeMonth', this.month)
             },
             changeDay() {
-                EventBus.$emit('changeDay', {
-                    day: this.day
-                })
-            },
-            changePart() {
-
+                this.$emit('changeDay', this.month)
             },
             changeHour() {
-
+                this.$emit('changeHour', this.hour)
             },
             changeMinute() {
-
+                this.$emit('changeMinute', this.minute)
             }
         }
     }

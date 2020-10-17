@@ -6,7 +6,12 @@ export const MODE = {
     MINUTE: 4
 };
 
-export const HALFDAY = {
-    0: '上午',
-    1: '下午'
+export const WEEK_SET = {
+    0: '周日',
+    1: '周一',
+    2: '周二',
+    3: '周三',
+    4: '周四',
+    5: '周五',
+    6: '周六'
 };

@@ -3,7 +3,7 @@
         <span class="arrow arrow_left" @click.prevent="goBack">&#10094;</span>
         <div class="content">
             <p class="text">{{`${this.year}年 ${this.month}月`}}</p>
-        </div>>
+        </div>
         <span class="arrow arrow_right" @click.prevent="goForward">&#10095;</span>
     </div>
 </template>
