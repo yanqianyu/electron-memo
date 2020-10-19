@@ -41,19 +41,17 @@
             day: {
                 type: Number,
                 required: true
-            },
-            selectedDay: {
-                type: Number,
-                required: true
             }
         },
         data: function() {
             return {
                 name: WEEK_SET,
+                selectedDay: this.day
             }
         },
         methods: {
             handleClick(day) {
+                this.selectedDay = day
                 this.$emit('day', day)
             }
         },

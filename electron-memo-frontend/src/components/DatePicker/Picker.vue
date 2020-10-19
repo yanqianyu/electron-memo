@@ -7,7 +7,6 @@
         <Day :year="year"
              :month="month"
              :day="day"
-             :selected-day="day"
              @day="setDay"></Day>
         <Time :date-only="dateOnly"
               :init-year="year"
