@@ -36,10 +36,30 @@ describe("Time", () => {
     })
 
     test('Should emit changeYear', () => {
-        // 模拟change事件
-        const input = component.$el.querySelector('year-choosen');
-        const changeEvent = new window.Event();
-        component.vm.changeYear();
+        const yearInput = component.find('.year-chosen');
+        yearInput.element.value = 2021;
+        yearInput.trigger('input');
 
+        expect(component.vm.$data.year).toEqual("2021");
+        expect(component.vm.changeYear.toHaveBeenCalled);
+
+        component.vm.changeYear();
+        component.vm.$nextTick().then(() => {
+            expect(component.emitted().changeYear).toBeTruthy();
+        })
+    })
+
+    test('Should emit changeMonth', () => {
+        const monthInput = component.find('.month-chosen');
+        monthInput.element.value = 9;
+        monthInput.trigger('input');
+        expect(component.vm.$data.month).toEqual("9");
+        expect(component.vm.maxDays).toEqual(30);
+        expect(component.vm.changeMonth.toHaveBeenCalled);
+
+        component.vm.changeMonth();
+        component.vm.$nextTick().then(() => {
+            expect(component.emitted().changeMonth).toBeTruthy();
+        })
     })
 })

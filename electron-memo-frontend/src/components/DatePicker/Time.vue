@@ -1,10 +1,10 @@
 <template>
     <div class="time-choose">
-        <input class="year-choosen" type="number" min="0" v-model="year" @change="changeYear">
-        <input class="month-choosen" type="number" min="1" max="12" v-model="month" @change="changeMonth">
-        <input class="day-choosen" type="number" min="1" :max="maxDays" v-model="day" @change="changeDay">
-        <input v-if="!dateOnly" class="hour-choosen" type="number" min="0" max="23" v-model="hour" @change="changeHour">
-        <input v-if="!dateOnly" class="minute-choosen" type="number" min="0" max="59" v-model="minute" @change="changeMinute">
+        <input class="year-chosen" type="number" min="0" v-model="year" @change="changeYear">
+        <input class="month-chosen" type="number" min="1" max="12" v-model="month" @change="changeMonth">
+        <input class="day-chosen" type="number" min="1" :max="maxDays" v-model="day" @change="changeDay">
+        <input v-if="!dateOnly" class="hour-chosen" type="number" min="0" max="23" v-model="hour" @change="changeHour">
+        <input v-if="!dateOnly" class="minute-chosen" type="number" min="0" max="59" v-model="minute" @change="changeMinute">
     </div>
 </template>
 
@@ -13,7 +13,7 @@
         name: "Time",
         props: {
             dateOnly: {
-                type: Number,
+                type: Boolean,
                 required: true
             },
             initYear: {

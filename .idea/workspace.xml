@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fcbfde96-a81b-49ac-a3f3-11afdf16d27d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Day.spec.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Time.spec.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/Day.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/Day.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/Picker.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/Picker.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Buttons.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Buttons.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/Time.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/Time.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Time.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Time.spec.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,21 +41,9 @@
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/electron-memo-frontend/node_modules/@vue/cli-service" />
     <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
-  <component name="RunManager" selected="Jest.Day">
-    <configuration name="Buttons" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/electron-memo-frontend/node_modules/@vue/cli-service" />
-      <working-dir value="$PROJECT_DIR$/electron-memo-frontend" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Buttons.spec.js" />
-      <test-names>
-        <test-name value="Buttons" />
-      </test-names>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Jest.Time.Should emit changeYear">
     <configuration name="Buttons.Should be cancel" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -103,12 +85,41 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="Switcher.Should emit forward" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/electron-memo-frontend/node_modules/@vue/cli-service" />
+      <working-dir value="$PROJECT_DIR$/electron-memo-frontend" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Switched.spec.js" />
+      <test-names>
+        <test-name value="Switcher" />
+        <test-name value="Should emit forward" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Time.Should emit changeYear" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/electron-memo-frontend/node_modules/@vue/cli-service" />
+      <working-dir value="$PROJECT_DIR$/electron-memo-frontend" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Time.spec.js" />
+      <test-names>
+        <test-name value="Time" />
+        <test-name value="Should emit changeYear" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.Time.Should emit changeYear" />
+        <item itemvalue="Jest.Switcher.Should emit forward" />
         <item itemvalue="Jest.Day" />
         <item itemvalue="Jest.Buttons.Should be delete" />
         <item itemvalue="Jest.Buttons.Should be cancel" />
-        <item itemvalue="Jest.Buttons" />
       </list>
     </recent_temporary>
   </component>
@@ -135,7 +146,7 @@
       <option name="presentableId" value="Default" />
       <updated>1602931220038</updated>
       <workItem from="1602931227451" duration="23000" />
-      <workItem from="1603109382568" duration="4233000" />
+      <workItem from="1603109382568" duration="8510000" />
     </task>
     <servers />
   </component>
@@ -148,22 +159,30 @@
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1213" height="48" key="GridCell.Tab.0.bottom" timestamp="1603112453020">
-      <screen x="46" y="23" width="1234" height="777" />
+    <state width="1213" height="157" key="GridCell.Tab.0.bottom" timestamp="1603198342643">
+      <screen x="43" y="23" width="1237" height="777" />
     </state>
+    <state width="1213" height="157" key="GridCell.Tab.0.bottom/43.23.1237.777/-260.-1057.1920.1057@43.23.1237.777" timestamp="1603198342643" />
     <state width="1213" height="48" key="GridCell.Tab.0.bottom/46.23.1234.777/-260.-1057.1920.1057@46.23.1234.777" timestamp="1603112453020" />
-    <state width="1213" height="48" key="GridCell.Tab.0.center" timestamp="1603112453017">
-      <screen x="46" y="23" width="1234" height="777" />
+    <state width="1213" height="194" key="GridCell.Tab.0.bottom/47.23.1233.777/-260.-1057.1920.1057@47.23.1233.777" timestamp="1603114181514" />
+    <state width="1213" height="157" key="GridCell.Tab.0.center" timestamp="1603198342642">
+      <screen x="43" y="23" width="1237" height="777" />
     </state>
+    <state width="1213" height="157" key="GridCell.Tab.0.center/43.23.1237.777/-260.-1057.1920.1057@43.23.1237.777" timestamp="1603198342642" />
     <state width="1213" height="48" key="GridCell.Tab.0.center/46.23.1234.777/-260.-1057.1920.1057@46.23.1234.777" timestamp="1603112453017" />
-    <state width="1213" height="48" key="GridCell.Tab.0.left" timestamp="1603112453016">
-      <screen x="46" y="23" width="1234" height="777" />
+    <state width="1213" height="194" key="GridCell.Tab.0.center/47.23.1233.777/-260.-1057.1920.1057@47.23.1233.777" timestamp="1603114181513" />
+    <state width="1213" height="157" key="GridCell.Tab.0.left" timestamp="1603198342642">
+      <screen x="43" y="23" width="1237" height="777" />
     </state>
+    <state width="1213" height="157" key="GridCell.Tab.0.left/43.23.1237.777/-260.-1057.1920.1057@43.23.1237.777" timestamp="1603198342642" />
     <state width="1213" height="48" key="GridCell.Tab.0.left/46.23.1234.777/-260.-1057.1920.1057@46.23.1234.777" timestamp="1603112453016" />
-    <state width="1213" height="48" key="GridCell.Tab.0.right" timestamp="1603112453019">
-      <screen x="46" y="23" width="1234" height="777" />
+    <state width="1213" height="194" key="GridCell.Tab.0.left/47.23.1233.777/-260.-1057.1920.1057@47.23.1233.777" timestamp="1603114181513" />
+    <state width="1213" height="157" key="GridCell.Tab.0.right" timestamp="1603198342643">
+      <screen x="43" y="23" width="1237" height="777" />
     </state>
+    <state width="1213" height="157" key="GridCell.Tab.0.right/43.23.1237.777/-260.-1057.1920.1057@43.23.1237.777" timestamp="1603198342643" />
     <state width="1213" height="48" key="GridCell.Tab.0.right/46.23.1234.777/-260.-1057.1920.1057@46.23.1234.777" timestamp="1603112453019" />
+    <state width="1213" height="194" key="GridCell.Tab.0.right/47.23.1233.777/-260.-1057.1920.1057@47.23.1233.777" timestamp="1603114181514" />
     <state x="164" y="50" key="SettingsEditor" timestamp="1603109395440">
       <screen x="46" y="23" width="1234" height="777" />
     </state>
