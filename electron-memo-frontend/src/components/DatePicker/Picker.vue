@@ -7,18 +7,18 @@
         <Day :year="year"
              :month="month"
              :day="day"
-             @day="setDay"></Day>
+             @day="setday"></Day>
         <Time :date-only="dateOnly"
-              :init-year="year"
-              :init-month="month"
-              :init-day="day"
-              :init-hour="hour"
-              :init-minute="minute"
-              @changeYear="setYear"
-              @changeMonth="setMonth"
-              @changeDay="setDay"
-              @changeHour="setHour"
-              @changeMinute="setMinute"
+              :year="year"
+              :month="month"
+              :day="day"
+              :hour="hour"
+              :minute="minute"
+              @changeYear="setyear"
+              @changeMonth="setmonth"
+              @changeDay="setday"
+              @changeHour="sethour"
+              @changeMinute="setminute"
         ></Time>
         <buttons :had-init="haveInit"
                  @cancel="handleCancel"
@@ -67,7 +67,9 @@
                 return this.date.getFullYear();
             },
             month () {
-                return this.date.getMonth();
+                // 0 -> Jan -> 1
+                // 11 -> Rem -> 12
+                return this.date.getMonth() + 1;
             },
             day () {
                 return this.date.getDate();
@@ -83,27 +85,51 @@
             handleSwitchBack() {
                 // 一个月前
                 let tmp = this.date;
-                this.date = new Date(tmp.getTime() - 24 * 60 * 60 * 1000 * tmp.getDate());
+                let month = tmp.getMonth();
+                if(0 === month) {
+                    let year = tmp.getFullYear();
+                    tmp.setMonth(11);
+                    tmp.setFullYear(year - 1);
+                }
+                else {
+                    tmp.setMonth(month - 1);
+                }
+                this.date = new Date(tmp);
             },
             handleSwitchForward() {
                 // 一个月后
                 let tmp = this.date;
-                this.date = new Date(tmp.getTime() + 24 * 60 * 60 * 1000 * tmp.getDate());
+                let month = tmp.getMonth();
+                if(11 === month) {
+                    let year = tmp.getFullYear();
+                    tmp.setMonth(0);
+                    tmp.setFullYear(year + 1);
+                }
+                else {
+                    tmp.setMonth(month + 1);
+                }
+                this.date = new Date(tmp);
             },
-            setDay(day) {
+            setday(day) {
                 this.date.setDate(day);
+                this.date = new Date(this.date);
             },
-            setYear(year) {
-                this.date.setYear(year);
+            setyear(year) {
+                this.date.setFullYear(year);
+                this.date = new Date(this.date);
             },
-            setMonth(month) {
-              this.date.setMonth(month);
+            setmonth(month) {
+                // month 1-12
+                this.date.setMonth(month - 1);
+                this.date = new Date(this.date);
             },
-            setHour(hour) {
-                this.date.setHour(hour);
+            sethour(hour) {
+                this.date.setHours(hour);
+                this.date = new Date(this.date);
             },
-            setMinute(minute) {
-                this.date.setMinute(minute);
+            setminute(minute) {
+                this.date.setMinutes(minute);
+                this.date = new Date(this.date);
             },
             handleCancel() {
                 // 如果已经有初始化值，则cancel实际为删除

@@ -16,32 +16,23 @@
                 type: Boolean,
                 required: true
             },
-            initYear: {
+            year: {
                 type: Number,
                 required: true
             },
-            initMonth: {
+            month: {
                 type: Number,
                 required: true
             },
-            initDay: {
+            day: {
                 type: Number,
                 required: true
             },
-            initHour: {
+            hour: {
                 type: Number
             },
-            initMinute: {
+            minute: {
                 type: Number
-            }
-        },
-        data: function() {
-            return {
-                year: this.initYear,
-                month: this.initMonth,
-                day: this.initDay,
-                hour: this.initHour,
-                minute: this.initMinute
             }
         },
         computed: {

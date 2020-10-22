@@ -33,5 +33,34 @@
 </script>
 
 <style lang="scss" scoped>
+.dtp_switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 16px;
 
+    .dtp_arrow {
+        color: black;
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        &:hover {
+            cursor: pointer;
+            border-radius: 50%;
+            background-color: rgb(1, 1, 1, 0.1);
+        }
+    }
+
+    .content {
+        flex-grow: 1;
+        .text {
+            margin: 0;
+            text-align: center;
+            font-family: sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    }
+}
 </style>

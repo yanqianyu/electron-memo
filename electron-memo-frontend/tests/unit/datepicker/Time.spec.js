@@ -7,11 +7,11 @@ describe("Time", () => {
         component = mount(Time, {
             propsData: {
                 dateOnly: false,
-                initYear: 2020,
-                initMonth: 10,
-                initDay: 19,
-                initHour: 9,
-                initMinute: 11
+                year: 2020,
+                month: 10,
+                day: 19,
+                hour: 9,
+                minute: 11
             }
         })
     });
@@ -23,11 +23,11 @@ describe("Time", () => {
     test('Should have props', () => {
         expect(component.vm.$props).toEqual( {
             dateOnly: false,
-            initYear: 2020,
-            initMonth: 10,
-            initDay: 19,
-            initHour: 9,
-            initMinute: 11
+            year: 2020,
+            month: 10,
+            day: 19,
+            hour: 9,
+            minute: 11
         })
     })
 
