@@ -1,28 +1,30 @@
 <template>
-    <div class="time-picker">
-        <Switcher :year="year"
+    <div class="time-wrapper">
+        <div class="time-picker">
+            <Switcher :year="year"
+                      :month="month"
+                      @back="handleSwitchBack"
+                      @forward="handleSwitchForward"></Switcher>
+            <Day :year="year"
+                 :month="month"
+                 :day="day"
+                 @day="setday"></Day>
+            <Time :date-only="dateOnly"
+                  :year="year"
                   :month="month"
-                  @back="handleSwitchBack"
-                  @forward="handleSwitchForward"></Switcher>
-        <Day :year="year"
-             :month="month"
-             :day="day"
-             @day="setday"></Day>
-        <Time :date-only="dateOnly"
-              :year="year"
-              :month="month"
-              :day="day"
-              :hour="hour"
-              :minute="minute"
-              @changeYear="setyear"
-              @changeMonth="setmonth"
-              @changeDay="setday"
-              @changeHour="sethour"
-              @changeMinute="setminute"
-        ></Time>
-        <buttons :had-init="haveInit"
-                 @cancel="handleCancel"
-                 @ok="handleOk"></buttons>
+                  :day="day"
+                  :hour="hour"
+                  :minute="minute"
+                  @changeYear="setyear"
+                  @changeMonth="setmonth"
+                  @changeDay="setday"
+                  @changeHour="sethour"
+                  @changeMinute="setminute"
+            ></Time>
+            <buttons :had-init="haveInit"
+                     @cancel="handleCancel"
+                     @ok="handleOk"></buttons>
+        </div>
     </div>
 </template>
 
@@ -48,7 +50,7 @@
                 required: true
             }
         },
-        data: function() {
+        data: function () {
             return {
                 date: this.initDate
             }
@@ -60,24 +62,24 @@
             }
         },
         computed: {
-            haveInit () {
+            haveInit() {
                 return !!this.initDate;
             },
-            year () {
+            year() {
                 return this.date.getFullYear();
             },
-            month () {
+            month() {
                 // 0 -> Jan -> 1
                 // 11 -> Rem -> 12
                 return this.date.getMonth() + 1;
             },
-            day () {
+            day() {
                 return this.date.getDate();
             },
-            hour () {
+            hour() {
                 return this.date.getHours();
             },
-            minute () {
+            minute() {
                 return this.date.getMinutes();
             }
         },
@@ -86,12 +88,11 @@
                 // 一个月前
                 let tmp = this.date;
                 let month = tmp.getMonth();
-                if(0 === month) {
+                if (0 === month) {
                     let year = tmp.getFullYear();
                     tmp.setMonth(11);
                     tmp.setFullYear(year - 1);
-                }
-                else {
+                } else {
                     tmp.setMonth(month - 1);
                 }
                 this.date = new Date(tmp);
@@ -100,12 +101,11 @@
                 // 一个月后
                 let tmp = this.date;
                 let month = tmp.getMonth();
-                if(11 === month) {
+                if (11 === month) {
                     let year = tmp.getFullYear();
                     tmp.setMonth(0);
                     tmp.setFullYear(year + 1);
-                }
-                else {
+                } else {
                     tmp.setMonth(month + 1);
                 }
                 this.date = new Date(tmp);
@@ -134,7 +134,7 @@
             handleCancel() {
                 // 如果已经有初始化值，则cancel实际为删除
                 // 否则是取消picker的显示？
-                if(this.initDate) {
+                if (this.initDate) {
                     // 向上通知删除时间设定
                     this.$emit('deleteTimeChoose')
                 }
@@ -150,5 +150,23 @@
 </script>
 
 <style lang="scss" scoped>
-
+    .time-wrapper {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(1, 1, 1, 0.25);
+    }
+    .time-picker {
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 290px;
+        background-color: white;
+        box-shadow: 0 0 4px 0 rgba(1, 1, 1, 0.3);
+    }
 </style>

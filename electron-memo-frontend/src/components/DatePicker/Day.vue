@@ -82,10 +82,76 @@
 </script>
 
 <style lang="scss" scoped>
-.disabled {
-    pointer-events: none;
-}
 .dtp_body {
+    height: 200px;
+    overflow: auto;
+    padding: 0 12px;
 
+    .dtp_head {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        &_item {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 22px;
+            color: rgb(1, 1, 1, 0.5);
+        }
+    }
+
+    .dtp_main {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        &_item {
+            margin: 8px 0;
+            display: flex;
+            justify-content: center;
+            flex-basis: calc(100% / 7);
+            &.disabled {
+                pointer-events: none;
+                span {
+                    color: gray;
+                }
+            }
+            span {
+                padding: 0;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                font-family: sans-serif;
+                font-size: 12px;
+                font-weight: 600;
+                line-height: 22px;
+                color: black;
+                transition: all 0.25s ease-in-out;
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(1, 1, 1, 0.1);
+                }
+                &.selected {
+                    background-color: #4e89ae;
+                    color: white;
+                }
+            }
+            }
+        }
+    }
 }
 </style>
