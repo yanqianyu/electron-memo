@@ -47,7 +47,7 @@
         &:hover {
             cursor: pointer;
             border-radius: 50%;
-            background-color: rgb(1, 1, 1, 0.1);
+            background-color: rgba(1, 1, 1, 0.1);
         }
     }
 
