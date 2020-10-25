@@ -19,6 +19,7 @@
         <Picker v-if="isDatePickerShow" :date-only="dateOnly"
                 :init-date="finalTime"
                 :type="type"
+                @saveTimeChoose="saveTimeChoose"
                 @cancelDatePicker="cancelDatePicker"
                 @deleteTimeChoose="deleteTimeChoose"
         ></Picker>
@@ -139,15 +140,14 @@
             },
             select(item) {
                 // todo: 计算显示的结果
-                // commit to vuex
                 this.selectRes = item.first;
                 this.isShowSelect = false;
 
                 // todo: finalTime
 
-                let type = this.type;
                 // todo 将item转为date格式
-                this.$store.commit("", {type, item});
+                // 向上抛出
+                this.$emit('saveTimeChoose','', this.type);
             },
             showDatePicker() {
                 this.isShowSelect = false;
@@ -157,7 +157,12 @@
                 this.isDatePickerShow = false;
             },
             deleteTimeChoose() {
-                // todo: 删除选择的时间
+                // 向上抛出
+                this.$emit('deleteTimeChoose', this.type);
+            },
+            saveTimeChoose(date) {
+                // 向上抛出
+                this.$emit('saveTimeChoose', date, this.type);
             }
         }
     }

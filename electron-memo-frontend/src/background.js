@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain, dialog } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -54,6 +54,20 @@ function createWindow() {
   ipcMain.on('todo-window', () => {
     win.resizable = true
     win.setSize(1024, 576)
+  })
+
+  // 绑定打开对话框事件
+  ipcMain.on('open-directory-dialog', (event, p) => {
+    dialog.showOpenDialog({
+      properties: [p]
+    }).then(res => {
+      // 单次只能上传单个文件
+      if (res.filePaths && res.filePaths[0]) {
+        // 如果有选中的文件
+        // 发送选择的文件流给子进程
+        event.sender.send('selectedItem', res.filePaths[0])
+      }
+    })
   })
 
   win.on('closed', () => {

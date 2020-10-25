@@ -38,10 +38,6 @@
             },
             initDate: {
                 type: Date
-            },
-            type: {
-                type: String,
-                required: true
             }
         },
         data: function () {
@@ -161,8 +157,10 @@
                 this.$emit('cancelDatePicker')
             },
             handleOk() {
-                // commit to vuex
-                // 根据type
+                // 向上通知
+                this.$emit('saveTimeChoose', this.date);
+                // 然后取消时间组件的显示
+                this.$emit('cancelDatePicker');
             }
         }
     }
