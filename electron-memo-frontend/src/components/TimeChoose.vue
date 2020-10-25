@@ -1,5 +1,5 @@
 <template>
-    <div class="time-choose-container" >
+    <div class="time-choose-container">
         <div class="time-choose" v-on:click.stop="arrowDown">
             <div class="select-title">
                 <slot></slot>
@@ -18,7 +18,10 @@
         <!--todo: date-picker-->
         <Picker v-if="isDatePickerShow" :date-only="dateOnly"
                 :init-date="finalTime"
-                :type="type"></Picker>
+                :type="type"
+                @cancelDatePicker="cancelDatePicker"
+                @deleteTimeChoose="deleteTimeChoose"
+        ></Picker>
     </div>
 </template>
 

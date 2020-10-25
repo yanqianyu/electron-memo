@@ -1,10 +1,10 @@
 <template>
     <div class="time-choose">
-        <input class="year-chosen" type="number" min="0" v-model="year" @change="changeYear">
-        <input class="month-chosen" type="number" min="1" max="12" v-model="month" @change="changeMonth">
-        <input class="day-chosen" type="number" min="1" :max="maxDays" v-model="day" @change="changeDay">
-        <input v-if="!dateOnly" class="hour-chosen" type="number" min="0" max="23" v-model="hour" @change="changeHour">
-        <input v-if="!dateOnly" class="minute-chosen" type="number" min="0" max="59" v-model="minute" @change="changeMinute">
+        <input class="year-chosen" type="number" min="0" :value="year" @change="changeYear">
+        <input class="month-chosen" type="number" min="1" max="12" :value="month" @change="changeMonth">
+        <input class="day-chosen" type="number" min="1" :max="maxDays" :value="day" @change="changeDay">
+        <input v-if="!dateOnly" class="hour-chosen" type="number" min="0" max="23" :value="hour" @change="changeHour">
+        <input v-if="!dateOnly" class="minute-chosen" type="number" min="0" max="59" :value="minute" @change="changeMinute">
     </div>
 </template>
 
@@ -43,20 +43,20 @@
             }
         },
         methods: {
-            changeYear() {
-                this.$emit('changeYear', this.year)
+            changeYear(event) {
+                this.$emit('update:year', event.target.value)
             },
-            changeMonth() {
-                this.$emit('changeMonth', this.month)
+            changeMonth(event) {
+                this.$emit('update:month', event.target.value)
             },
-            changeDay() {
-                this.$emit('changeDay', this.day)
+            changeDay(event) {
+                this.$emit('update:day', event.target.value)
             },
-            changeHour() {
-                this.$emit('changeHour', this.hour)
+            changeHour(event) {
+                this.$emit('update:hour', event.target.value)
             },
-            changeMinute() {
-                this.$emit('changeMinute', this.minute)
+            changeMinute(event) {
+                this.$emit('update:minute', event.target.value)
             }
         }
     }

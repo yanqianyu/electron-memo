@@ -38,30 +38,29 @@
                 type: Number,
                 required: true
             },
-            day: {
+            selectedDay: {
                 type: Number,
                 required: true
             }
         },
         data: function () {
             return {
-                name: WEEK_SET,
-                selectedDay: this.day
+                name: WEEK_SET
             }
         },
         methods: {
             handleClick(day) {
-                this.selectedDay = day
-                this.$emit('day', day)
+                this.$emit('update:selected-day', day)
             }
         },
         computed: {
             days() {
+                // new Date中date设为0是返回上个月最后一天，然后getDate就能获得天数
                 let totalDay = new Date(this.year, this.month, 0).getDate();
-                let firstDay = new Date(this.year, this.month, 1).getDay();
+                let firstDay = new Date(this.year, this.month - 1, 1).getDay();
                 let days = [];
 
-                for (let i = 1; i < firstDay; i++) {
+                for (let i = 0; i < firstDay; i++) {
                     days.push({
                         content: '',
                         disabled: true // 禁用点击事件
@@ -83,7 +82,7 @@
 
 <style lang="scss" scoped>
     .dtp_body {
-        height: 200px;
+        height: 250px;
         overflow: auto;
         padding: 0 12px;
 
@@ -118,7 +117,7 @@
             list-style: none;
 
             &_item {
-                margin: 8px 0;
+                margin: 4px 0;
                 display: flex;
                 justify-content: center;
                 flex-basis: calc(100% / 7);

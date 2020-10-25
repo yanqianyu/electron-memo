@@ -7,19 +7,13 @@
                       @forward="handleSwitchForward"></Switcher>
             <Day :year="year"
                  :month="month"
-                 :day="day"
-                 @day="setday"></Day>
+                 :selected-day.sync="day"></Day>
             <Time :date-only="dateOnly"
-                  :year="year"
-                  :month="month"
-                  :day="day"
-                  :hour="hour"
-                  :minute="minute"
-                  @changeYear="setyear"
-                  @changeMonth="setmonth"
-                  @changeDay="setday"
-                  @changeHour="sethour"
-                  @changeMinute="setminute"
+                  :year.sync="year"
+                  :month.sync="month"
+                  :day.sync="day"
+                  :hour.sync="hour"
+                  :minute.sync="minute"
             ></Time>
             <buttons :had-init="haveInit"
                      @cancel="handleCancel"
@@ -52,35 +46,60 @@
         },
         data: function () {
             return {
-                date: this.initDate
+                date: this.initDate,
             }
         },
         created() {
             // 如果之前没有设置则，以当前时间为基准
             if (!this.initDate) {
-                this.date = new Date()
+                this.date = new Date();
             }
         },
         computed: {
             haveInit() {
                 return !!this.initDate;
             },
-            year() {
-                return this.date.getFullYear();
+            year: {
+                get: function () {
+                    return this.date.getFullYear();
+                },
+                set: function (newYear) {
+                    this.setyear(newYear);
+                }
             },
-            month() {
-                // 0 -> Jan -> 1
-                // 11 -> Rem -> 12
-                return this.date.getMonth() + 1;
+            month: {
+                get: function () {
+                    // 0 -> Jan -> 1
+                    // 11 -> Rem -> 12
+                    return this.date.getMonth() + 1;
+                },
+                set: function (newMonth) {
+                    this.setmonth(newMonth);
+                }
             },
-            day() {
-                return this.date.getDate();
+            day: {
+                get: function () {
+                    return this.date.getDate();
+                },
+                set: function(newDay) {
+                    this.setday(newDay);
+                }
             },
-            hour() {
-                return this.date.getHours();
+            hour: {
+                get: function () {
+                    return this.date.getHours();
+                },
+                set: function(newHour) {
+                    this.sethour(newHour);
+                }
             },
-            minute() {
-                return this.date.getMinutes();
+            minute: {
+                get: function () {
+                    return this.date.getMinutes();
+                },
+                set: function (newMinute) {
+                    this.setminute(newMinute);
+                }
             }
         },
         methods: {
