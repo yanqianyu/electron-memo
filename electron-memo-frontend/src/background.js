@@ -1,5 +1,7 @@
 'use strict'
 
+import fs from 'fs'
+import path from 'path'
 import { app, protocol, BrowserWindow, ipcMain, dialog } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
@@ -62,13 +64,28 @@ function createWindow() {
       properties: [p]
     }).then(res => {
       // 单次只能上传单个文件
+      // 如果有选中的文件
       if (res.filePaths && res.filePaths[0]) {
-        // 如果有选中的文件
-        // 发送选择的文件流给子进程
-        event.sender.send('selectedItem', res.filePaths[0])
+        let filepath = res.filePaths[0];
+        // getFileIcon: 读取文件的关联图标
+        app.getFileIcon(filepath, {size: 'small'})
+            .then(icon => {
+              let imgData = icon.toDataURL();
+              let fileObj = {
+                iconimg: imgData,
+                filesize: fs.statSync(filepath).size,
+                filename: path.basename(filepath),
+                data: fs.readFileSync(filepath)
+              };
+              // 发送选择的文件流给子进程
+              event.sender.send('selectedItem', fileObj)
+            })
+            .catch(err => {
+              console.log(err)
+            });
       }
     })
-  })
+  });
 
   win.on('closed', () => {
     win = null

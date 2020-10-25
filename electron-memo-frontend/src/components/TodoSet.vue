@@ -47,12 +47,14 @@
                     <img src="../assets/icons/repeat.svg">
                 </time-choose>
             </div>
-
             <div class="add-file">
                 <div class="file-lists">
                     <div class="file" v-for="file in todo.files" :key="file.id">
-                        <span class="file-name">{{}}</span>
-                        <span class="file-size">{{}}</span>
+                        <img :src="file.content.iconimg">
+                        <div class="file-center">
+                            <span class="file-name">{{file.content.filename}}</span>
+                            <span class="file-size">{{formatFileSize(file.content.filesize)}}</span>
+                        </div>
                         <img src="../assets/icons/cross.svg" class="delete-button" v-on:click="deleteFile">
                     </div>
                 </div>
@@ -99,6 +101,27 @@
         },
         mounted() {
             // 通过target事件 判定 只要点击的不是包裹住按钮和内容区域的Div就让v-show为false
+        },
+        computed: {
+            formatFileSize() {
+                return function (fileSize) {
+                    if (fileSize < 1024) {
+                        return fileSize + 'B';
+                    } else if (fileSize < (1024*1024)) {
+                        let temp = fileSize / 1024;
+                        temp = temp.toFixed(2);
+                        return temp + 'KB';
+                    } else if (fileSize < (1024*1024*1024)) {
+                        let temp = fileSize / (1024*1024);
+                        temp = temp.toFixed(2);
+                        return temp + 'MB';
+                    } else {
+                        let temp = fileSize / (1024*1024*1024);
+                        temp = temp.toFixed(2);
+                        return temp + 'GB';
+                    }
+                }
+            }
         },
         methods: {
             changeDoneTodo() {
@@ -169,7 +192,7 @@
                         idx = index
                     }
                 })
-                this.files.splice(idx, 1);
+                this.todo.files.splice(idx, 1);
                 this.$store.commit("updateTodo", this.todo)
             },
             showFileDialog() {
@@ -178,18 +201,17 @@
                 // 主进程返回的消息selectedItem的回调函数为getPath
                 window.ipcRender.on('selectedItem', this.addFile);
             },
-            addFile(e, path) {
-                console.log(path);
+            addFile(e, fileObj) {
                 let max_id = 0;
                 this.todo.files.forEach(function (file) {
                     if (file.id > max_id) {
                         max_id = file.id
                     }
-                })
+                });
                 this.todo.files.push({
                     id: max_id + 1,
-                    content: path
-                })
+                    content: fileObj
+                });
                 this.$store.commit("updateTodo", this.todo)
             },
             changeColpase() {
@@ -378,10 +400,34 @@
 
             .add-file {
                 .file-lists {
+                    padding: 0 5px;
                     .file {
-                        img {
+                        display: flex;
+                        flex-direction: row;
+                        justify-items: center;
+                        align-items: center;
+                        img:first-child {
                             width: 20px;
                             height: 20px;
+                        }
+
+                        img:last-child {
+                            width: 12px;
+                            height: 12px;
+                        }
+
+                        .file-center {
+                            flex-grow: 1;
+                            display: flex;
+                            flex-direction: column;
+                            justify-items: center;
+
+                            span {
+                                flex-grow: 1;
+                                vertical-align: middle;
+                                text-align: left;
+                                margin-left: 12px;
+                            }
                         }
                     }
                 }
