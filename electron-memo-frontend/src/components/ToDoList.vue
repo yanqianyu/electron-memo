@@ -43,11 +43,15 @@ export default {
       this.showTodoDetail = false;
     })
   },
+  computed: {
+    todos: function () {
+      return this.$store.getters.todosFilteredByLists
+    }
+  },
   data: function () {
     return {
       title: this.$store.getters.titleByList,
       listType: this.$route.params.listname,
-      todos: this.$store.getters.todosFilteredByLists,
       showTodoDetail: false, // 显示某个todo的详情， 点击非todo部分改为false
       curTodo: null // 当前点击的todo
     }
