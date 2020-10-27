@@ -60,7 +60,8 @@ export const store = new Vuex.Store({
         updateTodo(state, todo) {
             // 更新todo的信息
             const index = state.todos.findIndex(item => item.id === todo.id);
-            state.todos.splice(index, 1, todo);
+            state.todos.splice(index, 1);
+            state.todos.push(todo)
         },
         deleteTodo(state, id) {
             // 删除todo

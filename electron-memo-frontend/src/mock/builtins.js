@@ -28,7 +28,7 @@ let builtins = [
 
 let todos = [
     {
-        id: 0,
+        id: 1,
         title: "test todo 1",
         isDone: false,
         isImportant: false,
@@ -44,8 +44,24 @@ let todos = [
         notes: null
     },
     {
-        id: 0,
-        title: "test todo 1",
+        id: 2,
+        title: "test todo 2",
+        isDone: false,
+        isImportant: false,
+        checklists: ["myday"],
+        steps: [],
+        times: {
+            reminder: '',
+            ddl: '',
+            repeat: ''
+        },
+        files: [],
+        createTime: '',
+        notes: null
+    },
+    {
+        id: 3,
+        title: "test todo 3",
         isDone: false,
         isImportant: false,
         checklists: [2],
@@ -60,8 +76,8 @@ let todos = [
         notes: null
     },
     {
-        id: 0,
-        title: "test todo 1",
+        id: 4,
+        title: "test todo 4",
         isDone: false,
         isImportant: false,
         checklists: [3],

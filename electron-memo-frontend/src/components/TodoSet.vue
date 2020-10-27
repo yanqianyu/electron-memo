@@ -196,12 +196,15 @@
                 this.$store.commit("updateTodo", this.todo)
             },
             showFileDialog() {
+                // 移除之前的事件监听
+                window.ipcRender.removeAllListeners('selectedItem');
                 // 打开文件对话框
                 window.ipcRender.send('open-directory-dialog', 'openFile');
                 // 主进程返回的消息selectedItem的回调函数为getPath
                 window.ipcRender.on('selectedItem', this.addFile);
             },
             addFile(e, fileObj) {
+                console.log('add file')
                 let max_id = 0;
                 this.todo.files.forEach(function (file) {
                     if (file.id > max_id) {
@@ -231,7 +234,10 @@
                 this.$store.commit("updateTodo", this.todo);
             },
             deleteTodo() {
-                // show alert
+                // todo: show alert
+                // 删除后自动显示下一个
+                // 没有下一个则收回set部分
+                this.$store.commit('deleteTodo', this.todo.id);
             }
         }
     }

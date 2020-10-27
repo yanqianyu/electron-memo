@@ -67,22 +67,17 @@ function createWindow() {
       // 如果有选中的文件
       if (res.filePaths && res.filePaths[0]) {
         let filepath = res.filePaths[0];
-        // getFileIcon: 读取文件的关联图标
-        app.getFileIcon(filepath, {size: 'small'})
-            .then(icon => {
-              let imgData = icon.toDataURL();
-              let fileObj = {
-                iconimg: imgData,
-                filesize: fs.statSync(filepath).size,
-                filename: path.basename(filepath),
-                data: fs.readFileSync(filepath)
-              };
-              // 发送选择的文件流给子进程
-              event.sender.send('selectedItem', fileObj)
-            })
-            .catch(err => {
-              console.log(err)
-            });
+        app.getFileIcon(filepath, {size: 'small'}).then(data => {
+          let icon = data.toDataURL();
+          let fileObj = {
+            iconimg: icon,
+            filesize: fs.statSync(filepath).size,
+            filename: path.basename(filepath),
+            data: fs.readFileSync(filepath)
+          };
+          // 发送选择的文件流给子进程
+          event.sender.send('selectedItem', fileObj)
+        });
       }
     })
   });

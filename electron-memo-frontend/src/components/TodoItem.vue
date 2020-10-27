@@ -14,12 +14,12 @@
                 <div class="todo-steps">
                     <span>{{stepsProps}}</span>
                 </div>
-                <div class="todo-date">
+                <div class="todo-date" v-if="haveDDL">
                     <img src="../assets/icons/calender.svg">
                     <span v-if="outOfTime">{{todo.ddl}}</span>
                     <span v-else>{{todo.ddl}}</span>
                 </div>
-                <div class="todo-file">
+                <div class="todo-file" v-if="haveFiles">
                     <img src="../assets/icons/file.svg">
                     <span>文件已附加</span>
                 </div>
@@ -59,10 +59,16 @@
                 }, 0);
                 return count + "/" + this.todo.steps.length;
             },
+            haveDDL: function() {
+                return this.todo.ddl && this.todo.ddl != "";
+            },
             outOfTime: function () {
                 let date = new Date();
                 // true -> out of time
                 return this.todo.ddl < date;
+            },
+            haveFiles: function () {
+                return this.todo.files && this.todo.files.length > 0;
             }
         },
         methods: {

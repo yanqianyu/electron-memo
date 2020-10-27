@@ -30,14 +30,14 @@ import TodoSet from "@/components/TodoSet";
 export default {
   name: "ToDoList",
   components: {TodoSet, TodoItem, TodoAdd},
-  mounted() {
+  beforeCreate() {
     // 获取路由中携带的参数 是url的最后一部分
     this.listType = this.$route.params.listname;
     // 更改store中存储的currentList
     this.$store.commit("updateListFilter", this.listType);
     // 在store中查找对应的title
-    this.title = this.$store.getters.titleByList;
-    this.todos = this.$store.getters.todosFilteredByLists;
+  },
+  mounted() {
     // 给body增加点击事件
     document.addEventListener('click', () => {
       this.showTodoDetail = false;
@@ -45,9 +45,9 @@ export default {
   },
   data: function () {
     return {
-      title: "",
-      listType: "",
-      todos: [],
+      title: this.$store.getters.titleByList,
+      listType: this.$route.params.listname,
+      todos: this.$store.getters.todosFilteredByLists,
       showTodoDetail: false, // 显示某个todo的详情， 点击非todo部分改为false
       curTodo: null // 当前点击的todo
     }
@@ -58,7 +58,7 @@ export default {
     },
     changeCurTodo(todo) {
       // 改变当前显示的todo set部分的信息
-      this.curTodo = todo
+      this.curTodo = todo;
       this.showTodoDetail = true;
     }
   }
