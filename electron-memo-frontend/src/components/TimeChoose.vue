@@ -36,43 +36,52 @@
         },
         created() {
             if(this.type === 'reminder') {
-                this.selectRes = "提醒我"
+                this.selectRes = "提醒我";
                 this.timeItem.push({
                     id: 1,
                     first: "今天晚些时候",
-                    second: this.todayLater
-                })
+                    second: this.todayLater,
+                    // 获取当天23点的时间戳
+                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 23 * 60 * 60 * 1000)
+                });
 
                 this.timeItem.push({
                     id: 2,
                     first: "明天",
-                    second: this.tomorrow
-                })
+                    second: this.tomorrow,
+                    // 第二天9点的时间戳
+                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + (24 + 9) * 60 * 60 * 1000)
+                });
 
                 this.timeItem.push({
                     id: 3,
                     first: "下周",
-                    second: this.nextWeek
+                    second: this.nextWeek,
+                    // 下周的周X的9点时间戳
+                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + (7 * 24 + 9) * 60 * 60 * 1000)
                 })
             }
             else if (this.type === 'ddl') {
-                this.selectRes = "添加截止日期"
+                this.selectRes = "添加截止日期";
                 this.timeItem.push({
                     id: 1,
                     first: "今天",
-                    second: this.todayLater
-                })
+                    second: this.todayLater,
+                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 24 * 60 * 60 * 1000)
+                });
 
                 this.timeItem.push({
                     id: 2,
                     first: "明天",
-                    second: this.tomorrow
+                    second: this.tomorrow,
+                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 2 * 24 * 60 * 60 * 1000)
                 })
 
                 this.timeItem.push({
                     id: 3,
                     first: "下周",
-                    second: this.nextWeek
+                    second: this.nextWeek,
+                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 8 * 24 * 60 * 60 * 1000)
                 })
             }
             else if (this.type === "repeat") {
@@ -80,21 +89,21 @@
                 this.timeItem.push({
                     id: 1,
                     first: "每天",
-                })
+                });
 
                 this.timeItem.push({
                     id: 2,
                     first: "每周",
-                })
+                });
 
                 this.timeItem.push({
                     id: 3,
                     first: "工作日",
-                })
+                });
                 this.timeItem.push({
                     id: 4,
                     first: "每月",
-                })
+                });
 
                 this.timeItem.push({
                     id: 5,
@@ -142,12 +151,8 @@
                 // todo: 计算显示的结果
                 this.selectRes = item.first;
                 this.isShowSelect = false;
-
-                // todo: finalTime
-
-                // todo 将item转为date格式
                 // 向上抛出
-                this.$emit('saveTimeChoose','', this.type);
+                this.$emit('saveTimeChoose',item.time, this.type);
             },
             showDatePicker() {
                 this.isShowSelect = false;
