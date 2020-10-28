@@ -3,7 +3,12 @@
         <div class="time-choose" v-on:click.stop="arrowDown">
             <div class="select-title">
                 <slot></slot>
-                <span>{{selectRes}}</span>
+                <span v-if="!hasSelected">{{slogan}}</span>
+                <div class="select-res" v-if="hasSelected">
+                    <span>{{selectedTime}}</span>
+                    <span>{{selectedDate}}</span>
+                </div>
+                <img src="../assets/icons/cross.svg" v-if="hasSelected" @click.stop="deleteTimeChoose">
             </div>
             <div class="select-list" v-show="isShowSelect">
                 <div class="select-item" v-for="item in timeItem" v-bind:key="item.id" @click.stop="select(item)">
@@ -36,7 +41,7 @@ export default {
 	},
 	created() {
 		if(this.type === "reminder") {
-			this.selectRes = "提醒我";
+			this.slogan = "提醒我";
 			this.timeItem.push({
 				id: 1,
 				first: "今天晚些时候",
@@ -62,7 +67,7 @@ export default {
 			});
 		}
 		else if (this.type === "ddl") {
-			this.selectRes = "添加截止日期";
+			this.slogan = "添加截止日期";
 			this.timeItem.push({
 				id: 1,
 				first: "今天",
@@ -85,7 +90,7 @@ export default {
 			});
 		}
 		else if (this.type === "repeat") {
-			this.selectRes = "重复";
+			this.slogan = "重复";
 			this.timeItem.push({
 				id: 1,
 				first: "每天",
@@ -113,7 +118,8 @@ export default {
 	},
 	data: function () {
 		return {
-			selectRes: "提醒我",
+			hasSelected: false,
+			slogan: "提醒我",
 			isShowSelect: false,
 			timeItem: [],
 			isDatePickerShow: false,
@@ -141,6 +147,14 @@ export default {
 		nextWeek: function () {
 			let str = "周" + "日一二三四五六".charAt(new Date().getDay());
 			return this.type === "reminder" ? str + " " + "上午9:00": str;
+		},
+		selectedTime: function () {
+			let time = this.finalTime.getHours().toLocaleString() + ":" + this.finalTime.getMinutes();
+			return time;
+		},
+		selectedDate: function () {
+			let dates = this.finalTime.getFullYear() + " " + (this.finalTime.getMonth().valueOf() + 1).toLocaleString() + " "+ this.finalTime.getDate();
+			return dates;
 		}
 	},
 	methods: {
@@ -148,11 +162,11 @@ export default {
 			this.isShowSelect = !this.isShowSelect;
 		},
 		select(item) {
-			// todo: 计算显示的结果
-			this.selectRes = item.first;
+			this.hasSelected = true;
 			this.isShowSelect = false;
+			this.finalTime = item.time;
 			// 向上抛出
-			this.$emit("saveTimeChoose",item.time, this.type);
+			this.$emit("saveTimeChoose", item.time, this.type);
 		},
 		showDatePicker() {
 			this.isShowSelect = false;
@@ -162,10 +176,12 @@ export default {
 			this.isDatePickerShow = false;
 		},
 		deleteTimeChoose() {
+			this.hasSelected = false;
 			// 向上抛出
 			this.$emit("deleteTimeChoose", this.type);
 		},
 		saveTimeChoose(date) {
+			this.finalTime = date;
 			// 向上抛出
 			this.$emit("saveTimeChoose", date, this.type);
 		}
@@ -184,7 +200,7 @@ export default {
             justify-items: center;
             padding: 0 5px;
 
-            img {
+            img:first-child {
                 order: -1;
                 width: 20px;
                 height: 20px;
@@ -196,6 +212,15 @@ export default {
                 vertical-align: middle;
                 text-align: left;
                 margin-left: 12px;
+            }
+            .select-res {
+                display: flex;
+                flex-direction: column;
+            }
+            img:last-child {
+                width: 20px;
+                height: 20px;
+                vertical-align: middle;
             }
         }
         .select-list {

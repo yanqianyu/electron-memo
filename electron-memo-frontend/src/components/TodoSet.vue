@@ -228,8 +228,6 @@ export default {
 			this.$store.commit("updateTodo", this.todo);
 		},
 		saveTimeChoose(date, type) {
-			console.log("date = " + date);
-			console.log("type = " + type);
 			this.todo.times[type] = date;
 			this.$store.commit("updateTodo", this.todo);
 		},

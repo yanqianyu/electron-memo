@@ -11,7 +11,7 @@
                 <div class="todo-in-list">
                     {{todo.customlist}}
                 </div>
-                <div class="todo-steps">
+                <div class="todo-steps" v-if="todo.steps.length > 0">
                     <span>{{stepsProps}}</span>
                 </div>
                 <div class="todo-date" v-if="haveDDL">
@@ -23,7 +23,7 @@
                     <img src="../assets/icons/file.svg">
                     <span>文件已附加</span>
                 </div>
-                <div class="todo-note" v-if="todo.note">
+                <div class="todo-note" v-if="todo.notes">
                     <img src="../assets/icons/note.svg">
                     <span>备注</span>
                 </div>
