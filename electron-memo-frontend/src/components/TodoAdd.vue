@@ -1,55 +1,58 @@
 <template>
-  <div class="todo-add">
-    <img src="../assets/icons/add.svg">
-    <input type="text" placeholder="add you task" v-model="todo" v-on:keyup.enter="addTodo">
-  </div>
+    <div class="todo-add">
+        <img src="../assets/icons/add.svg">
+        <input type="text" placeholder="add you task" v-model="todo" v-on:keyup.enter="addTodo">
+    </div>
 </template>
 
 <script>
 export default {
-  name: "TodoAdd",
-  props: ['listType'],
-  data: function () {
-    return {
-      todo: ""
-    }
-  },
-  methods: {
-    addTodo() {
-      // 向对应的列表增加item
-      // todo: commit -> vuex
-      this.todo.createTime = new Date();
-      this.todo = ""
-    }
-  }
-}
+	name: "TodoAdd",
+	props: ["listType"],
+	data: function () {
+		return {
+			todo: ""
+		};
+	},
+	methods: {
+		addTodo() {
+			// 向对应的列表增加item
+			// todo: commit -> vuex
+			this.todo.createTime = new Date();
+			this.todo = "";
+		}
+	}
+};
 </script>
 
 <style lang="scss" scoped>
-.todo-add {
-  display: flex;
-  flex-direction: row;
-  padding: 5px;
-  margin: 15px;
-  border: 1px solid palegreen;
-  border-radius: 10px;
-  img {
-    margin: 5px;
-    order: -1;
-    vertical-align: middle;
-    width: 25px;
-    size: 25px;
-  }
-  input {
-    flex-grow: 1;
-    vertical-align: middle;
-    border: 0;
-    border-radius: 10px;
-    outline: none;
-    padding-left: 5px;
-  }
-  input::placeholder {
-    font-size: 18px;
-  }
-}
+    .todo-add {
+        display: flex;
+        flex-direction: row;
+        padding: 5px;
+        margin: 15px;
+        border: 1px solid palegreen;
+        border-radius: 10px;
+
+        img {
+            margin: 5px;
+            order: -1;
+            vertical-align: middle;
+            width: 25px;
+            size: 25px;
+        }
+
+        input {
+            flex-grow: 1;
+            vertical-align: middle;
+            border: 0;
+            border-radius: 10px;
+            outline: none;
+            padding-left: 5px;
+        }
+
+        input::placeholder {
+            font-size: 18px;
+        }
+    }
 </style>

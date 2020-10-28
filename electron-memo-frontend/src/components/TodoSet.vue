@@ -78,169 +78,169 @@
 </template>
 
 <script>
-    import TimeChoose from "./TimeChoose";
+import TimeChoose from "./TimeChoose";
 
-    export default {
-        name: "TodoSet",
-        components: {TimeChoose},
-        props: {
-            initTodo: Object
-        },
-        data: function () {
-            return {
-                todo: this.initTodo,
-                newStep: "",
-                isOnMyDay: false,
-                reminderShow: false,
-                ddlShow: false,
-                repeatShow: false
-            }
-        },
-        created() {
+export default {
+	name: "TodoSet",
+	components: {TimeChoose},
+	props: {
+		initTodo: Object
+	},
+	data: function () {
+		return {
+			todo: this.initTodo,
+			newStep: "",
+			isOnMyDay: false,
+			reminderShow: false,
+			ddlShow: false,
+			repeatShow: false
+		};
+	},
+	created() {
 
-        },
-        mounted() {
-            // 通过target事件 判定 只要点击的不是包裹住按钮和内容区域的Div就让v-show为false
-        },
-        computed: {
-            formatFileSize() {
-                return function (fileSize) {
-                    if (fileSize < 1024) {
-                        return fileSize + 'B';
-                    } else if (fileSize < (1024*1024)) {
-                        let temp = fileSize / 1024;
-                        temp = temp.toFixed(2);
-                        return temp + 'KB';
-                    } else if (fileSize < (1024*1024*1024)) {
-                        let temp = fileSize / (1024*1024);
-                        temp = temp.toFixed(2);
-                        return temp + 'MB';
-                    } else {
-                        let temp = fileSize / (1024*1024*1024);
-                        temp = temp.toFixed(2);
-                        return temp + 'GB';
-                    }
-                }
-            }
-        },
-        methods: {
-            changeDoneTodo() {
-                this.todo.isDone = !this.todo.isDone;
-                this.$store.commit("updateTodo", this.todo)
-            },
-            changeImportant() {
-                this.todo.isImportant = !this.todo.isImportant;
-                this.$store.commit("updateTodo", this.todo)
-            },
-            changeDoneStep(step_id) {
-                this.todo.steps.forEach(function (step) {
-                    if (step.id === step_id) {
-                        step.isDone = !step.isDone
-                    }
-                })
-                this.$store.commit("updateTodo", this.todo)
-            },
-            deleteStep(step_id) {
-                let idx = 0;
-                this.todo.steps.forEach(function (step, index) {
-                    if (step.id === step_id) {
-                        idx = index
-                    }
-                })
-                this.todo.steps.splice(idx, 1)
-                this.$store.commit("updateTodo", this.todo)
-            },
-            addStep() {
-                if (this.newStep.length > 0) {
-                    // todo: id改为hash计算
-                    let max_id = 0;
-                    this.todo.steps.forEach(function (step) {
-                        if (step.id > max_id) {
-                            max_id = step.id;
-                        }
-                    })
-                    this.todo.steps.push({
-                        id: max_id + 1,
-                        content: this.newStep,
-                        isDone: false
-                    })
-                    this.$store.commit("updateTodo", this.todo)
-                    this.newStep = ""
-                }
-            },
-            changeAddMyDay() {
-                this.isOnMyDay = !this.isOnMyDay
-                if (this.isOnMyDay === true) {
-                    this.todo.checklists.push("Myday")
-                } else {
-                    // todo
-                    this.todo.checklists.forEach(function (list_name, index) {
-                        if (list_name === "MyDay") {
-                            this.todo.checklists.splice(index)
-                        }
-                    })
-                }
-                this.$store.commit("updateTodo", this.todo)
-            },
-            removeFromMyDay() {
-                // 从我的一天中删除
-            },
-            deleteFile(file_id) {
-                let idx = 0;
-                this.todo.files.forEach(function (file, index) {
-                    if (file.id === file_id) {
-                        idx = index
-                    }
-                })
-                this.todo.files.splice(idx, 1);
-                this.$store.commit("updateTodo", this.todo)
-            },
-            showFileDialog() {
-                // 移除之前的事件监听
-                window.ipcRender.removeAllListeners('selectedItem');
-                // 打开文件对话框
-                window.ipcRender.send('open-directory-dialog', 'openFile');
-                // 主进程返回的消息selectedItem的回调函数为getPath
-                window.ipcRender.on('selectedItem', this.addFile);
-            },
-            addFile(e, fileObj) {
-                console.log('add file')
-                let max_id = 0;
-                this.todo.files.forEach(function (file) {
-                    if (file.id > max_id) {
-                        max_id = file.id
-                    }
-                });
-                this.todo.files.push({
-                    id: max_id + 1,
-                    content: fileObj
-                });
-                this.$store.commit("updateTodo", this.todo)
-            },
-            changeColpase() {
-                // 修改父组件中的showTodoDetail
-                this.$emit("no-show-todo-detail")
-            },
-            deleteTimeChoose(type) {
-                console.log("type = " + type);
-                // 对应的事件置为undefined
-                this.todo.times[type] = undefined;
-                this.$store.commit("updateTodo", this.todo);
-            },
-            saveTimeChoose(date, type) {
-                console.log("date = " + date);
-                console.log("type = " + type);
-                this.todo.times[type] = date;
-                this.$store.commit("updateTodo", this.todo);
-            },
-            deleteTodo() {
-                // todo: show alert
-                // 删除后自动显示下一个
-                // 没有下一个则收回set部分
-                this.$store.commit('deleteTodo', this.todo.id);
-            }
-        }
-    }
+	},
+	mounted() {
+		// 通过target事件 判定 只要点击的不是包裹住按钮和内容区域的Div就让v-show为false
+	},
+	computed: {
+		formatFileSize() {
+			return function (fileSize) {
+				if (fileSize < 1024) {
+					return fileSize + "B";
+				} else if (fileSize < (1024*1024)) {
+					let temp = fileSize / 1024;
+					temp = temp.toFixed(2);
+					return temp + "KB";
+				} else if (fileSize < (1024*1024*1024)) {
+					let temp = fileSize / (1024*1024);
+					temp = temp.toFixed(2);
+					return temp + "MB";
+				} else {
+					let temp = fileSize / (1024*1024*1024);
+					temp = temp.toFixed(2);
+					return temp + "GB";
+				}
+			};
+		}
+	},
+	methods: {
+		changeDoneTodo() {
+			this.todo.isDone = !this.todo.isDone;
+			this.$store.commit("updateTodo", this.todo);
+		},
+		changeImportant() {
+			this.todo.isImportant = !this.todo.isImportant;
+			this.$store.commit("updateTodo", this.todo);
+		},
+		changeDoneStep(step_id) {
+			this.todo.steps.forEach(function (step) {
+				if (step.id === step_id) {
+					step.isDone = !step.isDone;
+				}
+			});
+			this.$store.commit("updateTodo", this.todo);
+		},
+		deleteStep(step_id) {
+			let idx = 0;
+			this.todo.steps.forEach(function (step, index) {
+				if (step.id === step_id) {
+					idx = index;
+				}
+			});
+			this.todo.steps.splice(idx, 1);
+			this.$store.commit("updateTodo", this.todo);
+		},
+		addStep() {
+			if (this.newStep.length > 0) {
+				// todo: id改为hash计算
+				let max_id = 0;
+				this.todo.steps.forEach(function (step) {
+					if (step.id > max_id) {
+						max_id = step.id;
+					}
+				});
+				this.todo.steps.push({
+					id: max_id + 1,
+					content: this.newStep,
+					isDone: false
+				});
+				this.$store.commit("updateTodo", this.todo);
+				this.newStep = "";
+			}
+		},
+		changeAddMyDay() {
+			this.isOnMyDay = !this.isOnMyDay;
+			if (this.isOnMyDay === true) {
+				this.todo.checklists.push("Myday");
+			} else {
+				// todo
+				this.todo.checklists.forEach(function (list_name, index) {
+					if (list_name === "MyDay") {
+						this.todo.checklists.splice(index);
+					}
+				});
+			}
+			this.$store.commit("updateTodo", this.todo);
+		},
+		removeFromMyDay() {
+			// 从我的一天中删除
+		},
+		deleteFile(file_id) {
+			let idx = 0;
+			this.todo.files.forEach(function (file, index) {
+				if (file.id === file_id) {
+					idx = index;
+				}
+			});
+			this.todo.files.splice(idx, 1);
+			this.$store.commit("updateTodo", this.todo);
+		},
+		showFileDialog() {
+			// 移除之前的事件监听
+			window.ipcRender.removeAllListeners("selectedItem");
+			// 打开文件对话框
+			window.ipcRender.send("open-directory-dialog", "openFile");
+			// 主进程返回的消息selectedItem的回调函数为getPath
+			window.ipcRender.on("selectedItem", this.addFile);
+		},
+		addFile(e, fileObj) {
+			console.log("add file");
+			let max_id = 0;
+			this.todo.files.forEach(function (file) {
+				if (file.id > max_id) {
+					max_id = file.id;
+				}
+			});
+			this.todo.files.push({
+				id: max_id + 1,
+				content: fileObj
+			});
+			this.$store.commit("updateTodo", this.todo);
+		},
+		changeColpase() {
+			// 修改父组件中的showTodoDetail
+			this.$emit("no-show-todo-detail");
+		},
+		deleteTimeChoose(type) {
+			console.log("type = " + type);
+			// 对应的事件置为undefined
+			this.todo.times[type] = undefined;
+			this.$store.commit("updateTodo", this.todo);
+		},
+		saveTimeChoose(date, type) {
+			console.log("date = " + date);
+			console.log("type = " + type);
+			this.todo.times[type] = date;
+			this.$store.commit("updateTodo", this.todo);
+		},
+		deleteTodo() {
+			// todo: show alert
+			// 删除后自动显示下一个
+			// 没有下一个则收回set部分
+			this.$store.commit("deleteTodo", this.todo.id);
+		}
+	}
+};
 </script>
 
 <style lang="scss" scoped>

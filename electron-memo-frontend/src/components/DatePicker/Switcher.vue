@@ -9,27 +9,27 @@
 </template>
 
 <script>
-    export default {
-        name: "Switcher",
-        props: {
-            year: {
-                type: Number,
-                required: true
-            },
-            month: {
-                type: Number,
-                required: true
-            }
-        },
-        methods: {
-            goBack() {
-                this.$emit('back');
-            },
-            goForward() {
-                this.$emit('forward');
-            }
-        }
-    }
+export default {
+	name: "Switcher",
+	props: {
+		year: {
+			type: Number,
+			required: true
+		},
+		month: {
+			type: Number,
+			required: true
+		}
+	},
+	methods: {
+		goBack() {
+			this.$emit("back");
+		},
+		goForward() {
+			this.$emit("forward");
+		}
+	}
+};
 </script>
 
 <style lang="scss" scoped>

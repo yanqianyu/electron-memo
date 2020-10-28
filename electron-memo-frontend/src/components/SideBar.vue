@@ -37,64 +37,64 @@
 </template>
 
 <script>
-    import {debounce} from "../utils";
+import {debounce} from "../utils";
 
-    export default {
-        name: "SideBar",
-        data: function () {
-            return {
-                searchEntry: "", // 搜索词条
-                isSearchActive: false,  // 是否处于search状态
-                builtins: this.$store.state.builtinLists,
-                customizes: this.$store.state.customLists
-            }
-        },
-        mounted() {
-            window.ipcRender.send('todo-window')
-        },
-        computed: {
-            // 路由跳转不更新问题https://blog.csdn.net/w390058785/article/details/82813032
-            key() {
-                return this.$route.path + Math.random();
-            }
-        },
-        created() {
-            // this.customLists = this.$store.state.customLists;
-        },
-        methods: {
-            toSearch() {
-                // 绑定在了input的change事件上
-                debounce(this.search);
-                this.$router.push({name: 'searchList', params: {entry: this.searchEntry}});
-            },
-            search() {
-                // 搜索逻辑
-                // 向后端发送词条，获得todo列表 渲染在页面上
-            },
-            toFocus(input) {
-                if (input === 'search') {
-                    this.isSearchActive = true;
-                }
-            },
-            toBlur(input) {
-                if (input === 'search') {
-                    this.isSearchActive = false;
-                }
-            },
-            addCustomizeList() {
-                // 不重名
-                // https://stackoverflow.com/questions/32649704/how-to-generate-hash-from-timestamp
-                let id = escape(Number(new Date).toString(36));
-                let newList = {
-                    id: id,
-                    name: '无标题清单' + this.$store.getters.noNameCustomListsSuffix,
-                    icon: require('../assets/icons/folders.svg'),
-                    url: '/customizeList/'.concat(id)
-                };
-                this.$store.commit('addCusList', newList);
-            }
-        }
-    }
+export default {
+	name: "SideBar",
+	data: function () {
+		return {
+			searchEntry: "", // 搜索词条
+			isSearchActive: false,  // 是否处于search状态
+			builtins: this.$store.state.builtinLists,
+			customizes: this.$store.state.customLists
+		};
+	},
+	mounted() {
+		window.ipcRender.send("todo-window");
+	},
+	computed: {
+		// 路由跳转不更新问题https://blog.csdn.net/w390058785/article/details/82813032
+		key() {
+			return this.$route.path + Math.random();
+		}
+	},
+	created() {
+		// this.customLists = this.$store.state.customLists;
+	},
+	methods: {
+		toSearch() {
+			// 绑定在了input的change事件上
+			debounce(this.search);
+			this.$router.push({name: "searchList", params: {entry: this.searchEntry}});
+		},
+		search() {
+			// 搜索逻辑
+			// 向后端发送词条，获得todo列表 渲染在页面上
+		},
+		toFocus(input) {
+			if (input === "search") {
+				this.isSearchActive = true;
+			}
+		},
+		toBlur(input) {
+			if (input === "search") {
+				this.isSearchActive = false;
+			}
+		},
+		addCustomizeList() {
+			// 不重名
+			// https://stackoverflow.com/questions/32649704/how-to-generate-hash-from-timestamp
+			let id = escape(Number(new Date).toString(36));
+			let newList = {
+				id: id,
+				name: "无标题清单" + this.$store.getters.noNameCustomListsSuffix,
+				icon: require("../assets/icons/folders.svg"),
+				url: "/customizeList/".concat(id)
+			};
+			this.$store.commit("addCusList", newList);
+		}
+	}
+};
 </script>
 
 <style lang="scss" scoped>

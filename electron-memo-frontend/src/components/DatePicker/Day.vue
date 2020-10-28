@@ -25,59 +25,59 @@
 </template>
 
 <script>
-    import {WEEK_SET} from "./constants";
+import {WEEK_SET} from "./constants";
 
-    export default {
-        name: "Day",
-        props: {
-            year: {
-                type: Number,
-                required: true
-            },
-            month: {
-                type: Number,
-                required: true
-            },
-            selectedDay: {
-                type: Number,
-                required: true
-            }
-        },
-        data: function () {
-            return {
-                name: WEEK_SET
-            }
-        },
-        methods: {
-            handleClick(day) {
-                this.$emit('update:selected-day', day)
-            }
-        },
-        computed: {
-            days() {
-                // new Date中date设为0是返回上个月最后一天，然后getDate就能获得天数
-                let totalDay = new Date(this.year, this.month, 0).getDate();
-                let firstDay = new Date(this.year, this.month - 1, 1).getDay();
-                let days = [];
+export default {
+	name: "Day",
+	props: {
+		year: {
+			type: Number,
+			required: true
+		},
+		month: {
+			type: Number,
+			required: true
+		},
+		selectedDay: {
+			type: Number,
+			required: true
+		}
+	},
+	data: function () {
+		return {
+			name: WEEK_SET
+		};
+	},
+	methods: {
+		handleClick(day) {
+			this.$emit("update:selected-day", day);
+		}
+	},
+	computed: {
+		days() {
+			// new Date中date设为0是返回上个月最后一天，然后getDate就能获得天数
+			let totalDay = new Date(this.year, this.month, 0).getDate();
+			let firstDay = new Date(this.year, this.month - 1, 1).getDay();
+			let days = [];
 
-                for (let i = 0; i < firstDay; i++) {
-                    days.push({
-                        content: '',
-                        disabled: true // 禁用点击事件
-                    })
-                }
+			for (let i = 0; i < firstDay; i++) {
+				days.push({
+					content: "",
+					disabled: true // 禁用点击事件
+				});
+			}
 
-                for (let i = 1; i <= totalDay; i++) {
-                    days.push({
-                        content: i,
-                        disabled: false
-                    })
-                }
+			for (let i = 1; i <= totalDay; i++) {
+				days.push({
+					content: i,
+					disabled: false
+				});
+			}
 
-                return days
-            }
-        }
-    }
+			return days;
+		}
+	}
+};
 </script>
 
 <style lang="scss" scoped>

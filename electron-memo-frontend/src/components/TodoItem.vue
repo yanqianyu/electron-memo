@@ -39,52 +39,52 @@
 </template>
 
 <script>
-    export default {
-        name: "TodoItem",
-        props: {
-            initTodo: Object
-        },
-        data: function () {
-            return {
-                todo: this.initTodo // 在子组件中修改值会commit到vuex中？
-            }
-        },
-        computed: {
-            stepsProps: function () {
-                let count = this.todo.steps.reduce(function (prev, cur) {
-                    if (cur.isDone === true) {
-                        prev += 1;
-                    }
-                    return prev;
-                }, 0);
-                return count + "/" + this.todo.steps.length;
-            },
-            haveDDL: function() {
-                return this.todo.ddl && this.todo.ddl != "";
-            },
-            outOfTime: function () {
-                let date = new Date();
-                // true -> out of time
-                return this.todo.ddl < date;
-            },
-            haveFiles: function () {
-                return this.todo.files && this.todo.files.length > 0;
-            }
-        },
-        methods: {
-            changeDoneState() {
-                // 点击图片时禁用setting部分显示的事件
-                this.todo.isDone = !this.todo.isDone;
-                // todo: commit to vuex
-                this.$store.commit("updateTodo", this.todo);
-            },
-            changeImportantState() {
-                this.todo.isImportant = !this.todo.isImportant;
-                // todo: commit to vuex
-                this.$store.commit("updateTodo", this.todo);
-            }
-        }
-    }
+export default {
+	name: "TodoItem",
+	props: {
+		initTodo: Object
+	},
+	data: function () {
+		return {
+			todo: this.initTodo // 在子组件中修改值会commit到vuex中？
+		};
+	},
+	computed: {
+		stepsProps: function () {
+			let count = this.todo.steps.reduce(function (prev, cur) {
+				if (cur.isDone === true) {
+					prev += 1;
+				}
+				return prev;
+			}, 0);
+			return count + "/" + this.todo.steps.length;
+		},
+		haveDDL: function() {
+			return this.todo.ddl && this.todo.ddl != "";
+		},
+		outOfTime: function () {
+			let date = new Date();
+			// true -> out of time
+			return this.todo.ddl < date;
+		},
+		haveFiles: function () {
+			return this.todo.files && this.todo.files.length > 0;
+		}
+	},
+	methods: {
+		changeDoneState() {
+			// 点击图片时禁用setting部分显示的事件
+			this.todo.isDone = !this.todo.isDone;
+			// todo: commit to vuex
+			this.$store.commit("updateTodo", this.todo);
+		},
+		changeImportantState() {
+			this.todo.isImportant = !this.todo.isImportant;
+			// todo: commit to vuex
+			this.$store.commit("updateTodo", this.todo);
+		}
+	}
+};
 </script>
 
 <style lang="scss" scoped>

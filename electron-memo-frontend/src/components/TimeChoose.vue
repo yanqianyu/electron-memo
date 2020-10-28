@@ -27,150 +27,150 @@
 </template>
 
 <script>
-    import Picker from "./DatePicker/Picker";
-    export default {
-        name: "TimeChoose",
-        components: {Picker},
-        props: {
-            type: String
-        },
-        created() {
-            if(this.type === 'reminder') {
-                this.selectRes = "提醒我";
-                this.timeItem.push({
-                    id: 1,
-                    first: "今天晚些时候",
-                    second: this.todayLater,
-                    // 获取当天23点的时间戳
-                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 23 * 60 * 60 * 1000)
-                });
+import Picker from "./DatePicker/Picker";
+export default {
+	name: "TimeChoose",
+	components: {Picker},
+	props: {
+		type: String
+	},
+	created() {
+		if(this.type === "reminder") {
+			this.selectRes = "提醒我";
+			this.timeItem.push({
+				id: 1,
+				first: "今天晚些时候",
+				second: this.todayLater,
+				// 获取当天23点的时间戳
+				time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 23 * 60 * 60 * 1000)
+			});
 
-                this.timeItem.push({
-                    id: 2,
-                    first: "明天",
-                    second: this.tomorrow,
-                    // 第二天9点的时间戳
-                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + (24 + 9) * 60 * 60 * 1000)
-                });
+			this.timeItem.push({
+				id: 2,
+				first: "明天",
+				second: this.tomorrow,
+				// 第二天9点的时间戳
+				time: new Date(new Date(new Date().toLocaleDateString()).getTime() + (24 + 9) * 60 * 60 * 1000)
+			});
 
-                this.timeItem.push({
-                    id: 3,
-                    first: "下周",
-                    second: this.nextWeek,
-                    // 下周的周X的9点时间戳
-                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + (7 * 24 + 9) * 60 * 60 * 1000)
-                })
-            }
-            else if (this.type === 'ddl') {
-                this.selectRes = "添加截止日期";
-                this.timeItem.push({
-                    id: 1,
-                    first: "今天",
-                    second: this.todayLater,
-                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 24 * 60 * 60 * 1000)
-                });
+			this.timeItem.push({
+				id: 3,
+				first: "下周",
+				second: this.nextWeek,
+				// 下周的周X的9点时间戳
+				time: new Date(new Date(new Date().toLocaleDateString()).getTime() + (7 * 24 + 9) * 60 * 60 * 1000)
+			});
+		}
+		else if (this.type === "ddl") {
+			this.selectRes = "添加截止日期";
+			this.timeItem.push({
+				id: 1,
+				first: "今天",
+				second: this.todayLater,
+				time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 24 * 60 * 60 * 1000)
+			});
 
-                this.timeItem.push({
-                    id: 2,
-                    first: "明天",
-                    second: this.tomorrow,
-                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 2 * 24 * 60 * 60 * 1000)
-                })
+			this.timeItem.push({
+				id: 2,
+				first: "明天",
+				second: this.tomorrow,
+				time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 2 * 24 * 60 * 60 * 1000)
+			});
 
-                this.timeItem.push({
-                    id: 3,
-                    first: "下周",
-                    second: this.nextWeek,
-                    time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 8 * 24 * 60 * 60 * 1000)
-                })
-            }
-            else if (this.type === "repeat") {
-                this.selectRes = "重复"
-                this.timeItem.push({
-                    id: 1,
-                    first: "每天",
-                });
+			this.timeItem.push({
+				id: 3,
+				first: "下周",
+				second: this.nextWeek,
+				time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 8 * 24 * 60 * 60 * 1000)
+			});
+		}
+		else if (this.type === "repeat") {
+			this.selectRes = "重复";
+			this.timeItem.push({
+				id: 1,
+				first: "每天",
+			});
 
-                this.timeItem.push({
-                    id: 2,
-                    first: "每周",
-                });
+			this.timeItem.push({
+				id: 2,
+				first: "每周",
+			});
 
-                this.timeItem.push({
-                    id: 3,
-                    first: "工作日",
-                });
-                this.timeItem.push({
-                    id: 4,
-                    first: "每月",
-                });
+			this.timeItem.push({
+				id: 3,
+				first: "工作日",
+			});
+			this.timeItem.push({
+				id: 4,
+				first: "每月",
+			});
 
-                this.timeItem.push({
-                    id: 5,
-                    first: "每年",
-                })
-            }
-        },
-        data: function () {
-            return {
-                selectRes: "提醒我",
-                isShowSelect: false,
-                timeItem: [],
-                isDatePickerShow: false,
-                finalTime: null
-            }
-        },
-        computed: {
-            dateOnly: function () {
-                return this.type !== 'reminder';
-            },
-            todayLater: function () {
-                // 获取当前时间
-                let now = new Date().getHours();
-                if (now > 20) {
-                    return "";
-                }
-                // 获取今天是周几
-                let str = "周" + "日一二三四五六".charAt(new Date().getDay());
-                return this.type === "reminder" ? str + " " + "下午11:00": str;
-            },
-            tomorrow: function () {
-                let str = "周" + "日一二三四五六".charAt((new Date().getDay() + 1) % 7);
-                return this.type === "reminder" ? str + " " + "上午9:00": str;
-            },
-            nextWeek: function () {
-                let str = "周" + "日一二三四五六".charAt(new Date().getDay());
-                return this.type === "reminder" ? str + " " + "上午9:00": str;
-            }
-        },
-        methods: {
-            arrowDown() {
-                this.isShowSelect = !this.isShowSelect;
-            },
-            select(item) {
-                // todo: 计算显示的结果
-                this.selectRes = item.first;
-                this.isShowSelect = false;
-                // 向上抛出
-                this.$emit('saveTimeChoose',item.time, this.type);
-            },
-            showDatePicker() {
-                this.isShowSelect = false;
-                this.isDatePickerShow = true;
-            },
-            cancelDatePicker()  {
-                this.isDatePickerShow = false;
-            },
-            deleteTimeChoose() {
-                // 向上抛出
-                this.$emit('deleteTimeChoose', this.type);
-            },
-            saveTimeChoose(date) {
-                // 向上抛出
-                this.$emit('saveTimeChoose', date, this.type);
-            }
-        }
-    }
+			this.timeItem.push({
+				id: 5,
+				first: "每年",
+			});
+		}
+	},
+	data: function () {
+		return {
+			selectRes: "提醒我",
+			isShowSelect: false,
+			timeItem: [],
+			isDatePickerShow: false,
+			finalTime: null
+		};
+	},
+	computed: {
+		dateOnly: function () {
+			return this.type !== "reminder";
+		},
+		todayLater: function () {
+			// 获取当前时间
+			let now = new Date().getHours();
+			if (now > 20) {
+				return "";
+			}
+			// 获取今天是周几
+			let str = "周" + "日一二三四五六".charAt(new Date().getDay());
+			return this.type === "reminder" ? str + " " + "下午11:00": str;
+		},
+		tomorrow: function () {
+			let str = "周" + "日一二三四五六".charAt((new Date().getDay() + 1) % 7);
+			return this.type === "reminder" ? str + " " + "上午9:00": str;
+		},
+		nextWeek: function () {
+			let str = "周" + "日一二三四五六".charAt(new Date().getDay());
+			return this.type === "reminder" ? str + " " + "上午9:00": str;
+		}
+	},
+	methods: {
+		arrowDown() {
+			this.isShowSelect = !this.isShowSelect;
+		},
+		select(item) {
+			// todo: 计算显示的结果
+			this.selectRes = item.first;
+			this.isShowSelect = false;
+			// 向上抛出
+			this.$emit("saveTimeChoose",item.time, this.type);
+		},
+		showDatePicker() {
+			this.isShowSelect = false;
+			this.isDatePickerShow = true;
+		},
+		cancelDatePicker()  {
+			this.isDatePickerShow = false;
+		},
+		deleteTimeChoose() {
+			// 向上抛出
+			this.$emit("deleteTimeChoose", this.type);
+		},
+		saveTimeChoose(date) {
+			// 向上抛出
+			this.$emit("saveTimeChoose", date, this.type);
+		}
+	}
+};
 </script>
 
 <style lang="scss" scoped>

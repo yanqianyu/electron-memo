@@ -7,20 +7,20 @@
 </template>
 
 <script>
-    export default {
-        name: "Buttons",
-        props: {
-            hadInit: {
-                type: Boolean,
-                required: true
-            }
-        },
-        computed: {
-            cancelText () {
-                return this.hadInit? "删除": "取消"
-            }
-        }
-    }
+export default {
+	name: "Buttons",
+	props: {
+		hadInit: {
+			type: Boolean,
+			required: true
+		}
+	},
+	computed: {
+		cancelText () {
+			return this.hadInit? "删除": "取消";
+		}
+	}
+};
 </script>
 
 <style lang="scss" scoped>
