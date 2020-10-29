@@ -37,7 +37,8 @@ export default {
 	name: "TimeChoose",
 	components: {Picker},
 	props: {
-		type: String
+		type: String,
+		initTime: Date
 	},
 	created() {
 		if(this.type === "reminder") {
@@ -118,12 +119,12 @@ export default {
 	},
 	data: function () {
 		return {
-			hasSelected: false,
+			hasSelected: !!this.initTime,
 			slogan: "提醒我",
 			isShowSelect: false,
 			timeItem: [],
 			isDatePickerShow: false,
-			finalTime: null
+			finalTime: this.initTime
 		};
 	},
 	computed: {

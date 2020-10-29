@@ -18,7 +18,24 @@ export default {
 		addTodo() {
 			// 向对应的列表增加item
 			// todo: commit -> vuex
-			this.todo.createTime = new Date();
+			let newTodo = {
+				id: 5,
+				title: this.todo,
+				isDone: false,
+				isImportant: false,
+				checklists: ["myday"],
+				steps: [],
+				times: {
+					reminder: null,
+					ddl: null,
+					repeat: null
+				},
+				files: [],
+				createTime: new Date(),
+				notes: null
+			};
+			this.$store.commit("addTodo", newTodo);
+
 			this.todo = "";
 		}
 	}

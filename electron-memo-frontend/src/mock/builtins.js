@@ -35,9 +35,9 @@ let todos = [
 		checklists: ["myday"],
 		steps: [],
 		times: {
-			reminder: "",
-			ddl: "",
-			repeat: ""
+			reminder: null,
+			ddl: null,
+			repeat: null
 		},
 		files: [],
 		createTime: "",
@@ -51,9 +51,9 @@ let todos = [
 		checklists: ["myday"],
 		steps: [],
 		times: {
-			reminder: "",
-			ddl: "",
-			repeat: ""
+			reminder: null,
+			ddl: null,
+			repeat: null
 		},
 		files: [],
 		createTime: "",
@@ -83,9 +83,9 @@ let todos = [
 		checklists: [3],
 		steps: [],
 		times: {
-			reminder: "",
-			ddl: "",
-			repeat: ""
+			reminder: null,
+			ddl: null,
+			repeat: null
 		},
 		files: [],
 		createTime: "2020-9-21 14:58:43",

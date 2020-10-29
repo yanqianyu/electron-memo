@@ -88,12 +88,10 @@ export default {
 		changeDoneState() {
 			// 点击图片时禁用setting部分显示的事件
 			this.todo.isDone = !this.todo.isDone;
-			// todo: commit to vuex
 			this.$store.commit("updateTodo", this.todo);
 		},
 		changeImportantState() {
 			this.todo.isImportant = !this.todo.isImportant;
-			// todo: commit to vuex
 			this.$store.commit("updateTodo", this.todo);
 		}
 	}

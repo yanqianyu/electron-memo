@@ -37,10 +37,10 @@
             </div>
 
             <div class="time-set">
-                <time-choose type="reminder" @deleteTimeChoose="deleteTimeChoose" @saveTimeChoose="saveTimeChoose">
+                <time-choose type="reminder" :init-time="todo.times.reminder" @deleteTimeChoose="deleteTimeChoose" @saveTimeChoose="saveTimeChoose">
                     <img src="../assets/icons/reminder.svg">
                 </time-choose>
-                <time-choose type="ddl" @deleteTimeChoose="deleteTimeChoose" @saveTimeChoose="saveTimeChoose">
+                <time-choose type="ddl" :init-time="todo.times.ddl" @deleteTimeChoose="deleteTimeChoose" @saveTimeChoose="saveTimeChoose">
                     <img src="../assets/icons/calender.svg">
                 </time-choose>
                 <time-choose type="repeat">
@@ -71,7 +71,7 @@
 
         <div class="buttom-bar">
             <img src="../assets/icons/right.svg" class="claspe-button" v-on:click="changeColpase">
-            <div class="create-time">{{todo.createTime}}</div>
+            <div class="create-time">{{createInfo}}</div>
             <img src="../assets/icons/delete.svg" class="delete-button" v-on:click="deleteTodo">
         </div>
     </div>
@@ -121,6 +121,15 @@ export default {
 					return temp + "GB";
 				}
 			};
+		},
+		createInfo: function () {
+			if(this.todo.createTime) {
+				let date = this.todo.createTime;
+				return "创建于" + date.getFullYear().toString().padStart(4, "0") + "年"
+					+ (date.getMonth() + 1).toString().padStart(2, "0") + "月"
+					+ date.getDate().toString().padStart(2, "0") + "日";
+			}
+			return "";
 		}
 	},
 	methods: {
@@ -236,6 +245,7 @@ export default {
 			// 删除后自动显示下一个
 			// 没有下一个则收回set部分
 			this.$store.commit("deleteTodo", this.todo.id);
+			this.$parent.noShowTodoDetail();
 		}
 	}
 };
