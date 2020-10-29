@@ -5,7 +5,7 @@
                 <slot></slot>
                 <span v-if="!hasSelected">{{slogan}}</span>
                 <div class="select-res" v-if="hasSelected">
-                    <span>{{selectedTime}}</span>
+                    <span v-if="this.type==='reminder'">{{selectedTime}}</span>
                     <span>{{selectedDate}}</span>
                 </div>
                 <img src="../assets/icons/cross.svg" v-if="hasSelected" @click.stop="deleteTimeChoose">
@@ -149,12 +149,14 @@ export default {
 			return this.type === "reminder" ? str + " " + "上午9:00": str;
 		},
 		selectedTime: function () {
-			let time = this.finalTime.getHours().toLocaleString() + ":" + this.finalTime.getMinutes();
-			return time;
+			let time = this.finalTime.getHours().toString().padStart(2, "0") + ":" + this.finalTime.getMinutes().toString().padStart(2, "0");
+			return "在" + time + "时提醒我";
 		},
 		selectedDate: function () {
-			let dates = this.finalTime.getFullYear() + " " + (this.finalTime.getMonth().valueOf() + 1).toLocaleString() + " "+ this.finalTime.getDate();
-			return dates;
+			let dates = this.finalTime.getFullYear().toString().padStart(4, "0") + "年"
+                + (this.finalTime.getMonth() + 1).toString().padStart(2, "0") + "月"
+                + this.finalTime.getDate().toString().padStart(2, "0") + "日";
+			return this.type === "reminder" ? dates : dates + "到期";
 		}
 	},
 	methods: {

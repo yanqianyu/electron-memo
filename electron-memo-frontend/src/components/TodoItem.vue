@@ -1,8 +1,8 @@
 <template>
     <div class="todo-item">
         <div class="todo-done">
-            <img v-if="!todo.isDone" src="../assets/icons/nodone.svg" v-on:click="changeDoneState">
-            <img v-else src="../assets/icons/done.svg" v-on:click="changeDoneState">
+            <img v-if="!todo.isDone" src="../assets/icons/nodone.svg" v-on:click.stop="changeDoneState">
+            <img v-else src="../assets/icons/done.svg" v-on:click.stop="changeDoneState">
         </div>
 
         <div class="todo-content">
@@ -14,10 +14,14 @@
                 <div class="todo-steps" v-if="todo.steps.length > 0">
                     <span>{{stepsProps}}</span>
                 </div>
-                <div class="todo-date" v-if="haveDDL">
+                <div class="todo-remind" v-if="todo.times.reminder">
+                    <img src="../assets/icons/reminder.svg">
+                    <span>{{remindInfo}}</span>
+                </div>
+                <div class="todo-date" v-if="todo.times.ddl">
                     <img src="../assets/icons/calender.svg">
-                    <span v-if="outOfTime">{{todo.ddl}}</span>
-                    <span v-else>{{todo.ddl}}</span>
+                    <span v-if="outOfTime">{{ddlInfo}}</span>
+                    <span v-else>{{ddlInfo}}</span>
                 </div>
                 <div class="todo-file" v-if="haveFiles">
                     <img src="../assets/icons/file.svg">
@@ -31,8 +35,8 @@
         </div>
 
         <div class="todo-important">
-            <img v-if="!todo.isImportant" src="../assets/icons/notImportant.svg" v-on:click="changeImportantState">
-            <img v-else src="../assets/icons/important.svg" v-on:click="changeImportantState">
+            <img v-if="!todo.isImportant" src="../assets/icons/notImportant.svg" v-on:click.stop="changeImportantState">
+            <img v-else src="../assets/icons/important.svg" v-on:click.stop="changeImportantState">
         </div>
 
     </div>
@@ -59,13 +63,22 @@ export default {
 			}, 0);
 			return count + "/" + this.todo.steps.length;
 		},
-		haveDDL: function() {
-			return this.todo.ddl && this.todo.ddl != "";
+		remindInfo: function() {
+			let date = this.todo.times.reminder;
+			return date.getFullYear().toString().padStart(4, "0") + "年"
+                + (date.getMonth() + 1).toString().padStart(2, "0") + "月"
+                + date.getDate().toString().padStart(2, "0") + "日";
+		},
+		ddlInfo: function() {
+			let date = this.todo.times.ddl;
+			return date.getFullYear().toString().padStart(4, "0") + "年"
+				+ (date.getMonth() + 1).toString().padStart(2, "0") + "月"
+				+ date.getDate().toString().padStart(2, "0") + "日";
 		},
 		outOfTime: function () {
 			let date = new Date();
 			// true -> out of time
-			return this.todo.ddl < date;
+			return this.todo.times.ddl < date;
 		},
 		haveFiles: function () {
 			return this.todo.files && this.todo.files.length > 0;
@@ -135,6 +148,18 @@ export default {
                     align-items: center;
                     justify-content: center;
                     margin: 0 5px;
+
+                    span {
+                        vertical-align: middle;
+                    }
+                }
+                .todo-remind {
+                    margin: 0 5px;
+                    img {
+                        vertical-align: middle;
+                        width: 15px;
+                        height: 15px;
+                    }
 
                     span {
                         vertical-align: middle;
