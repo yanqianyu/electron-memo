@@ -31,10 +31,10 @@ export default {
 	name: "ToDoList",
 	components: {TodoSet, TodoItem, TodoAdd},
 	beforeCreate() {
-		// 获取路由中携带的参数 是url的最后一部分
-		this.listType = this.$route.params.listname;
+		// 获取路由中携带的参数 是url查询参数
+		this.listid = this.$route.query.listid; // 这里的listid是字符串
 		// 更改store中存储的currentList
-		this.$store.commit("updateListFilter", this.listType);
+		this.$store.commit("updateListFilter", this.listid);
 		// 在store中查找对应的title
 	},
 	mounted() {
@@ -51,7 +51,7 @@ export default {
 	data: function () {
 		return {
 			title: this.$store.getters.titleByList,
-			listType: this.$route.params.listname,
+			listid: this.$route.query.listid,
 			showTodoDetail: false, // 显示某个todo的详情， 点击非todo部分改为false
 			curTodo: null // 当前点击的todo
 		};

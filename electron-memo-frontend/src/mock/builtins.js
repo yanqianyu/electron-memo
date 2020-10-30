@@ -1,38 +1,40 @@
 let builtins = [
 	{
-		id: 1,
+		id: "1",
 		name: "我的一天",
 		icon: require("../assets/icons/myday.svg"),
-		url: "/builtinList/myday" // router 路由
+		url: "/builtinList?listid=1" // router 路由
 	},
 	{
-		id: 2,
+		id: "2",
 		name: "重要",
 		icon: require("../assets/icons/important.svg"),
-		url: "/builtinList/important"
+		url: "/builtinList?listid=2"
 	},
 	{
-		id: 3,
+		id: "3",
 		name: "已计划日程",
 		icon: require("../assets/icons/calender.svg"),
-		url: "/builtinList/haveplanned"
+		url: "/builtinList?listid=3"
 	},
 	{
 		// 任务中的todo只有todo一个list 不存在于其他list
-		id: 4,
+		id: "4",
 		name: "任务",
 		icon: require("../assets/icons/tasks.svg"),
-		url: "/builtinList/task"
+		url: "/builtinList/?listid=4"
 	}
 ];
 
+// 一个todo可以同时属于多个内建list和一个自建list
 let todos = [
 	{
 		id: 1,
 		title: "test todo 1",
 		isDone: false,
 		isImportant: false,
-		checklists: ["myday"],
+		builtinList: ["1"], // 记录所属的内建list
+		customList: [], // 记录所属的自建list，至多一个
 		steps: [],
 		times: {
 			reminder: null,
@@ -40,7 +42,7 @@ let todos = [
 			repeat: null
 		},
 		files: [],
-		createTime: "",
+		createTime: null,
 		notes: null
 	},
 	{
@@ -48,7 +50,8 @@ let todos = [
 		title: "test todo 2",
 		isDone: false,
 		isImportant: false,
-		checklists: ["myday"],
+		builtinList: ["1"],
+		customList: [],
 		steps: [],
 		times: {
 			reminder: null,
@@ -56,7 +59,7 @@ let todos = [
 			repeat: null
 		},
 		files: [],
-		createTime: "",
+		createTime: null,
 		notes: null
 	},
 	{
@@ -64,7 +67,8 @@ let todos = [
 		title: "test todo 3",
 		isDone: false,
 		isImportant: false,
-		checklists: [2],
+		builtinList: ["2"],
+		customList: [],
 		steps: [],
 		times: {
 			reminder: "",
@@ -72,7 +76,7 @@ let todos = [
 			repeat: ""
 		},
 		files: [],
-		createTime: "",
+		createTime: null,
 		notes: null
 	},
 	{
@@ -80,7 +84,8 @@ let todos = [
 		title: "test todo 4",
 		isDone: false,
 		isImportant: false,
-		checklists: [3],
+		builtinList: ["3"],
+		customList: [],
 		steps: [],
 		times: {
 			reminder: null,

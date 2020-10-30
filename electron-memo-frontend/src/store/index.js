@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
 	state: {
 		token: localStorage.getItem("token") || null,
 		todos: todos,
-		currentList: "", // 当前显示的是哪个list
+		currentList: "1", // 当前显示的是哪个list
 		customLists: [], // 所有自定义的list
 		builtinLists: builtins // 内置list
 	},
@@ -17,13 +17,16 @@ export const store = new Vuex.Store({
 		titleByList(state) {
 			// 根据当前list获取对应的title
 			let tmp = state.customLists.concat(state.builtinLists);
-			let id =  tmp.findIndex(item => item.url.split("/").pop() === state.currentList);
+			let id = tmp.findIndex(item => {
+				return item.id === state.currentList;
+			});
 			return tmp[id].name;
 		},
 		todosFilteredByLists(state) {
 			// console.log(state.todos.filter(todo => todo.checklists.includes(state.currentList)))
-			// 根据列表名获取todos
-			return state.todos.filter(todo => todo.checklists.includes(state.currentList));
+			// 根据列表id获取todos
+			// todo: 分builtinList和customList
+			return state.todos.filter(todo => todo.builtinList.includes(state.currentList));
 		},
 		logIn(state) {
 			return state.token != null;

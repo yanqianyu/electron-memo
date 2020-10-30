@@ -16,6 +16,7 @@
                         </router-link>
                     </div>
                 </div>
+                <hr width="80%" size="3" align=center noshade="noshade"/>
                 <div class="customize-list">
                     <div class="customize-item" v-for="customize in customizes" :key="customize.id">
                         <router-link :to="customize.url">
@@ -65,7 +66,7 @@ export default {
 		toSearch() {
 			// 绑定在了input的change事件上
 			debounce(this.search);
-			this.$router.push({name: "searchList", params: {entry: this.searchEntry}});
+			this.$router.push({name: "searchList", query: {entry: this.searchEntry}});
 		},
 		search() {
 			// 搜索逻辑
@@ -114,7 +115,7 @@ export default {
                 height: 100%;
                 display: flex;
                 flex-direction: column;
-                overflow-y: scroll;
+                overflow-y: auto;
                 .search {
                     background-color: lightgray;
                     //border: none;
@@ -153,7 +154,7 @@ export default {
 
                 .builtin-list {
                     margin-left: 1rem;
-                    height: 20rem;
+                    /*height: 20rem;*/
 
                     .builtin-item {
                         cursor: default;

@@ -20,23 +20,23 @@ export const router = new Router({
 				path: "/todo",
 				name: "todo",
 				component: SideBar,
-				redirect: "/builtinList/myday", // 默认路由
+				redirect: "/builtinList?listid=1", // 默认路由
 				meta: {
 					requireAuth: false
 				},
 				children: [
 					{
-						path: "/builtinList/:listname", // listname作为参数决定子组件渲染的数据
+						path: "/builtinList", // listname作为参数决定子组件渲染的数据
 						name: "builtinList",
 						component: ToDoList
 					},
 					{
-						path: "/customizeList/:listname",
+						path: "/customizeList",
 						name: "customizeList",
 						component: ToDoList
 					},
 					{
-						path: "/search/:entry", // todo搜索结果
+						path: "/search", // todo搜索结果
 						name: "searchList",
 						component: ToDoList
 					}
