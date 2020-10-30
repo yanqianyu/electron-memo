@@ -120,6 +120,7 @@ return: {
 - [ ] v-if 和 v-show的区别
 - [ ] vuejian chushihuashunxu
 - [ ] https://www.jianshu.com/p/f918cb6e210c
+- [ ] 事件  事件冒泡等
 
 ## asserts
 freeicons.io
