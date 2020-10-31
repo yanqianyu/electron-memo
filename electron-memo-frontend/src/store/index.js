@@ -89,10 +89,10 @@ export const store = new Vuex.Store({
 			state.customLists.splice(listIdx, 1);
 			state.todos = state.todos.filter(item => !item.checklists.includes(list.id));
 		},
-		updateCusList(state, oldList, newListName) {
+		updateCusList(state, changeInfo) {
 			// todo: 更新自定义清单的信息（主要是名字）
-			const listIdx = state.customLists.findIndex(item => item.id === oldList.id);
-			state.customLists[listIdx].name = newListName;
+			const listIdx = state.customLists.findIndex(item => item.id === changeInfo.listid);
+			state.customLists[listIdx].name = changeInfo.newTitle;
 		}
 	},
 	actions: {

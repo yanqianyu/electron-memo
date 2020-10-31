@@ -1,8 +1,10 @@
 <template>
     <div class="todo-list">
         <div class="list-left-part">
+            <!--自定义列表title可以点击编辑-->
             <div class="todo-title">
-                {{ title }}
+                <!--禁止回车-->
+                <input :disabled="!canEdit" name="title" type="text" :value="title" @change="changeListTitle($event.currentTarget.value)"/>
             </div>
             <!--@click.stop取消事件冒泡-->
             <div class="todo-list-container">
@@ -46,6 +48,10 @@ export default {
 	computed: {
 		todos: function () {
 			return this.$store.getters.todosFilteredByLists;
+		},
+		canEdit: function () {
+			let flag = this.$store.state.builtinLists.findIndex(item => item.id === this.$store.state.currentList);
+			return flag === -1;
 		}
 	},
 	data: function () {
@@ -64,6 +70,11 @@ export default {
 			// 改变当前显示的todo set部分的信息
 			this.curTodo = todo;
 			this.showTodoDetail = true;
+		},
+		changeListTitle(newTitle) {
+			this.$store.commit("updateCusList", {
+				listid: this.listid, newTitle: newTitle
+			});
 		}
 	}
 };
@@ -85,6 +96,9 @@ export default {
                 font-size: 2rem;
                 text-align: left;
                 order: -1;
+                input {
+                    width: auto;
+                }
             }
 
             .todo-list-container {

@@ -46,14 +46,16 @@ export default {
 		return {
 			searchEntry: "", // 搜索词条
 			isSearchActive: false,  // 是否处于search状态
-			builtins: this.$store.state.builtinLists,
-			customizes: this.$store.state.customLists
+			builtins: this.$store.state.builtinLists
 		};
 	},
 	mounted() {
 		window.ipcRender.send("todo-window");
 	},
 	computed: {
+		customizes() {
+			return this.$store.state.customLists;
+		},
 		// 路由跳转不更新问题https://blog.csdn.net/w390058785/article/details/82813032
 		key() {
 			return this.$route.path + Math.random();
