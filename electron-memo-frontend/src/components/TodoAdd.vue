@@ -17,13 +17,14 @@ export default {
 		addTodo() {
 			// 向对应的列表增加item
 			// 首先判断当前列表是不是builtin
+			// 所有不在customlist的todo都默认是task，同样的不在task中的todo一定是customlist中的
 			let flag = this.$store.state.builtinLists.findIndex(item => item.id === this.$store.state.currentList);
+			let taskid = this.$store.state.builtinLists[this.$store.state.builtinLists.findIndex(item => item.name === "任务")].id;
 			let newTodo = {
 				id: 5,
 				title: this.todo,
 				isDone: false,
-				isImportant: false,
-				builtinList: flag === -1 ? [] : [this.$store.state.currentList],
+				builtinList: flag === -1 ? [] : (this.$store.state.currentList === taskid ? [taskid] : [this.$store.state.currentList, taskid]),
 				customList: flag === -1 ? [this.$store.state.currentList] : [],
 				steps: [],
 				times: {

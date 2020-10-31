@@ -32,7 +32,6 @@ let todos = [
 		id: 1,
 		title: "test todo 1",
 		isDone: false,
-		isImportant: false,
 		builtinList: ["1"], // 记录所属的内建list
 		customList: [], // 记录所属的自建list，至多一个
 		steps: [],
@@ -49,7 +48,6 @@ let todos = [
 		id: 2,
 		title: "test todo 2",
 		isDone: false,
-		isImportant: false,
 		builtinList: ["1"],
 		customList: [],
 		steps: [],
@@ -66,7 +64,6 @@ let todos = [
 		id: 3,
 		title: "test todo 3",
 		isDone: false,
-		isImportant: false,
 		builtinList: ["2"],
 		customList: [],
 		steps: [],
@@ -83,7 +80,6 @@ let todos = [
 		id: 4,
 		title: "test todo 4",
 		isDone: false,
-		isImportant: false,
 		builtinList: ["3"],
 		customList: [],
 		steps: [],

@@ -9,8 +9,7 @@
             <div class="todo-title">{{todo.title}}</div>
             <div class="todo-info">
                 <div class="todo-in-list">
-                    <!-- todo: 计算获得list name-->
-                    {{todo.customList}}
+                    {{listInfo}}
                 </div>
                 <div class="todo-steps" v-if="todo.steps.length > 0">
                     <span>{{stepsProps}}</span>
@@ -36,7 +35,7 @@
         </div>
 
         <div class="todo-important">
-            <img v-if="!todo.isImportant" src="../assets/icons/notImportant.svg" v-on:click.stop="changeImportantState">
+            <img v-if="!isImportant" src="../assets/icons/notImportant.svg" v-on:click.stop="changeImportantState">
             <img v-else src="../assets/icons/important.svg" v-on:click.stop="changeImportantState">
         </div>
 
@@ -55,6 +54,34 @@ export default {
 		};
 	},
 	computed: {
+		isImportant() {
+			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "重要");
+			let id = this.$store.state.builtinLists[idx].id;
+			return this.todo.builtinList.includes(id);
+		},
+		listInfo: function () {
+			// 除去现在所显示的list本身
+			let tmp = [];
+			for(let i = 0; i < this.$store.state.builtinLists.length; i++) {
+				if(this.$store.state.builtinLists[i].id !== this.$store.state.currentList) {
+					if(this.todo.builtinList.includes(this.$store.state.builtinLists[i].id)) {
+						tmp.push(this.$store.state.builtinLists[i].name);
+					}
+				}
+			}
+
+			for(let i = 0; i < this.$store.state.customLists.length; i++) {
+				if(this.$store.state.customLists[i].id !== this.$store.state.currentList) {
+					if(this.todo.customList.includes(this.$store.state.customLists[i].id)) {
+						tmp.push(this.$store.state.customLists[i].name);
+					}
+				}
+			}
+			if (tmp.length === 0) {
+				return "";
+			}
+			return tmp.join(" • ");
+		},
 		stepsProps: function () {
 			let count = this.todo.steps.reduce(function (prev, cur) {
 				if (cur.isDone === true) {
@@ -92,7 +119,16 @@ export default {
 			this.$store.commit("updateTodo", this.todo);
 		},
 		changeImportantState() {
-			this.todo.isImportant = !this.todo.isImportant;
+			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "重要");
+			let id = this.$store.state.builtinLists[idx].id;
+			if (!this.isImportant) {
+				// 加入到"重要列表中"
+				this.todo.builtinList.push(id);
+			}
+			else {
+				let removeid = this.todo.builtinList.findIndex(item => item === id);
+				this.todo.builtinList.splice(removeid, 1);
+			}
 			this.$store.commit("updateTodo", this.todo);
 		}
 	}

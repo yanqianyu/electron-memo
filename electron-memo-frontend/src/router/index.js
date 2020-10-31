@@ -20,7 +20,12 @@ export const router = new Router({
 				path: "/todo",
 				name: "todo",
 				component: SideBar,
-				redirect: "/builtinList", // 默认路由
+				redirect: {
+					name: "builtinList",
+					query: {
+						listid: "1"
+					}
+				}, // 默认路由
 				meta: {
 					requireAuth: false
 				},

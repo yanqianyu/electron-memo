@@ -6,7 +6,7 @@
             <!--editable-->
             <input ref="inputTitle" name="title" type="text" :value="todo.title"
                     @change="changeTodoTitle($event.currentTarget.value)"/>
-            <img src="../assets/icons/notImportant.svg" v-if="!todo.isImportant" v-on:click="changeImportant">
+            <img src="../assets/icons/notImportant.svg" v-if="!isImportant" v-on:click="changeImportant">
             <img src="../assets/icons/important.svg" v-else v-on:click="changeImportant">
         </div>
 
@@ -33,7 +33,7 @@
                 <div v-else>
                     <img src="../assets/icons/myday.svg">
                     <span>已添加到"我的一天"</span>
-                    <img src="../assets/icons/cross.svg" v-on:click="removeFromMyDay">
+                    <img src="../assets/icons/cross.svg">
                 </div>
             </div>
 
@@ -91,7 +91,6 @@ export default {
 		return {
 			todo: this.initTodo,
 			newStep: "",
-			isOnMyDay: false,
 			reminderShow: false,
 			ddlShow: false,
 			repeatShow: false
@@ -104,6 +103,16 @@ export default {
 		// 通过target事件 判定 只要点击的不是包裹住按钮和内容区域的Div就让v-show为false
 	},
 	computed: {
+		isOnMyDay() {
+			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "我的一天");
+			let id = this.$store.state.builtinLists[idx].id;
+			return this.todo.builtinList.includes(id);
+		},
+		isImportant() {
+			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "重要");
+			let id = this.$store.state.builtinLists[idx].id;
+			return this.todo.builtinList.includes(id);
+		},
 		formatFileSize() {
 			return function (fileSize) {
 				if (fileSize < 1024) {
@@ -143,7 +152,17 @@ export default {
 			this.$store.commit("updateTodo", this.todo);
 		},
 		changeImportant() {
-			this.todo.isImportant = !this.todo.isImportant;
+			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "重要");
+			let id = this.$store.state.builtinLists[idx].id;
+			if (!this.isImportant) {
+				// 加入到"重要列表中"
+				this.todo.builtinList.push(id);
+			}
+			else {
+				let removeid = this.todo.builtinList.findIndex(item => item === id);
+				this.todo.builtinList.splice(removeid, 1);
+				this.$parent.noShowTodoDetail();
+			}
 			this.$store.commit("updateTodo", this.todo);
 		},
 		changeDoneStep(step_id) {
@@ -183,22 +202,18 @@ export default {
 			}
 		},
 		changeAddMyDay() {
-			this.isOnMyDay = !this.isOnMyDay;
-			if (this.isOnMyDay === true) {
+			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "我的一天");
+			let id = this.$store.state.builtinLists[idx].id;
+			if (this.isOnMyDay !== true) {
 				// push的都是id 显示的是name
-				this.todo.builtinLists.push("Myday");
+				this.todo.builtinList.push(id);
 			} else {
-				// todo
-				this.todo.checklists.forEach(function (list_name, index) {
-					if (list_name === "MyDay") {
-						this.todo.checklists.splice(index);
-					}
-				});
+				// 从"我的一天"中移除
+				let removeid = this.todo.builtinList.findIndex(item => item === id);
+				this.todo.builtinList.splice(removeid, 1);
+				this.$parent.noShowTodoDetail();
 			}
 			this.$store.commit("updateTodo", this.todo);
-		},
-		removeFromMyDay() {
-			// 从我的一天中删除
 		},
 		deleteFile(file_id) {
 			let idx = 0;
@@ -355,6 +370,7 @@ export default {
                 padding: 0 5px;
                 justify-items: center;
                 align-items: center;
+                cursor: pointer;
 
                 img {
                     order: -1;
