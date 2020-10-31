@@ -16,7 +16,6 @@ export default {
 	methods: {
 		addTodo() {
 			// 向对应的列表增加item
-			// todo: commit -> vuex
 			// 首先判断当前列表是不是builtin
 			let flag = this.$store.state.builtinLists.findIndex(item => item.id === this.$store.state.currentList);
 			let newTodo = {

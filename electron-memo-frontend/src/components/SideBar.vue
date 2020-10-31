@@ -95,6 +95,8 @@ export default {
 				url: "/customizeList?listid=".concat(id)
 			};
 			this.$store.commit("addCusList", newList);
+			// 跳转到新的list
+			this.$router.push({path: "/customizeList", query: {listid: id}});
 		}
 	}
 };
