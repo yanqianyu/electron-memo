@@ -32,14 +32,13 @@ export default {
 		};
 	},
 	mounted() {
-		// console.log(window.ipcRender)
 		window.ipcRender.send("login-window");
 	},
 	methods: {
 		login() {
 			// 通过store向后台发送登录表单
 			// 登录成功跳转
-			this.$router.push({path: "/todo"});
+			this.$router.push({path: "/builtinList", query: {listid: "1"}});
 			// 登陆成功，服务端返回所有的todo，存在localstorage中？
 			// this.$store.dispatch('login', {
 			//     email: this.email,

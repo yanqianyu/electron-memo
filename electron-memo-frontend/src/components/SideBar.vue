@@ -90,7 +90,7 @@ export default {
 				id: id,
 				name: "无标题清单" + this.$store.getters.noNameCustomListsSuffix,
 				icon: require("../assets/icons/folders.svg"),
-				url: "/customizeList/".concat(id)
+				url: "/customizeList?listid=".concat(id)
 			};
 			this.$store.commit("addCusList", newList);
 		}

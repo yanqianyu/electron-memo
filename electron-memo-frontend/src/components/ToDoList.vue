@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="todo-add" @click.stop>
-                <todo-add list-type="listType"></todo-add>
+                <todo-add></todo-add>
             </div>
         </div>
         <!-- todo: transition-->

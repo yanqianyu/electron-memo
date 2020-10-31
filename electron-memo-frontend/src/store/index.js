@@ -23,10 +23,15 @@ export const store = new Vuex.Store({
 			return tmp[id].name;
 		},
 		todosFilteredByLists(state) {
-			// console.log(state.todos.filter(todo => todo.checklists.includes(state.currentList)))
 			// 根据列表id获取todos
-			// todo: 分builtinList和customList
-			return state.todos.filter(todo => todo.builtinList.includes(state.currentList));
+			// 分builtinList和customList
+			let id = state.builtinLists.findIndex(item => {
+				return item.id === state.currentList;
+			});
+			if (id !== -1) {
+				return state.todos.filter(todo => todo.builtinList.includes(state.currentList));
+			}
+			return state.todos.filter(todo => todo.customList.includes(state.currentList));
 		},
 		logIn(state) {
 			return state.token != null;

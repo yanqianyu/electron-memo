@@ -8,7 +8,6 @@
 <script>
 export default {
 	name: "TodoAdd",
-	props: ["listType"],
 	data: function () {
 		return {
 			todo: ""
@@ -18,12 +17,15 @@ export default {
 		addTodo() {
 			// 向对应的列表增加item
 			// todo: commit -> vuex
+			// 首先判断当前列表是不是builtin
+			let flag = this.$store.state.builtinLists.findIndex(item => item.id === this.$store.state.currentList);
 			let newTodo = {
 				id: 5,
 				title: this.todo,
 				isDone: false,
 				isImportant: false,
-				checklists: ["myday"],
+				builtinList: flag === -1 ? [] : [this.$store.state.currentList],
+				customList: flag === -1 ? [this.$store.state.currentList] : [],
 				steps: [],
 				times: {
 					reminder: null,

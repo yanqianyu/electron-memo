@@ -9,7 +9,8 @@
             <div class="todo-title">{{todo.title}}</div>
             <div class="todo-info">
                 <div class="todo-in-list">
-                    {{todo.customlist}}
+                    <!-- todo: 计算获得list name-->
+                    {{todo.customList}}
                 </div>
                 <div class="todo-steps" v-if="todo.steps.length > 0">
                     <span>{{stepsProps}}</span>
