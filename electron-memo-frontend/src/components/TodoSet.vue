@@ -4,7 +4,8 @@
             <img v-if="!todo.isDone" src="../assets/icons/nodone.svg" v-on:click="changeDoneTodo">
             <img v-else src="../assets/icons/done.svg" v-on:click="changeDoneTodo">
             <!--editable-->
-            <span>{{todo.title}}</span>
+            <input ref="inputTitle" name="title" type="text" :value="todo.title"
+                    @change="changeTodoTitle($event.currentTarget.value)"/>
             <img src="../assets/icons/notImportant.svg" v-if="!todo.isImportant" v-on:click="changeImportant">
             <img src="../assets/icons/important.svg" v-else v-on:click="changeImportant">
         </div>
@@ -124,7 +125,7 @@ export default {
 		},
 		createInfo: function () {
 			if(this.todo.createTime) {
-				let date = this.todo.createTime;
+				let date = new Date(this.todo.createTime);
 				return "创建于" + date.getFullYear().toString().padStart(4, "0") + "年"
 					+ (date.getMonth() + 1).toString().padStart(2, "0") + "月"
 					+ date.getDate().toString().padStart(2, "0") + "日";
@@ -135,6 +136,10 @@ export default {
 	methods: {
 		changeDoneTodo() {
 			this.todo.isDone = !this.todo.isDone;
+			this.$store.commit("updateTodo", this.todo);
+		},
+		changeTodoTitle(newTitle) {
+			this.todo.title = newTitle;
 			this.$store.commit("updateTodo", this.todo);
 		},
 		changeImportant() {
@@ -180,7 +185,8 @@ export default {
 		changeAddMyDay() {
 			this.isOnMyDay = !this.isOnMyDay;
 			if (this.isOnMyDay === true) {
-				this.todo.checklists.push("Myday");
+				// push的都是id 显示的是name
+				this.todo.builtinLists.push("Myday");
 			} else {
 				// todo
 				this.todo.checklists.forEach(function (list_name, index) {
@@ -270,12 +276,11 @@ export default {
                 order: -1;
             }
 
-            span {
-                padding: 15px;
+            input {
+                padding: 0 10px;
                 font-size: 20px;
-                text-align: left;
-                flex-grow: 1;
-                vertical-align: middle;
+                outline: none;
+                border: none;
             }
 
             img {

@@ -71,9 +71,9 @@ let todos = [
 		customList: [],
 		steps: [],
 		times: {
-			reminder: "",
-			ddl: "",
-			repeat: ""
+			reminder: null,
+			ddl: null,
+			repeat: null
 		},
 		files: [],
 		createTime: null,

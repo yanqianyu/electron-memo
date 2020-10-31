@@ -3,8 +3,12 @@
         <div class="list-left-part">
             <!--自定义列表title可以点击编辑-->
             <div class="todo-title">
+                <!--将文字内容赋值给隐藏的span，然后将input的宽度设置为span的宽度-->
+                <span ref="spanTitle"></span>
                 <!--禁止回车-->
-                <input :disabled="!canEdit" name="title" type="text" :value="title" @change="changeListTitle($event.currentTarget.value)"/>
+                <input ref="inputTitle" :disabled="!canEdit" name="title" type="text" :value="title"
+                       @input="changeWidth"
+                       @change="changeListTitle($event.currentTarget.value)"/>
             </div>
             <!--@click.stop取消事件冒泡-->
             <div class="todo-list-container">
@@ -40,6 +44,7 @@ export default {
 		// 在store中查找对应的title
 	},
 	mounted() {
+		this.$refs.inputTitle.style.width = this.$refs.inputTitle.value.length * 25 + "px";
 		// 给body增加点击事件
 		document.addEventListener("click", () => {
 			this.showTodoDetail = false;
@@ -75,6 +80,12 @@ export default {
 			this.$store.commit("updateCusList", {
 				listid: this.listid, newTitle: newTitle
 			});
+		},
+		changeWidth() {
+			let input = this.$refs.inputTitle;
+			let span = this.$refs.spanTitle;
+			span.innerHTML = input.value;
+			input.style.width = span.style.width + "px";
 		}
 	}
 };
@@ -92,12 +103,17 @@ export default {
             flex-direction: column;
 
             .todo-title {
-                padding: 10px 0;
-                font-size: 2rem;
+                padding: 1rem 0;
                 text-align: left;
                 order: -1;
+                span {
+                    position: absolute;
+                    visibility: hidden;
+                }
                 input {
-                    width: auto;
+                    border: none;
+                    font-size: 25px;
+                    outline: none;
                 }
             }
 
