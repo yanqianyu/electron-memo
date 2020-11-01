@@ -45,10 +45,6 @@ export default {
 	},
 	mounted() {
 		this.$refs.inputTitle.style.width = this.$refs.inputTitle.value.length * 25 + "px";
-		// 给body增加点击事件
-		document.addEventListener("click", () => {
-			this.showTodoDetail = false;
-		});
 	},
 	computed: {
 		todos: function () {

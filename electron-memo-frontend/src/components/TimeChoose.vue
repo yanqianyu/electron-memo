@@ -1,7 +1,7 @@
 <template>
     <div class="time-choose-container">
-        <div class="time-choose" v-on:click.stop="arrowDown">
-            <div class="select-title">
+        <div class="time-choose" >
+            <div class="select-title" @click="arrowDown">
                 <slot></slot>
                 <span v-if="!hasSelected">{{slogan}}</span>
                 <div class="select-res" v-if="hasSelected">
@@ -10,7 +10,7 @@
                 </div>
                 <img src="../assets/icons/cross.svg" v-if="hasSelected" @click.stop="deleteTimeChoose">
             </div>
-            <div class="select-list" v-show="isShowSelect">
+            <div class="select-list" v-show="isShowSelect"  v-click-outside="noSelectShow">
                 <div class="select-item" v-for="item in timeItem" v-bind:key="item.id" @click.stop="select(item)">
                     <span>{{item.first}}</span>
                     <span v-if="item.second">{{item.second}}</span>
@@ -20,7 +20,6 @@
                 </div>
             </div>
         </div>
-        <!--todo: date-picker-->
         <Picker v-if="isDatePickerShow" :date-only="dateOnly"
                 :init-date="finalTime"
                 :type="type"
@@ -33,12 +32,44 @@
 
 <script>
 import Picker from "./DatePicker/Picker";
+const clickOutside = {
+	// eslint-disable-next-line no-unused-vars
+	bind(el, binding, vnode) {
+		function documentHandler(e) {
+			// el 指令所绑定的元素，可以直接操作dom
+			// 判断点击的元素是否是本身，如果是本身，则返回
+			if (el.contains(e.target)) {
+				return false;
+			}
+			// 判断指令是否绑定了函数
+			if (binding.expression) {
+				// 如果绑定了函数，则调用那个函数
+				binding.value(e);
+			}
+		}
+		// 给当前元素绑定了某个私有变量，方便在unbind中可以解除事件监听
+		el.__vueClickOutside__ = documentHandler;
+		document.addEventListener("click", documentHandler);
+	},
+	update() {},
+	// eslint-disable-next-line no-unused-vars
+	unbind(el, binding) {
+		// 解除事件监听
+		document.removeEventListener("click", el.__vueClickOutside__);
+		delete el.__vueClickOutside__;
+	}
+};
 export default {
 	name: "TimeChoose",
 	components: {Picker},
 	props: {
 		type: String,
 		initTime: Date
+	},
+	directives: {
+		clickOutside
+	},
+	mounted() {
 	},
 	created() {
 		if(this.type === "reminder") {
@@ -161,6 +192,9 @@ export default {
 		}
 	},
 	methods: {
+		noSelectShow() {
+			this.isShowSelect = false;
+		},
 		arrowDown() {
 			this.isShowSelect = !this.isShowSelect;
 		},
@@ -185,6 +219,7 @@ export default {
 		},
 		saveTimeChoose(date) {
 			this.finalTime = date;
+			this.hasSelected = true;
 			// 向上抛出
 			this.$emit("saveTimeChoose", date, this.type);
 		}
@@ -194,6 +229,7 @@ export default {
 
 <style lang="scss" scoped>
     .time-choose {
+        padding: 5px 0;
         cursor: pointer;
         position: relative;
         .select-title {
@@ -227,11 +263,9 @@ export default {
             }
         }
         .select-list {
+            width: 95%;
             position: absolute;
-            top: -20px;
-            left: 5px;
-
-            margin: 1em;
+            top: -2px;
             padding: 0 0.4em;
             border: 1px solid gainsboro;
             background-color: gainsboro;

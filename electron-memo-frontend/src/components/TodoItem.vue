@@ -62,17 +62,17 @@ export default {
 		listInfo: function () {
 			// 除去现在所显示的list本身
 			let tmp = [];
-			for(let i = 0; i < this.$store.state.builtinLists.length; i++) {
-				if(this.$store.state.builtinLists[i].id !== this.$store.state.currentList) {
-					if(this.todo.builtinList.includes(this.$store.state.builtinLists[i].id)) {
+			for (let i = 0; i < this.$store.state.builtinLists.length; i++) {
+				if (this.$store.state.builtinLists[i].id !== this.$store.state.currentList) {
+					if (this.todo.builtinList.includes(this.$store.state.builtinLists[i].id)) {
 						tmp.push(this.$store.state.builtinLists[i].name);
 					}
 				}
 			}
 
-			for(let i = 0; i < this.$store.state.customLists.length; i++) {
-				if(this.$store.state.customLists[i].id !== this.$store.state.currentList) {
-					if(this.todo.customList.includes(this.$store.state.customLists[i].id)) {
+			for (let i = 0; i < this.$store.state.customLists.length; i++) {
+				if (this.$store.state.customLists[i].id !== this.$store.state.currentList) {
+					if (this.todo.customList.includes(this.$store.state.customLists[i].id)) {
 						tmp.push(this.$store.state.customLists[i].name);
 					}
 				}
@@ -91,17 +91,17 @@ export default {
 			}, 0);
 			return count + "/" + this.todo.steps.length;
 		},
-		remindInfo: function() {
+		remindInfo: function () {
 			let date = this.todo.times.reminder;
 			return date.getFullYear().toString().padStart(4, "0") + "年"
-                + (date.getMonth() + 1).toString().padStart(2, "0") + "月"
-                + date.getDate().toString().padStart(2, "0") + "日";
+					+ (date.getMonth() + 1).toString().padStart(2, "0") + "月"
+					+ date.getDate().toString().padStart(2, "0") + "日";
 		},
-		ddlInfo: function() {
+		ddlInfo: function () {
 			let date = this.todo.times.ddl;
 			return date.getFullYear().toString().padStart(4, "0") + "年"
-				+ (date.getMonth() + 1).toString().padStart(2, "0") + "月"
-				+ date.getDate().toString().padStart(2, "0") + "日";
+					+ (date.getMonth() + 1).toString().padStart(2, "0") + "月"
+					+ date.getDate().toString().padStart(2, "0") + "日";
 		},
 		outOfTime: function () {
 			let date = new Date();
@@ -124,10 +124,16 @@ export default {
 			if (!this.isImportant) {
 				// 加入到"重要列表中"
 				this.todo.builtinList.push(id);
-			}
-			else {
+			} else {
 				let removeid = this.todo.builtinList.findIndex(item => item === id);
 				this.todo.builtinList.splice(removeid, 1);
+				// 如果现在TodoSet绑定的todo和改变状态的todo相同
+				// 且在重要列表
+				if (this.$store.state.currentList === id) {
+					if (this.initTodo.id === this.$parent.$data.curTodo.id) {
+						this.$parent.$data.showTodoDetail = false;
+					}
+				}
 			}
 			this.$store.commit("updateTodo", this.todo);
 		}
@@ -188,8 +194,10 @@ export default {
                         vertical-align: middle;
                     }
                 }
+
                 .todo-remind {
                     margin: 0 5px;
+
                     img {
                         vertical-align: middle;
                         width: 15px;
