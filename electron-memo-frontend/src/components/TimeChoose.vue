@@ -1,7 +1,7 @@
 <template>
     <div class="time-choose-container">
-        <div class="time-choose" >
-            <div class="select-title" @click="arrowDown">
+        <div class="time-choose">
+            <div class="select-title" @click.stop="arrowDown">
                 <slot></slot>
                 <span v-if="!hasSelected">{{slogan}}</span>
                 <div class="select-res" v-if="hasSelected">
@@ -10,12 +10,12 @@
                 </div>
                 <img src="../assets/icons/cross.svg" v-if="hasSelected" @click.stop="deleteTimeChoose">
             </div>
-            <div class="select-list" v-show="isShowSelect"  v-click-outside="noSelectShow">
-                <div class="select-item" v-for="item in timeItem" v-bind:key="item.id" @click.stop="select(item)">
+            <div class="select-list" v-show="isShowSelect" v-click-outside="noSelectShow">
+                <div class="select-item" v-for="item in timeItem" v-bind:key="item.id" @click="select(item)">
                     <span>{{item.first}}</span>
                     <span v-if="item.second">{{item.second}}</span>
                 </div>
-                <div class="select-cust" v-on:click.stop="showDatePicker">
+                <div class="select-cust" v-on:click="showDatePicker">
                     <p>自定义</p>
                 </div>
             </div>
@@ -32,6 +32,7 @@
 
 <script>
 import Picker from "./DatePicker/Picker";
+
 const clickOutside = {
 	// eslint-disable-next-line no-unused-vars
 	bind(el, binding, vnode) {
@@ -47,11 +48,13 @@ const clickOutside = {
 				binding.value(e);
 			}
 		}
+
 		// 给当前元素绑定了某个私有变量，方便在unbind中可以解除事件监听
 		el.__vueClickOutside__ = documentHandler;
 		document.addEventListener("click", documentHandler);
 	},
-	update() {},
+	update() {
+	},
 	// eslint-disable-next-line no-unused-vars
 	unbind(el, binding) {
 		// 解除事件监听
@@ -72,7 +75,7 @@ export default {
 	mounted() {
 	},
 	created() {
-		if(this.type === "reminder") {
+		if (this.type === "reminder") {
 			this.slogan = "提醒我";
 			this.timeItem.push({
 				id: 1,
@@ -97,8 +100,7 @@ export default {
 				// 下周的周X的9点时间戳
 				time: new Date(new Date(new Date().toLocaleDateString()).getTime() + (7 * 24 + 9) * 60 * 60 * 1000)
 			});
-		}
-		else if (this.type === "ddl") {
+		} else if (this.type === "ddl") {
 			this.slogan = "添加截止日期";
 			this.timeItem.push({
 				id: 1,
@@ -120,8 +122,7 @@ export default {
 				second: this.nextWeek,
 				time: new Date(new Date(new Date().toLocaleDateString()).getTime() + 8 * 24 * 60 * 60 * 1000)
 			});
-		}
-		else if (this.type === "repeat") {
+		} else if (this.type === "repeat") {
 			this.slogan = "重复";
 			this.timeItem.push({
 				id: 1,
@@ -170,15 +171,15 @@ export default {
 			}
 			// 获取今天是周几
 			let str = "周" + "日一二三四五六".charAt(new Date().getDay());
-			return this.type === "reminder" ? str + " " + "下午11:00": str;
+			return this.type === "reminder" ? str + " " + "下午11:00" : str;
 		},
 		tomorrow: function () {
 			let str = "周" + "日一二三四五六".charAt((new Date().getDay() + 1) % 7);
-			return this.type === "reminder" ? str + " " + "上午9:00": str;
+			return this.type === "reminder" ? str + " " + "上午9:00" : str;
 		},
 		nextWeek: function () {
 			let str = "周" + "日一二三四五六".charAt(new Date().getDay());
-			return this.type === "reminder" ? str + " " + "上午9:00": str;
+			return this.type === "reminder" ? str + " " + "上午9:00" : str;
 		},
 		selectedTime: function () {
 			let time = this.finalTime.getHours().toString().padStart(2, "0") + ":" + this.finalTime.getMinutes().toString().padStart(2, "0");
@@ -186,8 +187,8 @@ export default {
 		},
 		selectedDate: function () {
 			let dates = this.finalTime.getFullYear().toString().padStart(4, "0") + "年"
-                + (this.finalTime.getMonth() + 1).toString().padStart(2, "0") + "月"
-                + this.finalTime.getDate().toString().padStart(2, "0") + "日";
+					+ (this.finalTime.getMonth() + 1).toString().padStart(2, "0") + "月"
+					+ this.finalTime.getDate().toString().padStart(2, "0") + "日";
 			return this.type === "reminder" ? dates : dates + "到期";
 		}
 	},
@@ -196,7 +197,7 @@ export default {
 			this.isShowSelect = false;
 		},
 		arrowDown() {
-			this.isShowSelect = !this.isShowSelect;
+			this.isShowSelect = true;
 		},
 		select(item) {
 			this.hasSelected = true;
@@ -209,7 +210,7 @@ export default {
 			this.isShowSelect = false;
 			this.isDatePickerShow = true;
 		},
-		cancelDatePicker()  {
+		cancelDatePicker() {
 			this.isDatePickerShow = false;
 		},
 		deleteTimeChoose() {
@@ -228,68 +229,78 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .time-choose {
-        padding: 5px 0;
-        cursor: pointer;
-        position: relative;
-        .select-title {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-items: center;
-            padding: 0 5px;
-
-            img:first-child {
-                order: -1;
-                width: 20px;
-                height: 20px;
-                vertical-align: middle;
-            }
-
-            span {
-                flex-grow: 1;
-                vertical-align: middle;
-                text-align: left;
-                margin-left: 12px;
-            }
-            .select-res {
-                display: flex;
-                flex-direction: column;
-            }
-            img:last-child {
-                width: 20px;
-                height: 20px;
-                vertical-align: middle;
-            }
-        }
-        .select-list {
-            width: 95%;
-            position: absolute;
-            top: -2px;
-            padding: 0 0.4em;
-            border: 1px solid gainsboro;
-            background-color: gainsboro;
-            z-index: 999;
-            border-radius: 3px;
-
-            .select-item {
+    .time-choose-container {
+        .time-choose {
+            padding: 5px 0;
+            cursor: pointer;
+            position: relative;
+            .select-title {
                 display: flex;
                 flex-direction: row;
-                justify-content: space-between;
-            }
-            .select-item:hover {
-                background-color: lightgreen;
-            }
-            .select-cust {
-                p {
-                    margin-bottom: 0;
+                align-items: center;
+                justify-items: center;
+                padding: 0 5px;
+
+                img:first-child {
+                    order: -1;
+                    width: 20px;
+                    height: 20px;
+                    vertical-align: middle;
                 }
-                text-align: left;
+
+                span {
+                    flex-grow: 1;
+                    vertical-align: middle;
+                    text-align: left;
+                    margin-left: 12px;
+                }
+
+                .select-res {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                img:last-child {
+                    width: 20px;
+                    height: 20px;
+                    vertical-align: middle;
+                }
             }
-            .select-cust:hover {
-                background-color: lightgreen;
+
+            .select-list {
+                width: 95%;
+                position: absolute;
+                top: -2px;
+                padding: 0 0.4em;
+                border: 1px solid gainsboro;
+                background-color: gainsboro;
+                z-index: 1;
+                border-radius: 3px;
+
+                .select-item {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+
+                .select-item:hover {
+                    background-color: lightgreen;
+                }
+
+                .select-cust {
+                    p {
+                        margin-bottom: 0;
+                    }
+
+                    text-align: left;
+                }
+
+                .select-cust:hover {
+                    background-color: lightgreen;
+                }
             }
         }
     }
+
 
 </style>

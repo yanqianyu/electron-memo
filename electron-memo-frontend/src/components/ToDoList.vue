@@ -21,8 +21,7 @@
                 <todo-add></todo-add>
             </div>
         </div>
-        <!-- todo: transition-->
-        <div class="list-right-part" v-if="showTodoDetail" @click.stop>
+        <div class="list-right-part" v-if="showTodoDetail">
             <todo-set v-bind:init-todo="curTodo" v-on:no-show-todo-detail="noShowTodoDetail"></todo-set>
         </div>
     </div>
