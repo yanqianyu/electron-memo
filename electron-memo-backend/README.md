@@ -1,0 +1,18 @@
+# todo backend
+controller -- 业务逻辑层
+graphql -- GraphQL拦截层
+app.js -- 入口文件
+
+# Tips
+基于koa和apollo-server-koa操作的6个步骤
+https://www.jianshu.com/p/8d6f51fb0055
+1. 引入插件 apollo-sever-koa
+2. 创建apollo server并传入GraphQL表
+3. 创建koa对象
+4. 将koa对象作为中间件传入apollo server
+5. 监听端口
+6. 定义GraphQL表并传入query对象和Mutation对象
+
+# Reference
+[1] https://www.jianshu.com/p/8d6f51fb0055
+   
