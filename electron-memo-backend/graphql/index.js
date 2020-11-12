@@ -1,29 +1,38 @@
-// 自定义的GraphQL表
-const {todoList} = require('./schemas/todos');
-const {postLogin} = require('./schemas/user');
+const {gql} = require('apollo-server-koa');
+const mongoose = require('mongoose');
 
-const {GraphQLSchema, GraphQLObjectType} = require('graphql');
+const UserModel = mongoose.model('User');
+const TodoModel = mongoose.model('Todo');
 
-// 总查询对象
-let queryObj = new GraphQLObjectType({
-	name: 'query',
-	fields: () => ({
-		todoList: todoList
-	})
-});
+const typeDefs = gql`
+	type User {
+		id: String,
+		email: String,
+		password: String
+	}
+	type Todo {
+		id: String,
+		user_id: String,
+		title: String,
+		isDone: Boolean,
+		builtinLists: [String],
+		customLists: [String],
+		steps: [String],
+		createTimes: Date,
+		notes: String
+	}
+`;
 
-// 总体变更对象
-let mutationObj = new GraphQLObjectType({
-	name: 'Mutation',
-	fields: () => ({
-		postLogin: postLogin
-	})
-});
+const resolvers = {
+	Query: {
 
-// GraphQL总表
-let schema = new GraphQLSchema({
-	query: queryObj,
-	mutation: mutationObj
-});
+	},
+	Mutation: {
 
-module.exports = schema;
+	}
+};
+
+module.exports = {
+	resolvers,
+	typeDefs
+}

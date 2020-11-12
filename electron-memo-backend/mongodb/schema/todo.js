@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TodoSchema = new Schema({
-	user_id: String,
 	id: String,
+	user_id: String,
 	title: String,
 	isDone: Boolean,
 	builtinLists: [String],
