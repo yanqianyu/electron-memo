@@ -22,7 +22,13 @@ const typeDefs = gql`
 		repeat: Date
 	}
 	type File {
-	
+		user_id: String,
+		todo_id: String,
+		id: String,
+		iconimg: String,
+		filesize: Int,
+		filename: String,
+		data: String
 	}
 	type Todo {
 		id: String,

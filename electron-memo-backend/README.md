@@ -13,6 +13,8 @@ https://www.jianshu.com/p/8d6f51fb0055
 5. 监听端口
 6. 定义GraphQL表并传入query对象和Mutation对象
 
+GraphQL中的文件上传
+
 # Reference
 [1] https://www.jianshu.com/p/8d6f51fb0055
    
