@@ -47,18 +47,25 @@ const typeDefs = gql`
 		notes: String
 	}
 	type Query {
-		getTodoListByUserID: [TodoList]
-		getTodoByUserID: [Todo]
+		getTodoListByUserID(id: String): [TodoList]
+		getTodoByUserID(id: String): [Todo]
 	}
 	type Mutation {
-		addTodoList(): TodoList
-		addUser(): User
-		addTodo(): Todo
-		changeTodo(): Todo
-		changeTodoList(): TodoList
-		deleteTodoList(): TodoList
-		deleteTodo(): Todo
+		addTodoList(id: String, user_id: String, name: String): TodoList
+		addUser(id: String, user_id: String, name: String): User
+		addTodo(id: String, user_id: String, title: String, isDone: Boolean, builtinLists: [String], customLists: [String], steps: [String], times: TimesInput, files: [FileInput], createTimes: Date, notes: String): Todo
+		changeTodo(id: String, user_id: String, title: String, isDone: Boolean, builtinLists: [String], customLists: [String], steps: [String], times: TimesInput, files: [FileInput], createTimes: Date, notes: String): Todo
+		changeTodoList(id: String, user_id: String, name: String): TodoList
+		deleteTodoList(user_id: String, list_id: String): TodoList
+		deleteTodo(id: String, user_id: String): Todo
 		uploadFile(file: Upload!): Todo!
+	}
+	input TimesInput {
+		reminder: Date,
+		ddl: Date,
+		repeat: Date
+	}
+	input FileInput {
 	}
 `;
 
