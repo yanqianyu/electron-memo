@@ -26,8 +26,8 @@ const addTodo = async (ctx, next) => {
 const fetchTodo = async (ctx, next) => {
 	const opts = ctx.request.body;
 	// 根据id查询
-	const todos = await Todo.findOne({user_id: opts.id});
-	if (todos.length) {
+	const todos = await Todo.find({user_id: opts.id});
+	if (todos) {
 		ctx.body = {
 			success: true,
 			data: todos
@@ -44,6 +44,17 @@ const updateTodo = async (ctx, next) => {
 	// 获取请求的数据
 	const opts = ctx.request.body;
 	const info = await Todo.findOneAndUpdate({user_id: opts.user_id, id: opts.id}, opts);
+	console.log(info);
+	if (info) {
+		ctx.body = {
+			success: true,
+			info: info
+		}
+	} else {
+		ctx.body = {
+			success: false
+		}
+	}
 };
 
 // 删除todo
@@ -51,6 +62,18 @@ const deleteTodo = async (ctx, next) => {
 	// 根据id删除
 	const opts = ctx.request.body;
 	const info = await Todo.findOneAndDelete({user_id: opts.user_id, id: opts.id});
+
+	console.log(info);
+	if (info) {
+		ctx.body = {
+			success: true,
+			info: info
+		}
+	} else {
+		ctx.body = {
+			success: false
+		}
+	}
 };
 
 module.exports = {
