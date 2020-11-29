@@ -9,4 +9,4 @@ const todoListSchema = new Schema({
 	title: {type: String}
 });
 
-module.exports = model("TodoList",todoListSchema);
+module.exports = model("TodoList", todoListSchema);
