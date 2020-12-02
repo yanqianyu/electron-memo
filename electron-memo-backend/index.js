@@ -55,4 +55,6 @@ app.use(error({
 // 参数校验
 app.use(parameter(app));
 
-app.listen(3000);
+export default app.listen(3000, () => {
+	console.log("koa is listening in 3000")
+});
