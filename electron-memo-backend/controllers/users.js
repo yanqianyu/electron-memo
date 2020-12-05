@@ -25,6 +25,7 @@ class UserController {
 
 	async create(ctx) {
 		// 创建用户
+		// 校验参数，如果和所需参数不同，会直接返回422
 		ctx.verifyParams({
 			name: {
 				type: 'string', required: true

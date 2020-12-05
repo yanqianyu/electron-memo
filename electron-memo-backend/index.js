@@ -1,39 +1,36 @@
 // 入口
 const Koa = require("koa");
-const Router = require("koa-router");
 const koaBody = require("koa-body");
 const error = require("koa-json-error");
 const parameter = require("koa-parameter");
 const koaStatic = require("koa-static");
+const path = require("path");
 
 const app = new Koa();
 const routing = require('./routes');
 
 // 数据库连接
 const mongoose = require('mongoose');
-const {connectionStr} = require('./config');
+const {connectStr} = require('./config');
 mongoose.connect(
-	connectionStr, // 数据库地址
+	connectStr, // 数据库地址
 	{useUnifiedTopology: true, useNewUrlParser: true},
 	() => console.log("mongodb连接成功")
 );
 mongoose.connection.on('error', console.error);
 
-router.get('/', async function (ctx) {
-	ctx.body = {
-		message: 'Hello World!'
-	}
-});
-
 // 静态资源
 app.use(koaStatic(path.join(__dirname, "public")));
 
-// app.use(router.routes()).use(router.allowedMethods());
-routing(app); // 路由处理
+// 错误处理
+app.use(error({
+	postFormat: (e, {stack, ...rest}) =>
+		process.env.NODE_ENV === "production" ? rest : {stack, ...rest}
+}));
 
 app.use(koaBody({
 	multipart: true, // 支持文件上传
-	encoding: 'gzip',
+	// encoding: 'gzip',
 	formidable: {
 		uploadDir: path.join(__dirname, 'public/uploads'), // 文件上传目录
 		keepExtensions: true, // 保持文件的后缀
@@ -46,14 +43,13 @@ app.use(koaBody({
 	}
 }));
 
-// 错误处理
-app.use(error({
-	postFormat: (e, {stack, ...rest}) =>
-		process.env.NODE_ENV === "production" ? rest : {stack, ...rest}
-}));
-
 // 参数校验
 app.use(parameter(app));
+
+// 路由处理
+// 路由处理放在解析的后面！如果解析的中间件放在后面，那么每一次的请求都没有执行解析
+// app.use(router.routes()).use(router.allowedMethods());
+routing(app);
 
 export default app.listen(3000, () => {
 	console.log("koa is listening in 3000")

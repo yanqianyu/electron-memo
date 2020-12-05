@@ -1,5 +1,7 @@
 // todo列表模块路由
-
+const jsonwebtoken = require('jsonwebtoken');
+const jwt = require('koa-jwt');
+const {secret} = require('../config');
 const Router = require('koa-router');
 const router = new Router({prefix: "/todolist"});
 

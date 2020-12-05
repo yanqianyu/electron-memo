@@ -6,13 +6,14 @@ afterEach(() => {
 	server.close();
 });
 
-test('register', async () => {
-	const reponse = await request(server.callback())
+test('register shoule be successful', async () => {
+	const response = await request(server)
 						.post('/users/register')
 						.send({
-							name: 'Yanqianyu',
+							name: 'Yanqianyu4',
 							password: '1234'
 						});
-	expect(response.body.name).toBe('Yanqianyu');
+	console.log(response.body);
+	expect(response.body.name).toBe('Yanqianyu4');
 	expect(response.body.password).toBe('1234');
 });
