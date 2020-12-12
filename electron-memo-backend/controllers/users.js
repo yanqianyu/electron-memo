@@ -65,16 +65,7 @@ class UserController {
 
 		const {_id, name} = user;
 		const token = jsonwebtoken.sign({_id, name}, secret, {expiresIn: "1d"});
-		ctx.body = {token};
-	}
-
-	async checkUserExist(ctx, next) {
-		// 查询用户是否存在
-		const user = await User.findById(ctx.package.id);
-		if (!user) {
-			ctx.throw(404, "用户不存在");
-		}
-		await next();
+		ctx.body = {_id, name, token};
 	}
 }
 

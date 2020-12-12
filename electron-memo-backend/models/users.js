@@ -12,4 +12,7 @@ const userSchema = new Schema({
 	password: {type: String, required: true, select: false}
 });
 
+// mongoose操作mongodb数据库发现文档中多了__v字段
+// 这个字段用来记录版本号的
+
 module.exports = model("User", userSchema);

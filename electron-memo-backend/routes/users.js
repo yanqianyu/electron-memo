@@ -13,7 +13,7 @@ const auth = jwt({secret}); // jwt鉴权
 
 router.get("/", find); // 获取用户列表
 
-router.post("/register", create); // 创建用户，需要jwt认证
+router.post("/register", create); // 创建用户
 
 router.get("/:id", findById); // 获取特定用户
 
