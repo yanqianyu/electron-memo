@@ -93,7 +93,8 @@ class TodoListController {
 			listId: ctx.params.listId
 		});
 
-		ctx.status = 204;
+		ctx.statusCode = 204;
+		ctx.body.msg = '删除成功';
 	}
 }
 

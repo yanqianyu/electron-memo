@@ -9,7 +9,7 @@ const {findByUserId, findByListId, create, checkOwner, delete: del, update} = re
 
 const auth = jwt({secret});
 
-router.get("/:userId", findByUserId); // 获取某用户对应的所有list
+router.get("/:userId", auth, checkOwner, findByUserId); // 获取某用户对应的所有list
 
 router.post("/", auth, create); //新建list
 
