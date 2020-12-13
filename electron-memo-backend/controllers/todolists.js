@@ -9,7 +9,7 @@ class TodoListController {
 	async findByUserId(ctx) {
 		// 根据用户id查找所有的todo list
 		const userId = ctx.params.userId;
-		ctx.body = await TodoList.findById(userId);
+		ctx.body.lists = await TodoList.findById(userId);
 	}
 
 	async findByListId(ctx) {
@@ -26,7 +26,7 @@ class TodoListController {
 			ctx.throw(404, '列表不存在');
 		}
 
-		ctx.body = list;
+		ctx.body.todoList = list;
 	}
 
 	async create(ctx) {
@@ -41,7 +41,7 @@ class TodoListController {
 		});
 
 		const todolist = await new TodoList(ctx.request.body).save();
-		ctx.body = todolist;
+		ctx.body.todoList = todolist;
 	}
 
 	async checkOwner(ctx, next) {
@@ -93,8 +93,11 @@ class TodoListController {
 			listId: ctx.params.listId
 		});
 
-		ctx.statusCode = 204;
-		ctx.body.msg = '删除成功';
+		// todo
+		if (todos) {
+			ctx.statusCode = 204;
+			ctx.body.msg = '删除成功';
+		}
 	}
 }
 
