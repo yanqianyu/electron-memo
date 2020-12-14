@@ -7,7 +7,23 @@ const {secret} = require('../config');
 class TodoController {
 	async findByUserId(ctx) {
 		const userId = ctx.params.userId;
-		ctx.body = await Todo.findById(userId);
+		ctx.body.todos = await Todo.findById(userId);
+	}
+
+	async findByUserIdAndListId(ctx) {
+		const userId = ctx.params.userId;
+		const listId = ctx.params.listId;
+
+		const todo = await Todo.find({
+			userId: userId,
+			listId: listId
+		});
+
+		if (!todo) {
+			ctx.throw(404, '待办事项不存在');
+		}
+
+		ctx.body.todo = todo;
 	}
 
 	async findByTodoId(ctx) {
@@ -23,13 +39,13 @@ class TodoController {
 			ctx.throw(404, '待办事项不存在');
 		}
 
-		ctx.body = todo;
+		ctx.body.todo = todo;
 	}
 
 	async create(ctx) {
 		// 创建todo
 		const todo = await new Todo(ctx.request.body).save();
-		ctx.body = todo;
+		ctx.body.todo = todo;
 	}
 
 	async checkOwner(ctx, next) {
@@ -49,7 +65,7 @@ class TodoController {
 		if (!todo) {
 			ctx.throw(404, '待办事项不存在');
 		}
-		ctx.body = todo;
+		ctx.body.todo = todo;
 	}
 
 	async delete(ctx) {
@@ -74,6 +90,7 @@ class TodoController {
 			todoId: ctx.params.todoId
 		}, {$push: {"file": `${ctx.origin}/public/uploads/${basename}`}});
 
+		ctx.body.todo = todo;
 		ctx.body = {
 			url:`${ctx.origin}/public/uploads/${basename}`    //ctx.origin是域名
 		};

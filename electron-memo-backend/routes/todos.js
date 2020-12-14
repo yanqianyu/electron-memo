@@ -6,11 +6,13 @@ const {secret} = require('../config');
 const Router = require('koa-router');
 const router = new Router({prefix: "/todos"});
 
-const {findByUserId, findByTodoId, create, checkOwner, delete: del, update, upload} = require('../controllers/todos');
+const {findByUserId, findByUserIdAndListId, findByTodoId, create, checkOwner, delete: del, update, upload} = require('../controllers/todos');
 
 const auth = jwt({secret});
 
 router.get("/:userid", findByUserId); // 根据用户id返回所有todo
+
+router.get("/:userid/:listid", findByUserIdAndListId);
 
 router.post("/", auth, create); // 创建todo
 
