@@ -32,10 +32,11 @@ describe('user controller', () => {
 			});
 		console.log(response.body);
 		expect(response.statusCode).toBe(409);
-		expect(response.msg).toBe('用户名已存在');
+		expect(response.body.message).toBe('用户名已存在');
 	});
 
 	test('find user by id', async () => {
+		id = "5fda0283c7b2443a418507b3";
 		const response = await request(server)
 			.get('/users/' + id);
 		console.log(response.body);
@@ -44,10 +45,10 @@ describe('user controller', () => {
 
 	test('find user by wrong id', async () => {
 		const response = await request(server)
-			.get('/users/' + '1234');
+			.get('/users/' + '5fda0283c7b2443a418507b2');
 		console.log(response.body);
 		expect(response.statusCode).toBe(404);
-		expect(response.msg).toBe('用户不存在');
+		expect(response.body.message).toBe('用户不存在');
 	});
 
 	test('user login with wrong name', async () => {
@@ -59,7 +60,7 @@ describe('user controller', () => {
 			});
 		console.log(response.body);
 		expect(response.statusCode).toBe(401);
-		expect(response.msg).toBe('用户名或密码不正确');
+		expect(response.body.message).toBe('用户名或密码不正确');
 	});
 
 	test('user login with wrong pwd', async() => {
@@ -71,7 +72,7 @@ describe('user controller', () => {
 			});
 		console.log(response.body);
 		expect(response.statusCode).toBe(401);
-		expect(response.msg).toBe('用户名或密码不正确');
+		expect(response.body.message).toBe('用户名或密码不正确');
 	});
 
 	test('user login', async () => {
