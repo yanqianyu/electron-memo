@@ -17,66 +17,100 @@ describe('todolist controller', () => {
 			});
 		token = 'Bearer ' + loginResp.body.token;
 		userId = loginResp.body._id;
+		// https://github.com/visionmedia/supertest/issues/398
 		const getListsResp = await request(server)
-			.set("Authorization", token)
-			.get('/todolist/' + userId);
-		// todo 返回的是todolist数组
-		expect(getListsResp.body.lists.length()).toBe(0);
+			.get('/todolist/' + userId)
+			.set("Authorization", token);
+		// 返回的是todolist数组
+		expect(getListsResp.body.todolists.length).toBe(2);
 
 		// 没有token
 		const getListsNoTokenResp = await request(server)
 			.get('/todolist/' + userId);
-		// todo 返回的是todolist数组
-		expect(getListsNoTokenResp.statusCode).toBe(403);
+		expect(getListsNoTokenResp.statusCode).toBe(401);
 	});
 
 	test('create a list', async () => {
+		const loginResp = await request(server)
+			.post('/users/login')
+			.send({
+				name: 'Yanqianyu',
+				password: '1234'
+			});
+		token = 'Bearer ' + loginResp.body.token;
+		userId = loginResp.body._id;
 		const createResp = await request(server)
-			.set('Authorization', token)
 			.post('/todolist/')
+			.set('Authorization', token)
 			.send({
 				userId: userId,
 				title: 'new todolist'
 			});
-		expect(createResp.body.todoList._id).toBeDefined();
-		listId = createResp.body.todoList._id;
-		expect(createResp.body.todoList.userId).toBe(userId);
-		expect(createResp.body.todoList.title).toBe('new todolist');
+		expect(createResp.body.todolist._id).toBeDefined();
+		listId = createResp.body.todolist._id;
+		expect(createResp.body.todolist.userId).toBe(userId);
+		expect(createResp.body.todolist.title).toBe('new todolist');
 	});
 
 	test('get list by userid and listid', async () => {
+		const loginResp = await request(server)
+			.post('/users/login')
+			.send({
+				name: 'Yanqianyu',
+				password: '1234'
+			});
+		token = 'Bearer ' + loginResp.body.token;
+		userId = loginResp.body._id;
 		const getListByIdResp = await request(server)
-			.set('Authorization', token)
-			.get('/todolist/' + userId + '/' + listId);
-		expect(getListByIdResp.body.todoList._id).toBe(listId);
-		expect(getListByIdResp.body.todoList.userId).toBe(userId);
-		expect(getListByIdResp.body.todoList.title).toBe('new todolist');
+			.get('/todolist/' + userId + '/' + listId)
+			.set('Authorization', token);
+		expect(getListByIdResp.body.todolist._id).toBe(listId);
+		expect(getListByIdResp.body.todolist.userId).toBe(userId);
+		expect(getListByIdResp.body.todolist.title).toBe('new todolist');
 	});
 
 	test('update a list', async () => {
-		const updateListByIdResp = await request(server)
-			.set('Authorization', token)
-			.patch('/todolist/' + userId + '/' + listId)
+		const loginResp = await request(server)
+			.post('/users/login')
 			.send({
-				listId: listId,
+				name: 'Yanqianyu',
+				password: '1234'
+			});
+		token = 'Bearer ' + loginResp.body.token;
+		userId = loginResp.body._id;
+		listId = "5fda1d5ae60b2e499b29f040";
+		const updateListByIdResp = await request(server)
+			.patch('/todolist/' + userId + '/' + listId)
+			.set('Authorization', token)
+			.send({
+				_id: listId,
 				userId: userId,
 				title: 'new todolist name'
 			});
-		expect(updateListByIdResp.body.todoList._id).toBe(listId);
-		expect(updateListByIdResp.body.todoList.userId).toBe(userId);
-		expect(updateListByIdResp.body.todoList.title).toBe('new todolist name');
+		expect(updateListByIdResp.body.todolist._id).toBe(listId);
+		expect(updateListByIdResp.body.todolist.userId).toBe(userId);
+		expect(updateListByIdResp.body.todolist.title).toBe('new todolist name');
 	});
 
 	test('delete a list', async () => {
-		const deletListByIdResp = await request(server)
-			.set('Authorization', token)
-			.delete('/todolist/' + userId + '/' + listId)
+		const loginResp = await request(server)
+			.post('/users/login')
 			.send({
-				listId: listId,
-				userId: userId,
-				title: 'new todolist name'
+				name: 'Yanqianyu',
+				password: '1234'
 			});
-		expect(deletListByIdResp.body.statusCode).toBe(204);
-		expect(deletListByIdResp.body.msg).toBe('删除成功');
+		token = 'Bearer ' + loginResp.body.token;
+		userId = loginResp.body._id;
+		listId = "5fda1d036597f6494a720a13";
+		const deletListByIdResp = await request(server)
+			.delete('/todolist/' + userId + '/' + listId)
+			.set('Authorization', token)
+			.send({
+				_id: listId,
+				userId: userId,
+				title: 'new todolist'
+			});
+		expect(deletListByIdResp.statusCode).toBe(204);
+		expect(deletListByIdResp.body.message).toBe('删除成功');
 	});
 });

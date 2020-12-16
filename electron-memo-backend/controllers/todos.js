@@ -6,8 +6,12 @@ const {secret} = require('../config');
 
 class TodoController {
 	async findByUserId(ctx) {
+		// 找到一个user的所有todo
 		const userId = ctx.params.userId;
-		ctx.body.todos = await Todo.findById(userId);
+		const todos = await Todo.find(userId) || [];
+		ctx.body = {
+			todos
+		};
 	}
 
 	async findByUserIdAndListId(ctx) {
@@ -23,7 +27,9 @@ class TodoController {
 			ctx.throw(404, '待办事项不存在');
 		}
 
-		ctx.body.todo = todo;
+		ctx.body = {
+			todo
+		};
 	}
 
 	async findByTodoId(ctx) {
@@ -39,17 +45,21 @@ class TodoController {
 			ctx.throw(404, '待办事项不存在');
 		}
 
-		ctx.body.todo = todo;
+		ctx.body = {
+			todo
+		};
 	}
 
 	async create(ctx) {
 		// 创建todo
 		const todo = await new Todo(ctx.request.body).save();
-		ctx.body.todo = todo;
+		ctx.body = {
+			todo
+		};
 	}
 
 	async checkOwner(ctx, next) {
-		if (ctx.params.userId !== ctx.state.userId) {
+		if (ctx.params.userId !== ctx.state.user._id) {
 			ctx.throw(403, '没有权限');
 		}
 		await next();
@@ -59,26 +69,31 @@ class TodoController {
 	async update(ctx) {
 		const todo = await Todo.findAndUpdate({
 			userId: ctx.params.userId,
-			todoId: ctx.params.todoId
-		}, ctx.params.body);
+			_id: ctx.params.todoId
+		}, ctx.request.body, {
+			new: true
+		});
 
 		if (!todo) {
 			ctx.throw(404, '待办事项不存在');
 		}
-		ctx.body.todo = todo;
+		ctx.body = {
+			todo
+		};
 	}
 
 	async delete(ctx) {
 		const todo = await Todo.findAndRemove({
 			userId: ctx.params.userId,
-			todoId: ctx.params.todoId
+			_id: ctx.params.todoId
 		});
 
 		if (!todo) {
 			ctx.throw(404, '待办事项不存在');
 		}
 
-		ctx.status = 204;
+		ctx.statusCode = 204;
+		ctx.message = '删除成功';
 	}
 
 	async upload(ctx) {
@@ -90,8 +105,8 @@ class TodoController {
 			todoId: ctx.params.todoId
 		}, {$push: {"file": `${ctx.origin}/public/uploads/${basename}`}});
 
-		ctx.body.todo = todo;
 		ctx.body = {
+			todo: todo,
 			url:`${ctx.origin}/public/uploads/${basename}`    //ctx.origin是域名
 		};
 	}

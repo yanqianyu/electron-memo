@@ -4,8 +4,7 @@ const mongoose = require("mongoose");
 const {Schema, model} = mongoose;
 
 const todoListSchema = new Schema({
-	_id: {type: Number, select: false},
-	useId: {type: Number, required: true},
+	userId: {type: String, required: true},
 	title: {type: String}
 });
 
