@@ -7,8 +7,8 @@ afterEach(() => {
 
 describe('todo controller', () => {
 	let token, userId, listId, todoId;
-	test('after login', async () => {
-		// 每次请求都必须携带正确的token
+	test('create one todo', async () => {
+		// 登录
 		const loginResp = await request(server)
 			.post('/users/login')
 			.send({
@@ -17,17 +17,25 @@ describe('todo controller', () => {
 			});
 		token = 'Bearer ' + loginResp.body.token;
 		userId = loginResp.body._id;
-		const getListsResp = await request(server)
-			.set("Authorization", token)
-			.get('/todolist/' + userId);
-		// todo 返回的是todolist数组
-		expect(getListsResp.body.lists.length()).toBe(1);
-		listId = getListsResp.body.todoList._id;
-	});
 
-	test('create one todo', async () => {
+		// 创建列表
+		const createListResp = await request(server)
+			.post('/todolist/' + userId)
+			.set('Authorization', token)
+			.send({
+				userId: userId,
+				title: 'new todolist'
+			});
+		expect(createListResp.body.todolist._id).toBeDefined();
+
+		const getListsResp = await request(server)
+			.get('/todolist/' + userId)
+			.set("Authorization", token);
+		expect(getListsResp.body.todolists.length).toBe(1);
+		listId = getListsResp.body.todolists[0]._id;
+
 		const createTodoWithoutTokenResp = await request(server)
-			.post('/todos')
+			.post('/todos/' + userId)
 			.send({
 				userId: userId,
 				title: 'todo test',
@@ -36,11 +44,11 @@ describe('todo controller', () => {
 				customList: [listId],
 				steps: []
 			});
-		expect(createTodoWithoutTokenResp.body.statusCode).toBe(403);
+		expect(createTodoWithoutTokenResp.statusCode).toBe(401);
 
 		const createTodoResp = await request(server)
+			.post('/todos/' + userId)
 			.set('Authorization', token)
-			.post('/todos')
 			.send({
 				userId: userId,
 				title: 'todo test',
@@ -56,32 +64,32 @@ describe('todo controller', () => {
 
 	test('find todos by user id', async () => {
 		const findWithUserIdResp = await request(server)
-			.set('Authorization', token)
-			.get('/todos/' + userId);
+			.get('/todos/' + userId)
+			.set('Authorization', token);
 
 		expect(findWithUserIdResp.body.todos.length).toBe(1);
 	});
 
 	test('find todos by user id and list id', async () => {
 		const findWithUserIdListIdResp = await request(server)
-			.set('Authorization', token)
-			.get('/todos/' + userId + '/' + listId);
+			.get('/todos/' + userId + '/' + listId)
+			.set('Authorization', token);
 
 		expect(findWithUserIdListIdResp.body.todos.length).toBe(1);
 	});
 
 	test('find todo by todo id', async () => {
 		const findWithTodoIdResp = await request(server)
-			.set('Authorization', token)
-			.get('/todos/' + todoId);
+			.get('/todos/' + todoId)
+			.set('Authorization', token);
 
 		expect(findWithTodoIdResp.body.todos.length).toBe(1);
 	});
 
 	test('update a todo', async () => {
 		const updateResp = await request(server)
-			.set('Authorization', token)
 			.patch('/todos/' + userId + '/' + todoId)
+			.set('Authorization', token)
 			.send({
 				title: 'new Title'
 			});
@@ -92,15 +100,15 @@ describe('todo controller', () => {
 	test('upload a file', async () => {
 		const fileUploadResp = await request(server)
 			.attach('', '')
-			.set('Authorization', token)
-			.post('/todos/' + userId + '/' + todoId);
+			.post('/todos/' + userId + '/' + todoId)
+			.set('Authorization', token);
 		expect(fileUploadResp.body.todo.file.length).toBe(1);
 	});
 
 	test('delete a todo', async () => {
 		const deleteResp = await request(server)
-			.set('Authorization', token)
-			.delete('/todos/' + listId);
+			.delete('/todos/' + listId)
+			.set('Authorization', token);
 		expect(deleteResp.body.statusCode).toBe(204);
 	});
 

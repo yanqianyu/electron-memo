@@ -40,7 +40,7 @@ describe('todolist controller', () => {
 		token = 'Bearer ' + loginResp.body.token;
 		userId = loginResp.body._id;
 		const createResp = await request(server)
-			.post('/todolist/')
+			.post('/todolist/' + userId)
 			.set('Authorization', token)
 			.send({
 				userId: userId,

@@ -15,20 +15,21 @@ class TodoController {
 	}
 
 	async findByUserIdAndListId(ctx) {
+		// 某用户某列表下的所有todo
 		const userId = ctx.params.userId;
 		const listId = ctx.params.listId;
 
-		const todo = await Todo.find({
+		const todos = await Todo.find({
 			userId: userId,
 			listId: listId
 		});
 
-		if (!todo) {
-			ctx.throw(404, '待办事项不存在');
+		if (!todos) {
+			ctx.throw(404, '无法获取待办事项');
 		}
 
 		ctx.body = {
-			todo
+			todos
 		};
 	}
 

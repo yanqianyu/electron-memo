@@ -11,7 +11,7 @@ const auth = jwt({secret});
 
 router.get("/:userId", auth, checkOwner, findByUserId); // 获取某用户对应的所有list
 
-router.post("/", auth, checkOwner, create); //新建list
+router.post("/:userId", auth, checkOwner, create); //新建list
 
 router.get("/:userId/:listId", findByListId); // 获取特定列表
 

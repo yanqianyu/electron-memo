@@ -47,6 +47,7 @@ class TodoListController {
 
 		// todo: 对于重名列表要怎么办
 		const todolist = await new TodoList(ctx.request.body).save();
+		console.log(todolist);
 		ctx.body = {
 			todolist
 		};

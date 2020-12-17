@@ -5,7 +5,11 @@ const mongoose = require("mongoose");
 const {Schema, model} = mongoose;
 
 const todoSchema = new Schema({
-	userId: {type: String, require: true},
+	userId: {
+		type: Schema.Types.ObjectId,
+		ref: "User",
+		require: true
+	},
 	title: {type: String},
 	isDone: {type: Boolean},
 	builtinList: [
@@ -17,7 +21,7 @@ const todoSchema = new Schema({
 	customList: [
 		{
 			type: Schema.Types.ObjectId,
-			ref: "Todo"
+			ref: "TodoList"
 		}
 	],
 	steps: [
