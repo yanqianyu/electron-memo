@@ -2,7 +2,7 @@
 
 const User = require('../models/users');
 const jsonwebtoken = require("jsonwebtoken");
-const {secret} = require("../config");
+const {secret} = require("../db.config");
 
 class UserController {
 	async find(ctx) {

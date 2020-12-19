@@ -3,7 +3,7 @@
 const TodoList = require('../models/todolists');
 const Todo = require('../models/todos');
 const jsonwebtoken = require('jsonwebtoken');
-const {secret} = require('../config');
+const {secret} = require('../db.config');
 
 class TodoListController {
 	async findByUserId(ctx) {

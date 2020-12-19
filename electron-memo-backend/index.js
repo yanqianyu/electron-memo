@@ -11,13 +11,27 @@ const routing = require('./routes');
 
 // 数据库连接
 const mongoose = require('mongoose');
-const {connectStr} = require('./config');
+const {connectStr} = require('./db.config');
 mongoose.connect(
 	connectStr, // 数据库地址
 	{useUnifiedTopology: true, useNewUrlParser: true},
 	() => console.log("mongodb连接成功")
 );
 mongoose.connection.on('error', console.error);
+
+const logsUtil = require('./utils/logs.js');
+app.use(async (ctx, next) => {
+	const start = new Date(); // 响应开始时间
+	let intervals; // 响应间隔时间
+	try {
+		await next();
+		intervals = new Date() - start;
+		logsUtil.logResponse(ctx, intervals);	  //记录响应日志
+	} catch (error) {
+		intervals = new Date() - start;
+		logsUtil.logError(ctx, error, intervals);//记录异常日志
+	}
+});
 
 // 静态资源
 app.use(koaStatic(path.join(__dirname, "public")));

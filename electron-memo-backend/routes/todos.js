@@ -2,7 +2,7 @@
 
 const jsonwebtoken = require('jsonwebtoken');
 const jwt = require('koa-jwt');
-const {secret} = require('../config');
+const {secret} = require('../db.config');
 const Router = require('koa-router');
 const router = new Router({prefix: "/todos"});
 
