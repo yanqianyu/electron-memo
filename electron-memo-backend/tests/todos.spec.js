@@ -129,14 +129,16 @@ describe('todo controller', () => {
 			});
 		token = 'Bearer ' + loginResp.body.token;
 		userId = loginResp.body._id;
-		todoId = "5fdf32e2675b2c620b9222f0";
+		todoId = "5fdf348e5528096451914fa5";
 		const updateResp = await request(server)
 			.patch('/todos/' + userId + '/' + todoId)
 			.set('Authorization', token)
 			.send({
 				title: 'new Title',
-				step: ['step one'],
-				reminder: Date.now()
+				steps: [{content: 'step one'}],
+				times: {
+					reminder: Date.now()
+				}
 			});
 		console.log(updateResp.body);
 		expect(updateResp.body.todo._id).toBe(todoId);

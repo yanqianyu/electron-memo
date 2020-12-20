@@ -5,11 +5,10 @@ const mongoose = require("mongoose");
 const {Schema, model} = mongoose;
 
 const step = new Schema({
-	_id: {type: Schema.Types.ObjectId},
 	content: {type: String}
 });
 
-const time = new Schema({
+const times = new Schema({
 	reminder: {
 		type: Date,
 		default: null
@@ -49,9 +48,7 @@ const todoSchema = new Schema({
 		}
 	],
 	steps: [ step ],
-	times: {
-		time
-	},
+	times: times,
 	files: [
 		{
 			type: String
