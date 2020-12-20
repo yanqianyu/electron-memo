@@ -148,11 +148,25 @@ describe('todo controller', () => {
 	});
 
 	test('upload a file', async () => {
+		const loginResp = await request(server)
+			.post('/users/login')
+			.send({
+				name: 'Yanqianyu',
+				password: '1234'
+			});
+		token = 'Bearer ' + loginResp.body.token;
+		userId = loginResp.body._id;
+		todoId = "5fdf348e5528096451914fa5";
+
+		// attach的第一个参数对应const file = ctx.request.files.file;中的file
 		const fileUploadResp = await request(server)
-			.attach('', '')
-			.post('/todos/' + userId + '/' + todoId)
-			.set('Authorization', token);
-		expect(fileUploadResp.body.todo.file.length).toBe(1);
+			.post('/todos/upload/' + userId + '/' + todoId)
+			.set('Authorization', token)
+			.set('Content-Type', 'multipart/form-data')
+			.attach('file', '/Users/YanQianyu/Desktop/myfrontprojects/electron-memo/electron-memo-backend/tests/test.md');
+		console.log(fileUploadResp.body);
+
+		expect(fileUploadResp.body.todo.files.length).toBe(1);
 	});
 
 	test('delete a todo', async () => {

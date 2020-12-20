@@ -1,8 +1,10 @@
 // todo模块控制器
 
-const Todo = require('../models/todos');
-const jsonwebtoken = require('jsonwebtoken');
-const {secret} = require('../db.config');
+const Todo = require("../models/todos");
+const fs = require("fs");
+const jsonwebtoken = require("jsonwebtoken");
+const {secret} = require("../db.config");
+const path = require("path");
 
 class TodoController {
 	async findByUserId(ctx) {
@@ -32,7 +34,7 @@ class TodoController {
 		});
 
 		if (!todos) {
-			ctx.throw(404, '无法获取待办事项');
+			ctx.throw(404, "无法获取待办事项");
 		}
 
 		ctx.body = {
@@ -50,7 +52,7 @@ class TodoController {
 		});
 
 		if (!todo) {
-			ctx.throw(404, '待办事项不存在');
+			ctx.throw(404, "待办事项不存在");
 		}
 
 		ctx.body = {
@@ -68,7 +70,7 @@ class TodoController {
 
 	async checkOwner(ctx, next) {
 		if (ctx.params.userId !== ctx.state.user._id) {
-			ctx.throw(403, '没有权限');
+			ctx.throw(403, "没有权限");
 		}
 		await next();
 	}
@@ -83,7 +85,7 @@ class TodoController {
 		});
 
 		if (!todo) {
-			ctx.throw(404, '待办事项不存在');
+			ctx.throw(404, "待办事项不存在");
 		}
 		ctx.body = {
 			todo
@@ -97,26 +99,37 @@ class TodoController {
 		});
 
 		if (!todo) {
-			ctx.throw(404, '待办事项不存在');
+			ctx.throw(404, "待办事项不存在");
 		}
 
 		ctx.statusCode = 204;
-		ctx.message = '删除成功';
+		ctx.message = "删除成功";
 	}
 
 	async upload(ctx) {
 		const file = ctx.request.files.file;
-		const basename = path.basename(file.path);    //获取图片名称（basename）
-		// 更新对应的todo
-		const todo = Todo.update({
-			userId: ctx.params.userId,
-			todoId: ctx.params.todoId
-		}, {$push: {"file": `${ctx.origin}/public/uploads/${basename}`}});
+		const newname = file.path.split("/").pop();
+		console.log(newname);
 
-		ctx.body = {
-			todo: changeTimesFormat(todo),
-			url:`${ctx.origin}/public/uploads/${basename}`    //ctx.origin是域名
-		};
+		// 更新对应的todo
+		const todo = await Todo.findOneAndUpdate({
+				userId: ctx.params.userId,
+				_id: ctx.params.todoId
+			},
+			{
+				$push: {"files": {path: `${ctx.origin}/public/uploads/${newname}`}}
+			},
+			{
+				new: true
+			}); //ctx.origin是域名
+
+		if (todo) {
+			ctx.body = {
+				todo: todo,
+			};
+		} else {
+			ctx.throw("404", "上传失败");
+		}
 	}
 }
 

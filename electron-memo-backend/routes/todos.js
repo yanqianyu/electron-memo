@@ -16,7 +16,7 @@ router.get("/todosByList/:userId/:listId", findByUserIdAndListId);
 
 router.post("/:userId", auth, create); // 创建todo
 
-router.post("/:userId/:todoId/upload", upload); // 上传文件
+router.post("/upload/:userId/:todoId", upload); // 上传文件
 
 router.get("/todoById/:userId/:todoId", findByTodoId);
 

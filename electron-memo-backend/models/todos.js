@@ -8,6 +8,10 @@ const step = new Schema({
 	content: {type: String}
 });
 
+const file = new Schema({
+	path: {type: String}
+});
+
 const times = new Schema({
 	reminder: {
 		type: Date,
@@ -49,11 +53,7 @@ const todoSchema = new Schema({
 	],
 	steps: [ step ],
 	times: times,
-	files: [
-		{
-			type: String
-		}
-	],
+	files: [ file ],
 	createTime: {
 		type: Date,
 		default: Date.now()
