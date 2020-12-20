@@ -45,12 +45,20 @@ class TodoListController {
 			}
 		});
 
-		// todo: 对于重名列表要怎么办
-		const todolist = await new TodoList(ctx.request.body).save();
-		console.log(todolist);
-		ctx.body = {
-			todolist
-		};
+		// 不允许重名清单
+		const todolistSameName = await TodoList.find({
+			title: ctx.request.body.title
+		});
+
+		if (todolistSameName.length > 0) {
+			ctx.throw(403, '重复的列表名');
+		}
+		else {
+			const todolist = await new TodoList(ctx.request.body).save();
+			ctx.body = {
+				todolist
+			};
+		}
 	}
 
 	async checkOwner(ctx, next) {

@@ -57,12 +57,25 @@ describe('todo controller', () => {
 				customList: [listId],
 				steps: []
 			});
+
+		console.log(createTodoResp.body);
 		expect(createTodoResp.body.todo._id).toBeDefined();
 		expect(createTodoResp.body.todo.userId).toBe(userId);
+		// expect(createTodoResp.body.todo.times).toBeDefined();
 	});
 
 
 	test('find todos by user id', async () => {
+		// 登录
+		const loginResp = await request(server)
+			.post('/users/login')
+			.send({
+				name: 'Yanqianyu',
+				password: '1234'
+			});
+		token = 'Bearer ' + loginResp.body.token;
+		userId = loginResp.body._id;
+
 		const findWithUserIdResp = await request(server)
 			.get('/todos/' + userId)
 			.set('Authorization', token);
@@ -71,30 +84,65 @@ describe('todo controller', () => {
 	});
 
 	test('find todos by user id and list id', async () => {
+		// 登录
+		const loginResp = await request(server)
+			.post('/users/login')
+			.send({
+				name: 'Yanqianyu',
+				password: '1234'
+			});
+		token = 'Bearer ' + loginResp.body.token;
+		userId = loginResp.body._id;
+		listId = '5fdf041f1d6ae93f98e2c0d0';
 		const findWithUserIdListIdResp = await request(server)
-			.get('/todos/' + userId + '/' + listId)
+			.get('/todos/todosByList/' + userId + '/' + listId)
 			.set('Authorization', token);
 
 		expect(findWithUserIdListIdResp.body.todos.length).toBe(1);
 	});
 
 	test('find todo by todo id', async () => {
+		const loginResp = await request(server)
+			.post('/users/login')
+			.send({
+				name: 'Yanqianyu',
+				password: '1234'
+			});
+		token = 'Bearer ' + loginResp.body.token;
+		userId = loginResp.body._id;
+		todoId = '5fdf041f1d6ae93f98e2c0d1';
 		const findWithTodoIdResp = await request(server)
-			.get('/todos/' + todoId)
+			.get('/todos/todoById/' + userId + '/' + todoId)
 			.set('Authorization', token);
 
-		expect(findWithTodoIdResp.body.todos.length).toBe(1);
+		console.log(findWithTodoIdResp.body.todo);
+
+		expect(findWithTodoIdResp.body.todo._id).toEqual(todoId);
 	});
 
 	test('update a todo', async () => {
+		const loginResp = await request(server)
+			.post('/users/login')
+			.send({
+				name: 'Yanqianyu',
+				password: '1234'
+			});
+		token = 'Bearer ' + loginResp.body.token;
+		userId = loginResp.body._id;
+		todoId = "5fdf32e2675b2c620b9222f0";
 		const updateResp = await request(server)
 			.patch('/todos/' + userId + '/' + todoId)
 			.set('Authorization', token)
 			.send({
-				title: 'new Title'
+				title: 'new Title',
+				step: ['step one'],
+				reminder: Date.now()
 			});
+		console.log(updateResp.body);
 		expect(updateResp.body.todo._id).toBe(todoId);
 		expect(updateResp.body.todo.title).toBe('new Title');
+		expect(updateResp.body.todo.steps.length).toBe(1);
+		expect(updateResp.body.todo.times).toBeDefined();
 	});
 
 	test('upload a file', async () => {

@@ -4,14 +4,38 @@ const mongoose = require("mongoose");
 
 const {Schema, model} = mongoose;
 
+const step = new Schema({
+	_id: {type: Schema.Types.ObjectId},
+	content: {type: String}
+});
+
+const time = new Schema({
+	reminder: {
+		type: Date,
+		default: null
+	},
+	ddl: {
+		type: Date,
+		default: null
+	},
+	repeat: {
+		type: Date,
+		default: null
+	},
+});
+
 const todoSchema = new Schema({
 	userId: {
 		type: Schema.Types.ObjectId,
 		ref: "User",
 		require: true
 	},
-	title: {type: String},
-	isDone: {type: Boolean},
+	title: {
+		type: String, require: true
+	},
+	isDone: {
+		type: Boolean, default: false
+	},
 	builtinList: [
 		{
 			type: Schema.Types.ObjectId,
@@ -24,25 +48,23 @@ const todoSchema = new Schema({
 			ref: "TodoList"
 		}
 	],
-	steps: [
-		{
-			_id: {type: String},
-			content: {type: String}
-		}
-	],
-	// todo
+	steps: [ step ],
 	times: {
-		reminder: {type: Date},
-		ddl: {type: Date},
-		repeat: {type: Date}
+		time
 	},
 	files: [
 		{
 			type: String
 		}
 	],
-	createTime: {type: Date},
-	notes: {type: String}
+	createTime: {
+		type: Date,
+		default: Date.now()
+	},
+	notes: {
+		type: String,
+		default: null
+	}
 });
 
 module.exports = model("Todo", todoSchema);

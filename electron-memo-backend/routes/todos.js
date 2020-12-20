@@ -12,13 +12,13 @@ const auth = jwt({secret});
 
 router.get("/:userId", findByUserId); // 根据用户id返回所有todo
 
-router.get("/:userId/:listId", findByUserIdAndListId);
+router.get("/todosByList/:userId/:listId", findByUserIdAndListId);
 
 router.post("/:userId", auth, create); // 创建todo
 
 router.post("/:userId/:todoId/upload", upload); // 上传文件
 
-router.get("/:userId/:todoId", findByTodoId);
+router.get("/todoById/:userId/:todoId", findByTodoId);
 
 router.patch("/:userId/:todoId", auth, checkOwner, update); // 更新todo，需要jwt认证和验证操作用户身份
 

@@ -8,7 +8,7 @@ class TodoController {
 	async findByUserId(ctx) {
 		// 找到一个user的所有todo
 		const userId = ctx.params.userId;
-		const todos = await Todo.find(userId) || [];
+		const todos = await Todo.find({userId: userId}) || [];
 		ctx.body = {
 			todos
 		};
@@ -21,7 +21,14 @@ class TodoController {
 
 		const todos = await Todo.find({
 			userId: userId,
-			listId: listId
+			$or: [
+				{
+					customList: {$elemMatch: {$eq: listId}}
+				},
+				{
+					builtinList: {$elemMatch: {$eq: listId}}
+				}
+			]
 		});
 
 		if (!todos) {
@@ -37,7 +44,7 @@ class TodoController {
 		const userId = ctx.params.userId;
 		const todoId = ctx.params.todoId;
 
-		const todo = await Todo.find({
+		const todo = await Todo.findOne({
 			userId: userId,
 			_id: todoId
 		});
@@ -68,7 +75,7 @@ class TodoController {
 
 
 	async update(ctx) {
-		const todo = await Todo.findAndUpdate({
+		const todo = await Todo.findOneAndUpdate({
 			userId: ctx.params.userId,
 			_id: ctx.params.todoId
 		}, ctx.request.body, {
@@ -107,7 +114,7 @@ class TodoController {
 		}, {$push: {"file": `${ctx.origin}/public/uploads/${basename}`}});
 
 		ctx.body = {
-			todo: todo,
+			todo: changeTimesFormat(todo),
 			url:`${ctx.origin}/public/uploads/${basename}`    //ctx.origin是域名
 		};
 	}
