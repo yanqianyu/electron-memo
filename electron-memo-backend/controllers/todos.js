@@ -93,7 +93,7 @@ class TodoController {
 	}
 
 	async delete(ctx) {
-		const todo = await Todo.findAndRemove({
+		const todo = await Todo.findOneAndDelete({
 			userId: ctx.params.userId,
 			_id: ctx.params.todoId
 		});
@@ -102,8 +102,11 @@ class TodoController {
 			ctx.throw(404, "待办事项不存在");
 		}
 
-		ctx.statusCode = 204;
-		ctx.message = "删除成功";
+		// https://github.com/koajs/koa/issues/905
+		// ctx.statusCode = 204;
+		ctx.body = {
+			message: "删除成功"
+		};
 	}
 
 	async upload(ctx) {

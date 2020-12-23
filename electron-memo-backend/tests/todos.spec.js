@@ -101,6 +101,32 @@ describe('todo controller', () => {
 		expect(findWithUserIdListIdResp.body.todos.length).toBe(1);
 	});
 
+	test('create a todo in a list', async () => {
+		const loginResp = await request(server)
+			.post('/users/login')
+			.send({
+				name: 'Yanqianyu',
+				password: '1234'
+			});
+		token = 'Bearer ' + loginResp.body.token;
+		userId = loginResp.body._id;
+		listId = "5fdf348e5528096451914fa4";
+
+		const createTodoResp = await request(server)
+			.post('/todos/' + userId)
+			.send({
+				userId: userId,
+				title: 'todo test',
+				isDone: false,
+				builtinList: [],
+				customList: [listId],
+				steps: []
+			})
+			.set('Authorization', token);
+		expect(createTodoResp.body.todo._id).toBeDefined();
+		expect(createTodoResp.body.todo.userId).toBe(userId);
+	});
+
 	test('find todo by todo id', async () => {
 		const loginResp = await request(server)
 			.post('/users/login')
@@ -129,7 +155,7 @@ describe('todo controller', () => {
 			});
 		token = 'Bearer ' + loginResp.body.token;
 		userId = loginResp.body._id;
-		todoId = "5fdf348e5528096451914fa5";
+		todoId = "5fe32e75dbe3dfc53dce510b";
 		const updateResp = await request(server)
 			.patch('/todos/' + userId + '/' + todoId)
 			.set('Authorization', token)
@@ -170,10 +196,31 @@ describe('todo controller', () => {
 	});
 
 	test('delete a todo', async () => {
+		const loginResp = await request(server)
+			.post('/users/login')
+			.send({
+				name: 'Yanqianyu',
+				password: '1234'
+			});
+		token = 'Bearer ' + loginResp.body.token;
+		userId = loginResp.body._id;
+		todoId = "5fe3362985bc3cc9a2a2f37e";
+
 		const deleteResp = await request(server)
-			.delete('/todos/' + listId)
+			.delete('/todos/' + userId + '/' + todoId)
 			.set('Authorization', token);
-		expect(deleteResp.body.statusCode).toBe(204);
+
+		console.log(deleteResp.body);
+		expect(deleteResp.statusCode).toBe(200);
+		expect(deleteResp.body.message).toBe("删除成功");
+
+		const delete2Resp = await request(server)
+			.delete('/todos/' + userId + '/' + todoId)
+			.set('Authorization', token);
+
+		console.log(delete2Resp.body);
+		expect(delete2Resp.statusCode).toBe(404);
+		expect(delete2Resp.body.message).toBe("待办事项不存在");
 	});
 
 });

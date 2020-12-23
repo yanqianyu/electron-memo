@@ -100,8 +100,7 @@ class TodoListController {
 
 	async delete(ctx) {
 		// 删除列表以及列表中的todo
-		// todo 先find再delete
-		const todolist = await TodoList.deleteOne({
+		const todolist = await TodoList.find({
 			userId: ctx.params.userId,
 			_id: ctx.params.listId
 		});
@@ -110,16 +109,29 @@ class TodoListController {
 			ctx.throw(404, '列表不存在');
 		}
 
-		// 删除列表中的todo
-		const todos = await Todo.deleteMany({
+		const todoList = await Todo.deleteOne({
 			userId: ctx.params.userId,
 			_id: ctx.params.listId
 		});
 
-		// todo
-		if (todos) {
+		// 删除列表中的todo
+		const todos = await Todo.deleteMany({
+			userId: ctx.params.userId,
+			$or: [
+				{
+					customList: {$elemMatch: {$eq: ctx.params.listId}}
+				},
+				{
+					builtinList: {$elemMatch: {$eq: ctx.params.listId}}
+				}
+			]
+		});
+
+		if (todoList && todos) {
 			ctx.statusCode = 204;
-			ctx.message = '删除成功';
+			ctx.body = {
+				message: '删除成功'
+			};
 		}
 	}
 }
