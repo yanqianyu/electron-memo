@@ -195,6 +195,10 @@ describe('todo controller', () => {
 		expect(fileUploadResp.body.todo.files.length).toBe(1);
 	});
 
+	test('delete a file', async () => {
+
+	})
+
 	test('delete a todo', async () => {
 		const loginResp = await request(server)
 			.post('/users/login')

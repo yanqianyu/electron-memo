@@ -7,8 +7,10 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
 	state: {
+		userId: localStorage.getItem("userId") || null,
 		token: localStorage.getItem("token") || null,
 		todos: todos,
+		todoId: "", // 当前显示的是哪个todo
 		currentList: "1", // 当前显示的是哪个list
 		customLists: [], // 所有自定义的list
 		builtinLists: builtins // 内置list
@@ -58,8 +60,10 @@ export const store = new Vuex.Store({
 		}
 	},
 	mutations: {
-		login(state, token) {
-			state.toekn = token;
+		login(state, payload) {
+			// 用户登陆
+			state.token = payload.token;
+			state.userId = payload.userId;
 		},
 		addTodo(state, todo) {
 			// 增添todo的记录
@@ -92,30 +96,86 @@ export const store = new Vuex.Store({
 		updateCusList(state, changeInfo) {
 			const listIdx = state.customLists.findIndex(item => item.id === changeInfo.listid);
 			state.customLists[listIdx].name = changeInfo.newTitle;
+		},
+		uploadFile(state, fileInfo) {
+
+		},
+		deleteFile(state, fileInfo) {
+
 		}
 	},
 	actions: {
 		login(context, userInfo) {
-			this.$axios.post("/todo/login", {
-				email: userInfo.email,
-				password: userInfo.password
-			}).then(resp => {
-				const token = resp.data.token;
-				localStorage.setItem("token", token);
-				context.commit("login", token);
-			}).catch(err => {
-				console.log(err);
-			});
+			// 注册
+			return new Promise((resolve, reject) => {
+				this.$axios.post("/users/login", {
+					email: userInfo.email,
+					password: userInfo.password
+				}).then(resp => {
+					const token = "Bearer" + resp.body.token;
+					const userId = resp.body._id;
+					localStorage.setItem("token", token);
+					localStorage.setItem("userId", userId);
+					context.commit("login", {token, userId});
+					resolve();
+				}).catch(err => {
+					reject(err);
+				});
+			})
 		},
-		// 和后端api交互
+		register(context, userInfo) {
+			// 登陆
+			return new Promise((resolve, reject) => {
+				this.$axios.post("/users/register", {
+					email: userInfo.email,
+					password: userInfo.password
+				}).then(resp => {
+					resolve();
+				}).catch(err => {
+					reject(err);
+				});
+			})
+		},
 		addTodo(context, todo) {
-			context.commit("addTodo", todo);
+			// 新建todo
+			return new Promise((resolve, reject) => {
+				// https://vuex.vuejs.org/zh/guide/actions.html
+				this.$axios.post("/todos/" + context.state.userId, {
+					todo
+				}).then(resp => {
+					context.commit("addTodo", resp.body.todo);
+					resolve();
+				}).catch(err => {
+					reject(err);
+				});
+			})
 		},
 		updateTodo(context, todo) {
-			context.commit("updateTodo", todo);
+			// 更新todo 除文件外
+			return new Promise((resolve, reject) => {
+				this.$axios.post('/todos/' + context.state.userId + '/' + context.state.todoId, {
+					todo
+				}).then(resp => {
+					context.commit("updateTodo", resp.body.todo);
+					resolve();
+				}).catch(err => {
+					reject(err);
+				})
+			});
 		},
 		deleteTodo(context, id) {
-			context.commit("deleteTodo", id);
+			// 删除todo
+			return new Promise((resolve, reject) => {
+				this.$axios.delete('/todos/' + context.state.userId + '/' + id, {
+
+				}).then(resp => {
+					const id = resp.body._id;
+					context.commit("deleteTodo", id);
+					resolve()
+				}).catch(err => {
+					reject(err);
+				})
+			})
 		},
 		updateListFilter(context, curList) {
 			// 切换显示的清单
@@ -123,15 +183,57 @@ export const store = new Vuex.Store({
 		},
 		addCusList(context, newList) {
 			// 增加自定义清单
-			context.commit("addCusList", newList);
+			return new Promise((resolve, reject) => {
+				this.$axios.post('/todolist/' + context.state.userId, {
+					newList
+				}).then(resp => {
+					context.commit("addCusList", resp.body.todolist);
+					resolve();
+				}).catch(err => {
+					reject(err);
+				})
+			})
 		},
 		deleteCusList(context, list) {
 			// 删除自定义清单
-			context.commit("deleteCusList", list);
+			return new Promise((resolve, reject) => {
+				this.$axios.delete('/todolist/' + context.state.userId + '/' + list, {
+
+				}).then(resp => {
+					context.commit("deleteCusList", resp.body._id);
+					resolve();
+				}).catch(err => {
+					reject(err);
+				})
+			});
 		},
 		updateCusList(context, oldList, newListName) {
 			// 更新自定义清单
-			context.commit("updateCusList", oldList, newListName);
+			return new Promise((resolve, reject) => {
+				this.$axios.put('/todolist/' + context.state.userId + '/' + oldList, {
+					_id: oldList,
+					userId: context.state.userId,
+					title: newListName
+				}).then(resp => {
+					context.commit("updateCusList", oldList, resp.body.todolist.title);
+					resolve();
+				}).catch(err => {
+					reject(err);
+				})
+			})
+
+		},
+		uploadFile() {
+			// 上传文件
+			return new Promise((resolve, reject) => {
+
+			})
+		},
+		deleteFile() {
+			// 删除文件
+			return new Promise((resolve, reject) => {
+
+			})
 		}
 	}
 });

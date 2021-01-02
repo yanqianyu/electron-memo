@@ -134,6 +134,10 @@ class TodoController {
 			ctx.throw("404", "上传失败");
 		}
 	}
+
+	asyns deleteFile(ctx) {
+
+	}
 }
 
 module.exports = new TodoController();

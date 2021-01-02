@@ -7,9 +7,8 @@ A tiny memo based on Electron8 and Vue
 ## 需求分析
 - [x] 查询所有的待办事项
 - [x] 新增待办事项
-- [ ] 修改已有待办事项
-- [ ] 删除已有待办事项
-- [ ] 未完成的待办事项的计数
+- [x] 修改已有待办事项
+- [x] 删除已有待办事项
 
 ## 每一条待办事项的数据结构
 ```
@@ -80,7 +79,7 @@ return: {
 ```
 |-- ELECTRON-MEMO
     |-- README.md
-    |-- babel.config.js
+    |-- babel.db.config.js
     |-- package-lock.json
     |-- package.json
     |-- dist_electron

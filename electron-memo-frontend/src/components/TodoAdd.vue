@@ -36,7 +36,11 @@ export default {
 				createTime: new Date(),
 				notes: null
 			};
-			this.$store.commit("addTodo", newTodo);
+			this.$store.dispatch('addTodo', newTodo).then(resp => {
+
+            }).catch(err => {
+
+            })
 
 			this.todo = "";
 		}

@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fcbfde96-a81b-49ac-a3f3-11afdf16d27d" name="Default Changelist" comment="" />
+    <list default="true" id="4f5d2d88-313d-4ecd-a431-e269450c1077" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/YanQianyu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/electron-memo-backend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/controllers/todos.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-backend/controllers/todos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/tests/todos.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-backend/tests/todos.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/electron-memo.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/directoryList.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoAdd.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoAdd.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Register.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/store/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="JavaScript File" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1j0BdxpLZAcdvQZSOibvavnzdSj" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1mUsNBMJ6spG6G1pyTIrnAvq2wE" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -26,97 +51,14 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="javascript.nodejs.core.library.configured.version" value="12.18.3" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/electron-memo-frontend/node_modules/@vue/cli-service" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
-    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
-  </component>
-  <component name="RunManager" selected="npm.electron:serve">
-    <configuration name="Picker.Should cancel" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/electron-memo-frontend/node_modules/@vue/cli-service" />
-      <working-dir value="$PROJECT_DIR$/electron-memo-frontend" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Picker.spec.js" />
-      <test-names>
-        <test-name value="Picker" />
-        <test-name value="Should cancel" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Picker.Should set month" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/electron-memo-frontend/node_modules/@vue/cli-service" />
-      <working-dir value="$PROJECT_DIR$/electron-memo-frontend" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Picker.spec.js" />
-      <test-names>
-        <test-name value="Picker" />
-        <test-name value="Should set month" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Picker.Should set time" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/electron-memo-frontend/node_modules/@vue/cli-service" />
-      <working-dir value="$PROJECT_DIR$/electron-memo-frontend" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Picker.spec.js" />
-      <test-names>
-        <test-name value="Picker" />
-        <test-name value="Should set time" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Time" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/electron-memo-frontend/node_modules/@vue/cli-service" />
-      <working-dir value="$PROJECT_DIR$/electron-memo-frontend" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Time.spec.js" />
-      <test-names>
-        <test-name value="Time" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="electron:serve" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/electron-memo-frontend/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="electron:serve" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="npm.electron:serve" />
-        <item itemvalue="Jest.Time" />
-        <item itemvalue="Jest.Picker.Should cancel" />
-        <item itemvalue="Jest.Picker.Should set time" />
-        <item itemvalue="Jest.Picker.Should set month" />
-      </list>
-    </recent_temporary>
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -135,70 +77,27 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fcbfde96-a81b-49ac-a3f3-11afdf16d27d" name="Default Changelist" comment="" />
-      <created>1602931220038</created>
+      <changelist id="4f5d2d88-313d-4ecd-a431-e269450c1077" name="Default Changelist" comment="" />
+      <created>1609559462020</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1602931220038</updated>
-      <workItem from="1602931227451" duration="23000" />
-      <workItem from="1603109382568" duration="45217000" />
-      <workItem from="1603674122871" duration="5647000" />
+      <updated>1609559462020</updated>
+      <workItem from="1609559463690" duration="6032000" />
+      <workItem from="1609572662832" duration="3445000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$/electron-memo-frontend" />
-    </ignored-roots>
-  </component>
   <component name="WindowStateProjectService">
-    <state x="146" y="123" width="1034" height="577" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1603370941233">
-      <screen x="41" y="23" width="1239" height="777" />
+    <state x="352" y="154" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1609572407409">
+      <screen x="49" y="25" width="1231" height="775" />
     </state>
-    <state x="146" y="123" width="1034" height="577" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/41.23.1239.777/-260.-1057.1920.1057@41.23.1239.777" timestamp="1603370941233" />
-    <state width="1216" height="142" key="GridCell.Tab.0.bottom" timestamp="1603806344281">
-      <screen x="43" y="23" width="1237" height="777" />
+    <state x="352" y="154" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/49.25.1231.775/-260.-1055.1920.1055@49.25.1231.775" timestamp="1609572407409" />
+    <state x="328" y="-1055" width="761" height="1055" key="dock-window-1" timestamp="1609578053295">
+      <screen x="-260" y="-1055" width="1920" height="1055" />
     </state>
-    <state width="1213" height="168" key="GridCell.Tab.0.bottom/41.23.1239.777/-260.-1057.1920.1057@41.23.1239.777" timestamp="1603371877984" />
-    <state width="1213" height="141" key="GridCell.Tab.0.bottom/42.23.1238.777/-260.-1057.1920.1057@42.23.1238.777" timestamp="1603620683708" />
-    <state width="1213" height="141" key="GridCell.Tab.0.bottom/42.23.1238.777@42.23.1238.777" timestamp="1603633230005" />
-    <state width="1216" height="142" key="GridCell.Tab.0.bottom/43.23.1237.777/-260.-1057.1920.1057@43.23.1237.777" timestamp="1603806344281" />
-    <state width="1213" height="48" key="GridCell.Tab.0.bottom/46.23.1234.777/-260.-1057.1920.1057@46.23.1234.777" timestamp="1603112453020" />
-    <state width="1213" height="194" key="GridCell.Tab.0.bottom/47.23.1233.777/-260.-1057.1920.1057@47.23.1233.777" timestamp="1603114181514" />
-    <state width="1216" height="142" key="GridCell.Tab.0.center" timestamp="1603806344275">
-      <screen x="43" y="23" width="1237" height="777" />
-    </state>
-    <state width="1213" height="168" key="GridCell.Tab.0.center/41.23.1239.777/-260.-1057.1920.1057@41.23.1239.777" timestamp="1603371877980" />
-    <state width="1213" height="141" key="GridCell.Tab.0.center/42.23.1238.777/-260.-1057.1920.1057@42.23.1238.777" timestamp="1603620683706" />
-    <state width="1213" height="141" key="GridCell.Tab.0.center/42.23.1238.777@42.23.1238.777" timestamp="1603633230004" />
-    <state width="1216" height="142" key="GridCell.Tab.0.center/43.23.1237.777/-260.-1057.1920.1057@43.23.1237.777" timestamp="1603806344275" />
-    <state width="1213" height="48" key="GridCell.Tab.0.center/46.23.1234.777/-260.-1057.1920.1057@46.23.1234.777" timestamp="1603112453017" />
-    <state width="1213" height="194" key="GridCell.Tab.0.center/47.23.1233.777/-260.-1057.1920.1057@47.23.1233.777" timestamp="1603114181513" />
-    <state width="1216" height="142" key="GridCell.Tab.0.left" timestamp="1603806344274">
-      <screen x="43" y="23" width="1237" height="777" />
-    </state>
-    <state width="1213" height="168" key="GridCell.Tab.0.left/41.23.1239.777/-260.-1057.1920.1057@41.23.1239.777" timestamp="1603371877977" />
-    <state width="1213" height="141" key="GridCell.Tab.0.left/42.23.1238.777/-260.-1057.1920.1057@42.23.1238.777" timestamp="1603620683706" />
-    <state width="1213" height="141" key="GridCell.Tab.0.left/42.23.1238.777@42.23.1238.777" timestamp="1603633230003" />
-    <state width="1216" height="142" key="GridCell.Tab.0.left/43.23.1237.777/-260.-1057.1920.1057@43.23.1237.777" timestamp="1603806344274" />
-    <state width="1213" height="48" key="GridCell.Tab.0.left/46.23.1234.777/-260.-1057.1920.1057@46.23.1234.777" timestamp="1603112453016" />
-    <state width="1213" height="194" key="GridCell.Tab.0.left/47.23.1233.777/-260.-1057.1920.1057@47.23.1233.777" timestamp="1603114181513" />
-    <state width="1216" height="142" key="GridCell.Tab.0.right" timestamp="1603806344276">
-      <screen x="43" y="23" width="1237" height="777" />
-    </state>
-    <state width="1213" height="168" key="GridCell.Tab.0.right/41.23.1239.777/-260.-1057.1920.1057@41.23.1239.777" timestamp="1603371877983" />
-    <state width="1213" height="141" key="GridCell.Tab.0.right/42.23.1238.777/-260.-1057.1920.1057@42.23.1238.777" timestamp="1603620683707" />
-    <state width="1213" height="141" key="GridCell.Tab.0.right/42.23.1238.777@42.23.1238.777" timestamp="1603633230004" />
-    <state width="1216" height="142" key="GridCell.Tab.0.right/43.23.1237.777/-260.-1057.1920.1057@43.23.1237.777" timestamp="1603806344276" />
-    <state width="1213" height="48" key="GridCell.Tab.0.right/46.23.1234.777/-260.-1057.1920.1057@46.23.1234.777" timestamp="1603112453019" />
-    <state width="1213" height="194" key="GridCell.Tab.0.right/47.23.1233.777/-260.-1057.1920.1057@47.23.1233.777" timestamp="1603114181514" />
-    <state x="164" y="50" key="SettingsEditor" timestamp="1603109395440">
-      <screen x="46" y="23" width="1234" height="777" />
-    </state>
-    <state x="163" y="50" key="SettingsEditor/45.23.1235.777/-260.-1057.1920.1057@45.23.1235.777" timestamp="1602931248502" />
-    <state x="164" y="50" key="SettingsEditor/46.23.1234.777/-260.-1057.1920.1057@46.23.1234.777" timestamp="1603109395440" />
+    <state x="328" y="-1055" width="761" height="1055" key="dock-window-1/49.25.1231.775/-260.-1055.1920.1055@49.25.1231.775" timestamp="1609578053295" />
   </component>
 </project>

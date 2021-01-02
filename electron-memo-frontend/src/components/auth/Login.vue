@@ -38,20 +38,21 @@ export default {
 		login() {
 			// 通过store向后台发送登录表单
 			// 登录成功跳转
-			this.$router.push({path: "/builtinList", query: {listid: "1"}});
+			// this.$router.push({path: "/builtinList", query: {listid: "1"}});
 			// 登陆成功，服务端返回所有的todo，存在localstorage中？
-			// this.$store.dispatch('login', {
-			//     email: this.email,
-			//     password: this.password
-			//     // eslint-disable-next-line no-unused-vars
-			// }).then(resp => {
-			//     this.$route.push({name: 'app'})
-			// }).catch(err => {
-			//     // todo：error信息的显示
-			//     console.log(err)
-			//     this.email = ''
-			//     this.password = ''
-			// })
+			this.$store.dispatch('login', {
+			    email: this.email,
+			    password: this.password
+			}).then(resp => {
+				console.log(resp);
+			    this.$route.push({name: 'app'})
+			}).catch(err => {
+			    // todo：error信息的显示
+                console.log(err)
+			    console.log("登录失败")
+			    this.email = ''
+			    this.password = ''
+			})
 		}
 	}
 };
