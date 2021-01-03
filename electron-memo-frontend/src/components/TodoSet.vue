@@ -177,11 +177,21 @@ export default {
 		},
 		changeDoneTodo() {
 			this.todo.isDone = !this.todo.isDone;
-			this.$store.commit("updateTodo", this.todo);
+			this.$store.dispatch("updateTodo", this.todo).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+            });
 		},
 		changeTodoTitle(newTitle) {
+		    const oldTitle = this.todo.title;
 			this.todo.title = newTitle;
-			this.$store.commit("updateTodo", this.todo);
+            this.$store.dispatch("updateTodo", this.todo).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+                this.todo.title = oldTitle;
+            });
 		},
 		changeImportant() {
 			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "重要");
@@ -198,7 +208,12 @@ export default {
 					this.$parent.noShowTodoDetail();
 				}
 			}
-			this.$store.commit("updateTodo", this.todo);
+
+			this.$store.dispatch("updateTodo", this.todo).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+            });
 		},
 		changeDoneStep(step_id) {
 			this.todo.steps.forEach(function (step) {
@@ -206,7 +221,12 @@ export default {
 					step.isDone = !step.isDone;
 				}
 			});
-			this.$store.commit("updateTodo", this.todo);
+			this.$store.dispatch("updateTodo", this.todo).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+
+            })
 		},
 		deleteStep(step_id) {
 			let idx = 0;
@@ -216,23 +236,25 @@ export default {
 				}
 			});
 			this.todo.steps.splice(idx, 1);
-			this.$store.commit("updateTodo", this.todo);
+			this.$store.dispatch("updateTodo", this.todo).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+            });
 		},
 		addStep() {
 			if (this.newStep.length > 0) {
-				// todo: id改为hash计算
-				let max_id = 0;
-				this.todo.steps.forEach(function (step) {
-					if (step.id > max_id) {
-						max_id = step.id;
-					}
-				});
+				// id后台给
 				this.todo.steps.push({
-					id: max_id + 1,
 					content: this.newStep,
 					isDone: false
 				});
-				this.$store.commit("updateTodo", this.todo);
+				this.$store.dispatch("updateTodo", this.todo).then(resp => {
+
+                }).catch(err => {
+                    console.log(err);
+                });
+
 				this.newStep = "";
 			}
 		},
@@ -251,7 +273,11 @@ export default {
 					this.$parent.noShowTodoDetail();
 				}
 			}
-			this.$store.commit("updateTodo", this.todo);
+            this.$store.dispatch("updateTodo", this.todo).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+            });
 		},
 		deleteFile(file_id) {
 			let idx = 0;
@@ -261,7 +287,11 @@ export default {
 				}
 			});
 			this.todo.files.splice(idx, 1);
-			this.$store.commit("updateTodo", this.todo);
+			this.$store.dispatch("deleteFile", fileId).then(resp => {
+
+            }).catch(err => {
+
+            });
 		},
 		showFileDialog() {
 			// 移除之前的事件监听
@@ -273,17 +303,14 @@ export default {
 		},
 		addFile(e, fileObj) {
 			console.log("add file");
-			let max_id = 0;
-			this.todo.files.forEach(function (file) {
-				if (file.id > max_id) {
-					max_id = file.id;
-				}
-			});
 			this.todo.files.push({
-				id: max_id + 1,
 				content: fileObj
 			});
-			this.$store.commit("updateTodo", this.todo);
+			this.$store.dispatch("uploadFile", fileObj).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+            })
 		},
 		changeColpase() {
 			// 修改父组件中的showTodoDetail
@@ -292,17 +319,29 @@ export default {
 		deleteTimeChoose(type) {
 			// 对应的事件置为undefined
 			this.todo.times[type] = undefined;
-			this.$store.commit("updateTodo", this.todo);
+			this.$store.dispatch("updateTodo", this.todo).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+            })
 		},
 		saveTimeChoose(date, type) {
 			this.todo.times[type] = date;
-			this.$store.commit("updateTodo", this.todo);
+            this.$store.dispatch("updateTodo", this.todo).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+            })
 		},
 		deleteTodo() {
 			// todo: show alert
 			// 删除后自动显示下一个
 			// 没有下一个则收回set部分
-			this.$store.commit("deleteTodo", this.todo.id);
+            this.$store.dispatch("deleteTodo", this.todo.id).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+            });
 			this.$parent.noShowTodoDetail();
 		}
 	}

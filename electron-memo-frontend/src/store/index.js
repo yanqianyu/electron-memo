@@ -223,16 +223,30 @@ export const store = new Vuex.Store({
 			})
 
 		},
-		uploadFile() {
+		uploadFile(context, file) {
 			// 上传文件
 			return new Promise((resolve, reject) => {
-
+				const param = new FormData();
+				param.append("file", file.data);
+				this.$axios.post('/todos/upload/' + context.state.userId + '/' + context.state.todoId,
+					param, {
+					"Content-Type": "multipart/form-data"
+				}).then(resp => {
+					resolve();
+				}).catch(err => {
+					reject(err);
+				})
 			})
 		},
-		deleteFile() {
+		deleteFile(context, fileId) {
 			// 删除文件
 			return new Promise((resolve, reject) => {
-
+				this.$axios.delete('/todos/upload/' + context.state.userId + '/' + context.state.todoId + '/' + fileId)
+					.then(resp => {
+						resolve();
+					}).catch(err => {
+						reject(err);
+				})
 			})
 		}
 	}

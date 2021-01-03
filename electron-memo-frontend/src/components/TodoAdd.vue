@@ -21,7 +21,6 @@ export default {
 			let flag = this.$store.state.builtinLists.findIndex(item => item.id === this.$store.state.currentList);
 			let taskid = this.$store.state.builtinLists[this.$store.state.builtinLists.findIndex(item => item.name === "任务")].id;
 			let newTodo = {
-				id: 5,
 				title: this.todo,
 				isDone: false,
 				builtinList: flag === -1 ? [] : (this.$store.state.currentList === taskid ? [taskid] : [this.$store.state.currentList, taskid]),
@@ -37,10 +36,10 @@ export default {
 				notes: null
 			};
 			this.$store.dispatch('addTodo', newTodo).then(resp => {
-
+			    console.log("add todo")
             }).catch(err => {
-
-            })
+                console.log(err);
+            });
 
 			this.todo = "";
 		}

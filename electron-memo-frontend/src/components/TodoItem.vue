@@ -116,7 +116,11 @@ export default {
 		changeDoneState() {
 			// 点击图片时禁用setting部分显示的事件
 			this.todo.isDone = !this.todo.isDone;
-			this.$store.commit("updateTodo", this.todo);
+            this.$store.dispatch("updateTodo", this.todo).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+            })
 		},
 		changeImportantState() {
 			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "重要");
@@ -135,7 +139,11 @@ export default {
 					}
 				}
 			}
-			this.$store.commit("updateTodo", this.todo);
+            this.$store.dispatch("updateTodo", this.todo).then(resp => {
+
+            }).catch(err => {
+                console.log(err);
+            })
 		}
 	}
 };

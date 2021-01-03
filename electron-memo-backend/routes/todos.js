@@ -6,7 +6,7 @@ const {secret} = require('../db.config');
 const Router = require('koa-router');
 const router = new Router({prefix: "/todos"});
 
-const {findByUserId, findByUserIdAndListId, findByTodoId, create, checkOwner, delete: del, update, upload} = require('../controllers/todos');
+const {findByUserId, findByUserIdAndListId, findByTodoId, create, checkOwner, delete: del, update, upload, deleteFile} = require('../controllers/todos');
 
 const auth = jwt({secret});
 
@@ -17,6 +17,8 @@ router.get("/todosByList/:userId/:listId", findByUserIdAndListId);
 router.post("/:userId", auth, create); // 创建todo
 
 router.post("/upload/:userId/:todoId", upload); // 上传文件
+
+router.delete("/files/:userId/:todoId/:fileId", deleteFile); // 删除文件
 
 router.get("/todoById/:userId/:todoId", findByTodoId);
 

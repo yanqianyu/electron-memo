@@ -2,37 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f5d2d88-313d-4ecd-a431-e269450c1077" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/YanQianyu.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/dbnavigator.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/electron-memo-backend.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/jsLibraryMappings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/electron-memo-backend/controllers/todos.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-backend/controllers/todos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/tests/todos.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-backend/tests/todos.spec.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/dbnavigator.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/electron-memo.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/directoryList.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/routes/todos.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-backend/routes/todos.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoAdd.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoAdd.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Register.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoSet.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoSet.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/store/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +57,8 @@
       <option name="presentableId" value="Default" />
       <updated>1609559462020</updated>
       <workItem from="1609559463690" duration="6032000" />
-      <workItem from="1609572662832" duration="3445000" />
+      <workItem from="1609572662832" duration="3576000" />
+      <workItem from="1609637198206" duration="5800000" />
     </task>
     <servers />
   </component>
@@ -95,9 +70,9 @@
       <screen x="49" y="25" width="1231" height="775" />
     </state>
     <state x="352" y="154" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/49.25.1231.775/-260.-1055.1920.1055@49.25.1231.775" timestamp="1609572407409" />
-    <state x="328" y="-1055" width="761" height="1055" key="dock-window-1" timestamp="1609578053295">
+    <state x="-95" y="-1055" width="1399" height="1055" key="dock-window-1" timestamp="1609650470622">
       <screen x="-260" y="-1055" width="1920" height="1055" />
     </state>
-    <state x="328" y="-1055" width="761" height="1055" key="dock-window-1/49.25.1231.775/-260.-1055.1920.1055@49.25.1231.775" timestamp="1609578053295" />
+    <state x="-95" y="-1055" width="1399" height="1055" key="dock-window-1/49.25.1231.775/-260.-1055.1920.1055@49.25.1231.775" timestamp="1609650470622" />
   </component>
 </project>

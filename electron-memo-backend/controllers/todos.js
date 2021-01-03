@@ -135,7 +135,58 @@ class TodoController {
 		}
 	}
 
-	asyns deleteFile(ctx) {
+	async deleteFile(ctx) {
+		// 查找文件
+		const todo = await Todo.findOne({
+			userId: ctx.params.userId,
+			_id: ctx.params.todoId
+		});
+
+		if (!todo) {
+			ctx.throw(404, "待办事项不存在");
+		}
+
+		const todoWithFile = await Todo.findOne({
+			userId: ctx.params.userId,
+			_id: ctx.params.todoId,
+			files: {
+				$elemMatch: {
+					_id: ctx.params.fileId
+				}
+			}
+		});
+
+		if (!todoWithFile) {
+			ctx.throw(404, "文件不存在")
+		}
+
+		const fileIndex = todoWithFile.files.findIndex(e => e._id === ctx.params.fileId);
+		const filePath = path.resolve(`/public/uploads/${todoWithFile.files[fileIndex].path.split("/").pop()}`);
+
+		if (fs.existsSync(filePath)) {
+			fs.unlinkSync(filePath);
+		}
+		else {
+			ctx.throw(404, "文件不存在")
+		}
+
+		const fileDelete = await Todo.findOneAndUpdate({
+			userId: ctx.params.userId,
+			_id: ctx.params.todoId
+		}, {
+			$pull: {
+				"files": {
+					_id: ctx.params.todoId
+				}
+			}
+		})
+
+		if (fileDelete) {
+			ctx.body = "文件删除成功"
+		}
+		else {
+			ctx.throw(404, "文件删除失败")
+		}
 
 	}
 }
