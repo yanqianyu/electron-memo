@@ -121,7 +121,7 @@ export const store = new Vuex.Store({
 				}).catch(err => {
 					reject(err);
 				});
-			})
+			});
 		},
 		register(context, userInfo) {
 			// 登陆
@@ -134,7 +134,7 @@ export const store = new Vuex.Store({
 				}).catch(err => {
 					reject(err);
 				});
-			})
+			});
 		},
 		addTodo(context, todo) {
 			// 新建todo
@@ -148,34 +148,34 @@ export const store = new Vuex.Store({
 				}).catch(err => {
 					reject(err);
 				});
-			})
+			});
 		},
 		updateTodo(context, todo) {
 			// 更新todo 除文件外
 			return new Promise((resolve, reject) => {
-				this.$axios.post('/todos/' + context.state.userId + '/' + context.state.todoId, {
+				this.$axios.post("/todos/" + context.state.userId + "/" + context.state.todoId, {
 					todo
 				}).then(resp => {
 					context.commit("updateTodo", resp.body.todo);
 					resolve();
 				}).catch(err => {
 					reject(err);
-				})
+				});
 			});
 		},
 		deleteTodo(context, id) {
 			// 删除todo
 			return new Promise((resolve, reject) => {
-				this.$axios.delete('/todos/' + context.state.userId + '/' + id, {
+				this.$axios.delete("/todos/" + context.state.userId + "/" + id, {
 
 				}).then(resp => {
 					const id = resp.body._id;
 					context.commit("deleteTodo", id);
-					resolve()
+					resolve();
 				}).catch(err => {
 					reject(err);
-				})
-			})
+				});
+			});
 		},
 		updateListFilter(context, curList) {
 			// 切换显示的清单
@@ -184,33 +184,33 @@ export const store = new Vuex.Store({
 		addCusList(context, newList) {
 			// 增加自定义清单
 			return new Promise((resolve, reject) => {
-				this.$axios.post('/todolist/' + context.state.userId, {
+				this.$axios.post("/todolist/" + context.state.userId, {
 					newList
 				}).then(resp => {
 					context.commit("addCusList", resp.body.todolist);
 					resolve();
 				}).catch(err => {
 					reject(err);
-				})
-			})
+				});
+			});
 		},
 		deleteCusList(context, list) {
 			// 删除自定义清单
 			return new Promise((resolve, reject) => {
-				this.$axios.delete('/todolist/' + context.state.userId + '/' + list, {
+				this.$axios.delete("/todolist/" + context.state.userId + "/" + list, {
 
 				}).then(resp => {
 					context.commit("deleteCusList", resp.body._id);
 					resolve();
 				}).catch(err => {
 					reject(err);
-				})
+				});
 			});
 		},
 		updateCusList(context, oldList, newListName) {
 			// 更新自定义清单
 			return new Promise((resolve, reject) => {
-				this.$axios.put('/todolist/' + context.state.userId + '/' + oldList, {
+				this.$axios.put("/todolist/" + context.state.userId + "/" + oldList, {
 					_id: oldList,
 					userId: context.state.userId,
 					title: newListName
@@ -219,8 +219,8 @@ export const store = new Vuex.Store({
 					resolve();
 				}).catch(err => {
 					reject(err);
-				})
-			})
+				});
+			});
 
 		},
 		uploadFile(context, file) {
@@ -228,26 +228,26 @@ export const store = new Vuex.Store({
 			return new Promise((resolve, reject) => {
 				const param = new FormData();
 				param.append("file", file.data);
-				this.$axios.post('/todos/upload/' + context.state.userId + '/' + context.state.todoId,
+				this.$axios.post("/todos/upload/" + context.state.userId + "/" + context.state.todoId,
 					param, {
-					"Content-Type": "multipart/form-data"
-				}).then(resp => {
+						"Content-Type": "multipart/form-data"
+					}).then(resp => {
 					resolve();
 				}).catch(err => {
 					reject(err);
-				})
-			})
+				});
+			});
 		},
 		deleteFile(context, fileId) {
 			// 删除文件
 			return new Promise((resolve, reject) => {
-				this.$axios.delete('/todos/upload/' + context.state.userId + '/' + context.state.todoId + '/' + fileId)
+				this.$axios.delete("/todos/upload/" + context.state.userId + "/" + context.state.todoId + "/" + fileId)
 					.then(resp => {
 						resolve();
 					}).catch(err => {
 						reject(err);
-				})
-			})
+					});
+			});
 		}
 	}
 });

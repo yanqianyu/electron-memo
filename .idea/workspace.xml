@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f5d2d88-313d-4ecd-a431-e269450c1077" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/controllers/todos.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-backend/controllers/todos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/routes/todos.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-backend/routes/todos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoAdd.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoAdd.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoSet.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoSet.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Login.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,14 +25,37 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.linters.configure.manually.selectedeslint" value="true" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.eslint" value="$PROJECT_DIR$/electron-memo-frontend/node_modules/eslint" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
+  </component>
+  <component name="RunManager">
+    <configuration name="electron:serve" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/electron-memo-frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="electron:serve" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.electron:serve" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -58,7 +81,10 @@
       <updated>1609559462020</updated>
       <workItem from="1609559463690" duration="6032000" />
       <workItem from="1609572662832" duration="3576000" />
-      <workItem from="1609637198206" duration="5800000" />
+      <workItem from="1609637198206" duration="6379000" />
+      <workItem from="1611211976309" duration="493000" />
+      <workItem from="1611319993693" duration="379000" />
+      <workItem from="1611970642847" duration="16504000" />
     </task>
     <servers />
   </component>
@@ -70,6 +96,26 @@
       <screen x="49" y="25" width="1231" height="775" />
     </state>
     <state x="352" y="154" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/49.25.1231.775/-260.-1055.1920.1055@49.25.1231.775" timestamp="1609572407409" />
+    <state width="1210" height="139" key="GridCell.Tab.0.bottom" timestamp="1612007962215">
+      <screen x="49" y="25" width="1231" height="775" />
+    </state>
+    <state width="1210" height="139" key="GridCell.Tab.0.bottom/49.25.1231.775/-122.-1055.1920.1055@49.25.1231.775" timestamp="1612007962215" />
+    <state width="1210" height="139" key="GridCell.Tab.0.center" timestamp="1612007962214">
+      <screen x="49" y="25" width="1231" height="775" />
+    </state>
+    <state width="1210" height="139" key="GridCell.Tab.0.center/49.25.1231.775/-122.-1055.1920.1055@49.25.1231.775" timestamp="1612007962214" />
+    <state width="1210" height="139" key="GridCell.Tab.0.left" timestamp="1612007962213">
+      <screen x="49" y="25" width="1231" height="775" />
+    </state>
+    <state width="1210" height="139" key="GridCell.Tab.0.left/49.25.1231.775/-122.-1055.1920.1055@49.25.1231.775" timestamp="1612007962213" />
+    <state width="1210" height="139" key="GridCell.Tab.0.right" timestamp="1612007962214">
+      <screen x="49" y="25" width="1231" height="775" />
+    </state>
+    <state width="1210" height="139" key="GridCell.Tab.0.right/49.25.1231.775/-122.-1055.1920.1055@49.25.1231.775" timestamp="1612007962214" />
+    <state x="173" y="48" key="SettingsEditor" timestamp="1612007844871">
+      <screen x="49" y="25" width="1231" height="775" />
+    </state>
+    <state x="173" y="48" key="SettingsEditor/49.25.1231.775/-122.-1055.1920.1055@49.25.1231.775" timestamp="1612007844871" />
     <state x="-95" y="-1055" width="1399" height="1055" key="dock-window-1" timestamp="1609650470622">
       <screen x="-260" y="-1055" width="1920" height="1055" />
     </state>

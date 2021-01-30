@@ -1,6 +1,5 @@
 <template>
     <div class="login">
-        <div class="slogan">欢迎使用ToDo</div>
         <div class="picture"><img src="../../assets/data_organization_monochromatic.svg"></div>
         <div class="login-form">
             <div class="login-username">
@@ -13,11 +12,10 @@
             <div class="login-btn">
                 <button v-on:click="login">登录</button>
             </div>
-
-        </div>
-        <div class="to-register">
-            <span style="color: darkgrey">没有账户</span>
-            <span onclick="" style="color: #4e89ae; cursor: pointer">免费注册</span>
+            <div class="to-register">
+                <span style="color: darkgrey">没有账户</span>
+                <span onclick="" style="color: #4e89ae; cursor: pointer">免费注册</span>
+            </div>
         </div>
     </div>
 </template>
@@ -35,41 +33,48 @@ export default {
 		window.ipcRender.send("login-window");
 	},
 	methods: {
-		login() {
+		login: function () {
 			// 通过store向后台发送登录表单
 			// 登录成功跳转
 			// this.$router.push({path: "/builtinList", query: {listid: "1"}});
 			// 登陆成功，服务端返回所有的todo，存在localstorage中？
-			this.$store.dispatch('login', {
-			    email: this.email,
-			    password: this.password
+			this.$store.dispatch("login", {
+				email: this.email,
+				password: this.password
 			}).then(resp => {
 				console.log(resp);
-			    this.$route.push({name: 'app'})
+				this.$route.push({name: "app"});
 			}).catch(err => {
-			    // todo：error信息的显示
-                console.log(err)
-			    console.log("登录失败")
-			    this.email = ''
-			    this.password = ''
-			})
+				// todo：error信息的显示
+				console.log(err);
+				console.log("登录失败");
+				this.email = "";
+				this.password = "";
+			});
 		}
 	}
 };
 </script>
 
 <style lang="scss" scoped>
-    .login {
-        .slogan {
-            text-align: center;
-            font-size: 2rem; // rem em px的区别
+    // 根据高宽比
+    @media screen and (min-aspect-ratio: 1/1){
+        .login {
+           display: flex;
         }
-
         .picture {
-
+            flex: 0 0 25rem;
         }
-
         .login-form {
+            flex: 1;
+        }
+    }
+    .login {
+        .login-form {
+            // 内容垂直方向居中
+            display: flex;
+            flex-direction: column;
+            margin: auto;
             text-align: center;
 
             .login-username {
@@ -112,15 +117,16 @@ export default {
                     font-size: 0.8rem;
                 }
             }
-        }
 
-        .to-register {
-            font-size: 1rem;
-            text-align: center;
+            .to-register {
+                font-size: 1rem;
+                text-align: center;
 
-            span {
-                margin: 0.5rem;
+                span {
+                    margin: 0.5rem;
+                }
             }
         }
+
     }
 </style>

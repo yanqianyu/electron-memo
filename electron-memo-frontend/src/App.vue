@@ -24,16 +24,15 @@ export default {
 
     body {
         margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
+        padding: 2rem;
+        /*overflow: hidden;*/
         border: none;
     }
 
     html {
         height: 100%;
         width: 100%;
-        overflow: hidden;
+        /*overflow: hidden;*/
         border: none;
     }
 </style>
