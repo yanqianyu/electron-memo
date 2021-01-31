@@ -112,14 +112,22 @@ export const store = new Vuex.Store({
 					email: userInfo.email,
 					password: userInfo.password
 				}).then(resp => {
-					const token = "Bearer" + resp.body.token;
+					const token = "Bearer " + resp.body.token;
 					const userId = resp.body._id;
+					// access token
+					// refresh token
 					localStorage.setItem("token", token);
 					localStorage.setItem("userId", userId);
 					context.commit("login", {token, userId});
-					resolve();
+					resolve("success");
 				}).catch(err => {
+					// 登陆失败
 					reject(err);
+					let payload = {
+						token: null,
+						userId: null
+					};
+					context.commit("login", payload);
 				});
 			});
 		},
@@ -130,7 +138,7 @@ export const store = new Vuex.Store({
 					email: userInfo.email,
 					password: userInfo.password
 				}).then(resp => {
-					resolve();
+					resolve(resp);
 				}).catch(err => {
 					reject(err);
 				});
@@ -232,7 +240,7 @@ export const store = new Vuex.Store({
 					param, {
 						"Content-Type": "multipart/form-data"
 					}).then(resp => {
-					resolve();
+					resolve(resp);
 				}).catch(err => {
 					reject(err);
 				});
@@ -243,7 +251,7 @@ export const store = new Vuex.Store({
 			return new Promise((resolve, reject) => {
 				this.$axios.delete("/todos/upload/" + context.state.userId + "/" + context.state.todoId + "/" + fileId)
 					.then(resp => {
-						resolve();
+						resolve(resp);
 					}).catch(err => {
 						reject(err);
 					});

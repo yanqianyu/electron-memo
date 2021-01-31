@@ -14,7 +14,7 @@
             </div>
             <div class="to-register">
                 <span style="color: darkgrey">没有账户</span>
-                <span onclick="" style="color: #4e89ae; cursor: pointer">免费注册</span>
+                <span v-on:click="toRegister" style="color: #4e89ae; cursor: pointer">免费注册</span>
             </div>
         </div>
     </div>
@@ -30,7 +30,9 @@ export default {
 		};
 	},
 	mounted() {
-		window.ipcRender.send("login-window");
+		if (window.ipcRender) {
+			window.ipcRender.send("login-window");
+		}
 	},
 	methods: {
 		login: function () {
@@ -45,11 +47,16 @@ export default {
 				console.log(resp);
 				this.$route.push({name: "app"});
 			}).catch(err => {
-				// todo：error信息的显示
 				console.log(err);
 				console.log("登录失败");
 				this.email = "";
 				this.password = "";
+			});
+		},
+		toRegister: function () {
+			// 跳转到注册页面,
+			this.$route.push({
+				name: "register"
 			});
 		}
 	}
