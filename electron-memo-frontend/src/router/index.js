@@ -6,6 +6,13 @@ import Router from "vue-router";
 import ToDoList from "../components/ToDoList";
 import SideBar from "../components/SideBar";
 
+// // https://blog.csdn.net/qq_42805569/article/details/111238634
+// const originalPush = Router.prototype.push;
+// Router.prototype.push = function push(location, onResolve, onReject) {
+// 	if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject);
+// 	return originalPush.call(this, location).catch(err => console.log(err));
+// };
+
 Vue.use(Router);
 
 export const router = new Router({
@@ -28,7 +35,7 @@ export const router = new Router({
 					}
 				}, // 默认路由
 				meta: {
-					requireAuth: false
+					requireAuth: true
 				},
 				children: [
 					{
@@ -62,7 +69,7 @@ export const router = new Router({
 });
 router.beforeEach((to, from, next) => {
 	if (to.matched.some(record => record.meta.requireAuth)) {
-		if (!store.getters.login) {
+		if (!store.getters.logIn) {
 			next({
 				path: "/login",
 				query: {redirect: to.fullPath}

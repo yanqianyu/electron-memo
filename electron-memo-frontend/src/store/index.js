@@ -36,7 +36,7 @@ export const store = new Vuex.Store({
 			return state.todos.filter(todo => todo.customList.includes(state.currentList));
 		},
 		logIn(state) {
-			return state.token != null;
+			return state.token !== null;
 		},
 		noNameCustomListsSuffix(state) {
 			// 无标题清单的最大后缀

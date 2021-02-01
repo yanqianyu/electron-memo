@@ -10,8 +10,10 @@
                        v-model="password">
             </div>
             <div class="register-btn">
-                <button v-on:click="toLogin">返回登录</button>
                 <button v-on:click="register">注册</button>
+            </div>
+            <div class="to-login">
+                <span v-on:click="toLogin" style="color: #4e89ae; cursor: pointer">返回登录</span>
             </div>
         </div>
     </div>
@@ -114,6 +116,14 @@ export default {
                 }
             }
 
+            .to-login {
+                font-size: 1rem;
+                text-align: center;
+
+                span {
+                    margin: 0.5rem;
+                }
+            }
         }
     }
 </style>
