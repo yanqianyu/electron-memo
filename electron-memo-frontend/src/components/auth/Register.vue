@@ -36,7 +36,7 @@ export default {
 				password: this.password
 			}).then(resp => {
 				console.log(resp);
-				this.$route.push({name: "index"});
+				this.$router.push({name: "index"});
 			}).catch(err => {
 				console.log(err);
 				this.email = "";
@@ -45,7 +45,7 @@ export default {
 		},
 		toLogin: function () {
 			// 跳转到登录页面
-			this.$route.push({
+			this.$router.push({
 				name: "login"
 			});
 		}

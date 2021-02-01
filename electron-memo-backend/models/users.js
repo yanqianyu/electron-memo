@@ -8,7 +8,7 @@ const {Schema, model} = mongoose;
 // If you have not declared it in schema, MongoDB will declare and initialize it.
 const userSchema = new Schema({
 	// _id: {type: Number, select: false},
-	name: {type: String, required: true},
+	email: {type: String, required: true},
 	password: {type: String, required: true, select: false}
 });
 

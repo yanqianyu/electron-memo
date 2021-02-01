@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import "../mock/mock";
 import {builtins, todos} from "../mock/builtins";
+import axios from "../http/api";
 
 Vue.use(Vuex);
 
@@ -65,6 +65,9 @@ export const store = new Vuex.Store({
 			state.token = payload.token;
 			state.userId = payload.userId;
 		},
+		getAllTodo(state, todos) {
+			state.todos = todos;
+		},
 		addTodo(state, todo) {
 			// 增添todo的记录
 			state.todos.push(todo);
@@ -98,22 +101,25 @@ export const store = new Vuex.Store({
 			state.customLists[listIdx].name = changeInfo.newTitle;
 		},
 		uploadFile(state, fileInfo) {
-
+			const todoIdx = state.todos.findIndex(item => item.id === fileInfo.todoId);
+			state.todos[todoIdx].files.push(fileInfo);
 		},
 		deleteFile(state, fileInfo) {
-
+			const todoIdx = state.todos.findIndex(item => item.id === fileInfo.todoId);
+			const fileIdx = state.todos[todoIdx].files.findIndex(item => item.id === fileInfo.id);
+			state.todos[todoIdx].files.splice(fileIdx, 1);
 		}
 	},
 	actions: {
 		login(context, userInfo) {
 			// 注册
 			return new Promise((resolve, reject) => {
-				this.$axios.post("/users/login", {
+				axios.post("/users/login", {
 					email: userInfo.email,
 					password: userInfo.password
 				}).then(resp => {
-					const token = "Bearer " + resp.body.token;
-					const userId = resp.body._id;
+					const token = "Bearer " + resp.data.token;
+					const userId = resp.data._id;
 					// access token
 					// refresh token
 					localStorage.setItem("token", token);
@@ -134,7 +140,7 @@ export const store = new Vuex.Store({
 		register(context, userInfo) {
 			// 登陆
 			return new Promise((resolve, reject) => {
-				this.$axios.post("/users/register", {
+				axios.post("/users/register", {
 					email: userInfo.email,
 					password: userInfo.password
 				}).then(resp => {
@@ -144,14 +150,26 @@ export const store = new Vuex.Store({
 				});
 			});
 		},
+		getAllTodo(context) {
+			// 获取所有的todo
+			return new Promise((resolve, reject) => {
+				axios.get("/todos/" + context.state.userId + "/").then(resp => {
+					context.commit("getAllTodo", resp.data.todos);
+					resolve();
+				}).catch(err => {
+					console.log(err);
+					reject(err);
+				});
+			});
+		},
 		addTodo(context, todo) {
 			// 新建todo
 			return new Promise((resolve, reject) => {
 				// https://vuex.vuejs.org/zh/guide/actions.html
-				this.$axios.post("/todos/" + context.state.userId, {
+				axios.post("/todos/" + context.state.userId, {
 					todo
 				}).then(resp => {
-					context.commit("addTodo", resp.body.todo);
+					context.commit("addTodo", resp.data.todo);
 					resolve();
 				}).catch(err => {
 					reject(err);
@@ -161,10 +179,10 @@ export const store = new Vuex.Store({
 		updateTodo(context, todo) {
 			// 更新todo 除文件外
 			return new Promise((resolve, reject) => {
-				this.$axios.post("/todos/" + context.state.userId + "/" + context.state.todoId, {
+				axios.post("/todos/" + context.state.userId + "/" + context.state.todoId, {
 					todo
 				}).then(resp => {
-					context.commit("updateTodo", resp.body.todo);
+					context.commit("updateTodo", resp.data.todo);
 					resolve();
 				}).catch(err => {
 					reject(err);
@@ -174,10 +192,8 @@ export const store = new Vuex.Store({
 		deleteTodo(context, id) {
 			// 删除todo
 			return new Promise((resolve, reject) => {
-				this.$axios.delete("/todos/" + context.state.userId + "/" + id, {
-
-				}).then(resp => {
-					const id = resp.body._id;
+				axios.delete("/todos/" + context.state.userId + "/" + id).then(resp => {
+					const id = resp.data._id;
 					context.commit("deleteTodo", id);
 					resolve();
 				}).catch(err => {
@@ -192,10 +208,10 @@ export const store = new Vuex.Store({
 		addCusList(context, newList) {
 			// 增加自定义清单
 			return new Promise((resolve, reject) => {
-				this.$axios.post("/todolist/" + context.state.userId, {
+				axios.post("/todolist/" + context.state.userId, {
 					newList
 				}).then(resp => {
-					context.commit("addCusList", resp.body.todolist);
+					context.commit("addCusList", resp.data.todolist);
 					resolve();
 				}).catch(err => {
 					reject(err);
@@ -205,9 +221,7 @@ export const store = new Vuex.Store({
 		deleteCusList(context, list) {
 			// 删除自定义清单
 			return new Promise((resolve, reject) => {
-				this.$axios.delete("/todolist/" + context.state.userId + "/" + list, {
-
-				}).then(resp => {
+				axios.delete("/todolist/" + context.state.userId + "/" + list).then(resp => {
 					context.commit("deleteCusList", resp.body._id);
 					resolve();
 				}).catch(err => {
@@ -218,7 +232,7 @@ export const store = new Vuex.Store({
 		updateCusList(context, oldList, newListName) {
 			// 更新自定义清单
 			return new Promise((resolve, reject) => {
-				this.$axios.put("/todolist/" + context.state.userId + "/" + oldList, {
+				axios.put("/todolist/" + context.state.userId + "/" + oldList, {
 					_id: oldList,
 					userId: context.state.userId,
 					title: newListName
@@ -236,10 +250,11 @@ export const store = new Vuex.Store({
 			return new Promise((resolve, reject) => {
 				const param = new FormData();
 				param.append("file", file.data);
-				this.$axios.post("/todos/upload/" + context.state.userId + "/" + context.state.todoId,
+				axios.post("/todos/upload/" + context.state.userId + "/" + context.state.todoId,
 					param, {
 						"Content-Type": "multipart/form-data"
 					}).then(resp => {
+					context.commit("uploadFile", file);
 					resolve(resp);
 				}).catch(err => {
 					reject(err);
@@ -249,8 +264,9 @@ export const store = new Vuex.Store({
 		deleteFile(context, fileId) {
 			// 删除文件
 			return new Promise((resolve, reject) => {
-				this.$axios.delete("/todos/upload/" + context.state.userId + "/" + context.state.todoId + "/" + fileId)
+				axios.delete("/todos/upload/" + context.state.userId + "/" + context.state.todoId + "/" + fileId)
 					.then(resp => {
+						context.commit("deleteFile", fileId);
 						resolve(resp);
 					}).catch(err => {
 						reject(err);

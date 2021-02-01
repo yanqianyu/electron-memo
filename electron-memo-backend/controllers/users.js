@@ -27,7 +27,7 @@ class UserController {
 		// 创建用户
 		// 校验参数，如果和所需参数不同，会直接返回422
 		ctx.verifyParams({
-			name: {
+			email: {
 				type: 'string', required: true
 			},
 			password: {
@@ -35,8 +35,8 @@ class UserController {
 			}
 		});
 
-		const {name} = ctx.request.body;
-		const repeatedUser = await User.findOne({name});
+		const {email} = ctx.request.body;
+		const repeatedUser = await User.findOne({email});
 		if (repeatedUser) {
 			ctx.throw(409, '用户名已存在');
 		}
@@ -55,7 +55,7 @@ class UserController {
 	async login(ctx) {
 		// 登录
 		ctx.verifyParams({
-			name: {type: "string", required: true},
+			email: {type: "string", required: true},
 			password: {type: "string", required: true}
 		});
 		const user = await User.findOne(ctx.request.body);
@@ -63,9 +63,9 @@ class UserController {
 			ctx.throw(401, "用户名或密码不正确");
 		}
 
-		const {_id, name} = user;
-		const token = jsonwebtoken.sign({_id, name}, secret, {expiresIn: "1d"});
-		ctx.body = {_id, name, token};
+		const {_id, email} = user;
+		const token = jsonwebtoken.sign({_id, email}, secret, {expiresIn: "1d"});
+		ctx.body = {_id, email, token};
 	}
 }
 

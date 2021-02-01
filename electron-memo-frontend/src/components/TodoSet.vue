@@ -43,10 +43,12 @@
                 <hr width="100%" size="3" align=center noshade="noshade"/>
 
                 <div class="time-set">
-                    <time-choose type="reminder" :init-time="todo.times.reminder" @deleteTimeChoose="deleteTimeChoose" @saveTimeChoose="saveTimeChoose">
+                    <time-choose type="reminder" :init-time="todo.times.reminder" @deleteTimeChoose="deleteTimeChoose"
+                                 @saveTimeChoose="saveTimeChoose">
                         <img src="../assets/icons/reminder.svg">
                     </time-choose>
-                    <time-choose type="ddl" :init-time="todo.times.ddl" @deleteTimeChoose="deleteTimeChoose" @saveTimeChoose="saveTimeChoose">
+                    <time-choose type="ddl" :init-time="todo.times.ddl" @deleteTimeChoose="deleteTimeChoose"
+                                 @saveTimeChoose="saveTimeChoose">
                         <img src="../assets/icons/calender.svg">
                     </time-choose>
                     <time-choose type="repeat">
@@ -94,21 +96,24 @@
 
 <script>
 import TimeChoose from "./TimeChoose";
+
 const clickOutside = {
 	// eslint-disable-next-line no-unused-vars
 	bind(el, binding, vnode) {
 		function documentHandler(e) {
-			if(el.contains(e.target)) {
+			if (el.contains(e.target)) {
 				return false;
 			}
 			if (binding.expression) {
 				binding.value(e);
 			}
 		}
+
 		el.__vueClickOutside__ = documentHandler;
 		document.addEventListener("click", documentHandler);
 	},
-	update() {},
+	update() {
+	},
 	// eslint-disable-next-line no-unused-vars
 	unbind(el, binding) {
 		document.removeEventListener("click", el.__vueClickOutside__);
@@ -146,27 +151,27 @@ export default {
 			return function (fileSize) {
 				if (fileSize < 1024) {
 					return fileSize + "B";
-				} else if (fileSize < (1024*1024)) {
+				} else if (fileSize < (1024 * 1024)) {
 					let temp = fileSize / 1024;
 					temp = temp.toFixed(2);
 					return temp + "KB";
-				} else if (fileSize < (1024*1024*1024)) {
-					let temp = fileSize / (1024*1024);
+				} else if (fileSize < (1024 * 1024 * 1024)) {
+					let temp = fileSize / (1024 * 1024);
 					temp = temp.toFixed(2);
 					return temp + "MB";
 				} else {
-					let temp = fileSize / (1024*1024*1024);
+					let temp = fileSize / (1024 * 1024 * 1024);
 					temp = temp.toFixed(2);
 					return temp + "GB";
 				}
 			};
 		},
 		createInfo: function () {
-			if(this.todo.createTime) {
+			if (this.todo.createTime) {
 				let date = new Date(this.todo.createTime);
 				return "创建于" + date.getFullYear().toString().padStart(4, "0") + "年"
-					+ (date.getMonth() + 1).toString().padStart(2, "0") + "月"
-					+ date.getDate().toString().padStart(2, "0") + "日";
+                        + (date.getMonth() + 1).toString().padStart(2, "0") + "月"
+                        + date.getDate().toString().padStart(2, "0") + "日";
 			}
 			return "";
 		}
@@ -178,20 +183,20 @@ export default {
 		changeDoneTodo() {
 			this.todo.isDone = !this.todo.isDone;
 			this.$store.dispatch("updateTodo", this.todo).then(resp => {
-
-            }).catch(err => {
-                console.log(err);
-            });
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
 		},
 		changeTodoTitle(newTitle) {
-		    const oldTitle = this.todo.title;
+			const oldTitle = this.todo.title;
 			this.todo.title = newTitle;
-            this.$store.dispatch("updateTodo", this.todo).then(resp => {
-
-            }).catch(err => {
-                console.log(err);
-                this.todo.title = oldTitle;
-            });
+			this.$store.dispatch("updateTodo", this.todo).then(resp => {
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+				this.todo.title = oldTitle;
+			});
 		},
 		changeImportant() {
 			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "重要");
@@ -199,8 +204,7 @@ export default {
 			if (!this.isImportant) {
 				// 加入到"重要列表中"
 				this.todo.builtinList.push(id);
-			}
-			else {
+			} else {
 				let removeid = this.todo.builtinList.findIndex(item => item === id);
 				this.todo.builtinList.splice(removeid, 1);
 				// 如果现在是"重要" 则不显示detail
@@ -210,10 +214,10 @@ export default {
 			}
 
 			this.$store.dispatch("updateTodo", this.todo).then(resp => {
-
-            }).catch(err => {
-                console.log(err);
-            });
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
 		},
 		changeDoneStep(step_id) {
 			this.todo.steps.forEach(function (step) {
@@ -222,11 +226,10 @@ export default {
 				}
 			});
 			this.$store.dispatch("updateTodo", this.todo).then(resp => {
-
-            }).catch(err => {
-                console.log(err);
-
-            })
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
 		},
 		deleteStep(step_id) {
 			let idx = 0;
@@ -237,10 +240,10 @@ export default {
 			});
 			this.todo.steps.splice(idx, 1);
 			this.$store.dispatch("updateTodo", this.todo).then(resp => {
-
-            }).catch(err => {
-                console.log(err);
-            });
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
 		},
 		addStep() {
 			if (this.newStep.length > 0) {
@@ -250,10 +253,10 @@ export default {
 					isDone: false
 				});
 				this.$store.dispatch("updateTodo", this.todo).then(resp => {
-
-                }).catch(err => {
-                    console.log(err);
-                });
+					console.log(resp);
+				}).catch(err => {
+					console.log(err);
+				});
 
 				this.newStep = "";
 			}
@@ -273,11 +276,11 @@ export default {
 					this.$parent.noShowTodoDetail();
 				}
 			}
-            this.$store.dispatch("updateTodo", this.todo).then(resp => {
-
-            }).catch(err => {
-                console.log(err);
-            });
+			this.$store.dispatch("updateTodo", this.todo).then(resp => {
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
 		},
 		deleteFile(file_id) {
 			let idx = 0;
@@ -287,11 +290,11 @@ export default {
 				}
 			});
 			this.todo.files.splice(idx, 1);
-			this.$store.dispatch("deleteFile", fileId).then(resp => {
-
-            }).catch(err => {
-
-            });
+			this.$store.dispatch("deleteFile", file_id).then(resp => {
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
 		},
 		showFileDialog() {
 			// 移除之前的事件监听
@@ -307,10 +310,10 @@ export default {
 				content: fileObj
 			});
 			this.$store.dispatch("uploadFile", fileObj).then(resp => {
-
-            }).catch(err => {
-                console.log(err);
-            })
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
 		},
 		changeColpase() {
 			// 修改父组件中的showTodoDetail
@@ -320,28 +323,28 @@ export default {
 			// 对应的事件置为undefined
 			this.todo.times[type] = undefined;
 			this.$store.dispatch("updateTodo", this.todo).then(resp => {
-
-            }).catch(err => {
-                console.log(err);
-            })
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
 		},
 		saveTimeChoose(date, type) {
 			this.todo.times[type] = date;
-            this.$store.dispatch("updateTodo", this.todo).then(resp => {
-
-            }).catch(err => {
-                console.log(err);
-            })
+			this.$store.dispatch("updateTodo", this.todo).then(resp => {
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
 		},
 		deleteTodo() {
 			// todo: show alert
 			// 删除后自动显示下一个
 			// 没有下一个则收回set部分
-            this.$store.dispatch("deleteTodo", this.todo.id).then(resp => {
-
-            }).catch(err => {
-                console.log(err);
-            });
+			this.$store.dispatch("deleteTodo", this.todo.id).then(resp => {
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
 			this.$parent.noShowTodoDetail();
 		}
 	}
@@ -354,6 +357,7 @@ export default {
         /*padding: 10px;*/
         display: flex;
         flex-direction: column;
+
         .todo-set {
             overflow-x: hidden;
             overflow-y: scroll;
@@ -458,14 +462,17 @@ export default {
                         align-items: center;
                         cursor: pointer;
                         width: 100%;
+
                         img {
                             vertical-align: middle;
                             width: 20px;
                             height: 20px;
                         }
+
                         img:first-child {
                             order: -1;
                         }
+
                         span {
                             flex-grow: 1;
                             vertical-align: middle;
@@ -482,11 +489,13 @@ export default {
                 .add-file {
                     .file-lists {
                         padding: 0 5px;
+
                         .file {
                             display: flex;
                             flex-direction: row;
                             justify-items: center;
                             align-items: center;
+
                             img:first-child {
                                 width: 20px;
                                 height: 20px;
@@ -539,6 +548,7 @@ export default {
 
                 .add-notes {
                     padding: 5px 5px;
+
                     textarea {
                         font-size: 15px;
                         outline: none;
@@ -550,6 +560,7 @@ export default {
                 }
             }
         }
+
         .buttom-bar {
             height: 40px;
             display: flex;

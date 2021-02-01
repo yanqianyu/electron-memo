@@ -42,6 +42,9 @@ export default {
 		this.$store.commit("updateListFilter", this.listid);
 		// 在store中查找对应的title
 	},
+	created() {
+		this.curTodo = this.todos[0];
+	},
 	mounted() {
 		this.$refs.inputTitle.style.width = this.$refs.inputTitle.value.length * 25 + "px";
 	},

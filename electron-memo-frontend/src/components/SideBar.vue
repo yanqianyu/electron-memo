@@ -50,7 +50,9 @@ export default {
 		};
 	},
 	mounted() {
-		window.ipcRender.send("todo-window");
+		if (window.ipcRender) {
+			window.ipcRender.send("todo-window");
+		}
 	},
 	computed: {
 		customizes() {
@@ -63,6 +65,8 @@ export default {
 	},
 	created() {
 		// this.customLists = this.$store.state.customLists;
+		//  调用请求菜单列表数据
+		this.$store.dispatch("getAllTodo");
 	},
 	methods: {
 		toSearch() {

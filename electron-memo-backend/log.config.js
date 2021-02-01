@@ -2,7 +2,7 @@
 var path = require('path');
 
 // 日志根目录
-var baseLogPath = path.resolve(__dirname, '../logs');
+var baseLogPath = path.resolve(__dirname, './logs');
 
 // 报错输出日志
 var errorPath = '/error';

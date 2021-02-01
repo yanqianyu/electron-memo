@@ -45,7 +45,9 @@ export default {
 				password: this.password
 			}).then(resp => {
 				console.log(resp);
-				this.$route.push({name: "app"});
+				this.$router.push({
+					name: "todo"
+				});
 			}).catch(err => {
 				console.log(err);
 				console.log("登录失败");
@@ -55,7 +57,7 @@ export default {
 		},
 		toRegister: function () {
 			// 跳转到注册页面,
-			this.$route.push({
+			this.$router.push({
 				name: "register"
 			});
 		}
