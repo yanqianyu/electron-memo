@@ -65,7 +65,7 @@ export default {
 	},
 	created() {
 		// this.customLists = this.$store.state.customLists;
-		//  调用请求菜单列表数据
+		// 调用请求菜单列表数据
 		this.$store.dispatch("getAllTodo");
 	},
 	methods: {

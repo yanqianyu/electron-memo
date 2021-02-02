@@ -9,6 +9,7 @@ const todoListSchema = new Schema({
 		ref: "User",
 		required: true
 	},
+	isCustomize: {type: Boolean, default: true},
 	title: {type: String}
 });
 

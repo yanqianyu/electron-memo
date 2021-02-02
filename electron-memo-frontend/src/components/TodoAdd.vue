@@ -35,11 +35,12 @@ export default {
 				createTime: new Date(),
 				notes: null
 			};
-			this.$store.dispatch('addTodo', newTodo).then(resp => {
-			    console.log("add todo")
-            }).catch(err => {
-                console.log(err);
-            });
+			this.$store.dispatch("addTodo", newTodo).then(resp => {
+				console.log(resp);
+				console.log("add todo");
+			}).catch(err => {
+				console.log(err);
+			});
 
 			this.todo = "";
 		}

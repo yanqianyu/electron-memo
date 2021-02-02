@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {builtins, todos} from "../mock/builtins";
 import axios from "../http/api";
 
 Vue.use(Vuex);
@@ -9,11 +8,11 @@ export const store = new Vuex.Store({
 	state: {
 		userId: localStorage.getItem("userId") || null,
 		token: localStorage.getItem("token") || null,
-		todos: todos,
+		todos: [],
 		todoId: "", // 当前显示的是哪个todo
 		currentList: "1", // 当前显示的是哪个list
 		customLists: [], // 所有自定义的list
-		builtinLists: builtins // 内置list
+		builtinLists: [] // 内置list
 	},
 	getters: {
 		titleByList(state) {
@@ -67,6 +66,16 @@ export const store = new Vuex.Store({
 		},
 		getAllTodo(state, todos) {
 			state.todos = todos;
+		},
+		getAllList(state, todolist) {
+			todolist.forEach(e => {
+				if (e.isCustomize) {
+					state.customLists.push(e);
+				}
+				else {
+					state.customLists.push(e);
+				}
+			});
 		},
 		addTodo(state, todo) {
 			// 增添todo的记录
@@ -150,10 +159,22 @@ export const store = new Vuex.Store({
 				});
 			});
 		},
+		getAllList(context) {
+			// 获取所有的列表
+			return new Promise((resolve, reject) => {
+				axios.get("/todolist/" + context.state.userId).then(resp => {
+					context.get("getAllList", resp.data.todolists);
+					resolve();
+				}).catch(err => {
+					console.log(err);
+					reject(err);
+				});
+			});
+		},
 		getAllTodo(context) {
 			// 获取所有的todo
 			return new Promise((resolve, reject) => {
-				axios.get("/todos/" + context.state.userId + "/").then(resp => {
+				axios.get("/todos/" + context.state.userId).then(resp => {
 					context.commit("getAllTodo", resp.data.todos);
 					resolve();
 				}).catch(err => {

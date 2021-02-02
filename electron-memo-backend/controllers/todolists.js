@@ -43,6 +43,9 @@ class TodoListController {
       title: {
         type: 'string', required: true,
       },
+      isCustomize: {
+        type: 'boolean'
+      }
     });
 
     // 不允许重名清单
