@@ -10,7 +10,8 @@ const todoListSchema = new Schema({
 		required: true
 	},
 	isCustomize: {type: Boolean, default: true},
-	title: {type: String}
+	title: {type: String},
+	icon: {type: String}
 });
 
 module.exports = model("TodoList", todoListSchema);

@@ -45,6 +45,9 @@ class TodoListController {
       },
       isCustomize: {
         type: 'boolean'
+      },
+      icon: {
+        type: 'string'
       }
     });
 

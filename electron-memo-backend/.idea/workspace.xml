@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e76f18a2-5707-418d-9ff9-3ea409c6ebe7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../electron-memo-frontend/src/components/SideBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../electron-memo-frontend/src/components/SideBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/todolists.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/todolists.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/todolists.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/todolists.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/init.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/init.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +81,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1612157858399</updated>
-      <workItem from="1612157859991" duration="10309000" />
+      <workItem from="1612157859991" duration="10819000" />
     </task>
     <servers />
   </component>
