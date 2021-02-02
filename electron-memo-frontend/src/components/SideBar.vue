@@ -39,15 +39,27 @@
 
 <script>
 import {debounce} from "../utils";
+import {store} from "../store";
 
 export default {
 	name: "SideBar",
 	data: function () {
 		return {
 			searchEntry: "", // 搜索词条
-			isSearchActive: false,  // 是否处于search状态
-			builtins: this.$store.state.builtinLists
+			isSearchActive: false  // 是否处于search状态
 		};
+	},
+	beforeRouteEnter (to, from, next){
+		// 导航完成前获取数据
+		// 不能访问this
+		let arr = [store.dispatch("getAllList"), store.dispatch("getAllTodo")];
+		Promise.all(arr).then((result) => {
+			console.log(result);
+			next();
+		}).catch(err => {
+			console.log(err);
+			next(false);
+		});
 	},
 	mounted() {
 		if (window.ipcRender) {
@@ -55,6 +67,9 @@ export default {
 		}
 	},
 	computed: {
+		builtins() {
+			return this.$store.state.builtinLists;
+		},
 		customizes() {
 			return this.$store.state.customLists;
 		},
@@ -62,11 +77,6 @@ export default {
 		key() {
 			return this.$route.path + Math.random();
 		}
-	},
-	created() {
-		// this.customLists = this.$store.state.customLists;
-		// 调用请求菜单列表数据
-		this.$store.dispatch("getAllTodo");
 	},
 	methods: {
 		toSearch() {

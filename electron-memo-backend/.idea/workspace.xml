@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e76f18a2-5707-418d-9ff9-3ea409c6ebe7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/utils/init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../electron-memo-frontend/src/router/asyncRouter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/todolists.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/todolists.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/todolists.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/todolists.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../electron-memo-frontend/src/components/TodoAdd.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../electron-memo-frontend/src/components/TodoAdd.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../electron-memo-frontend/src/http/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../electron-memo-frontend/src/http/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../electron-memo-frontend/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../electron-memo-frontend/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electron-memo-frontend/src/components/SideBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../electron-memo-frontend/src/components/SideBar.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
