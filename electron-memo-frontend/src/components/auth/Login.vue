@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import {router} from "../../router";
+
 export default {
 	name: "Login",
 	data() {
@@ -45,9 +47,19 @@ export default {
 				password: this.password
 			}).then(resp => {
 				console.log(resp);
-				this.$router.push({
-					name: "todo"
+				// 获取所有的list，并跳转至内建的列表
+				let arr = [this.$store.dispatch("getAllList"), this.$store.dispatch("getAllTodo")];
+				Promise.all(arr).then(res => {
+					console.log(res);
+					let id = this.$store.state.builtinLists.findIndex(e => e.title === "我的一天");
+					router.push({
+						path: "/todo",
+						query: { listid: this.$store.state.builtinLists[id]._id }
+					});
+				}).catch(err => {
+					console.log(err);
 				});
+
 			}).catch(err => {
 				console.log(err);
 				console.log("登录失败");

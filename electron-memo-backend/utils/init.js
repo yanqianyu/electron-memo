@@ -1,3 +1,4 @@
+const TodoList = require('../models/todolists');
 /*
 注册后初始化内建列表
  */
@@ -34,3 +35,5 @@ function initList(userId) {
         }
     })
 }
+
+module.exports = initList;

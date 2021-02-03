@@ -1,5 +1,7 @@
 // 用户模块控制器，用于处理业务逻辑
 
+const initList = require("../utils/init");
+
 const User = require('../models/users');
 const jsonwebtoken = require("jsonwebtoken");
 const {secret} = require("../db.config");
@@ -41,6 +43,9 @@ class UserController {
 			ctx.throw(409, '用户名已存在');
 		}
 		const user = await new User(ctx.request.body).save();
+
+		// 注册后注入默认列表
+		initList(user._id);
 		ctx.body = user;
 	}
 

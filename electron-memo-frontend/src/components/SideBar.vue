@@ -9,19 +9,19 @@
                            @blur="toBlur('search')">
                 </div>
                 <div class="builtin-list">
-                    <div class="builtin-item" v-for="builtin in builtins" :key="builtin.id">
-                        <router-link :to="builtin.url">
+                    <div class="builtin-item" v-for="builtin in builtins" :key="builtin._id">
+                        <router-link :to="{path: 'builtinList', query: {listid: builtin._id}}">
                             <img v-bind:src="builtin.icon">
-                            <span>{{builtin.name}}</span>
+                            <span>{{builtin.title}}</span>
                         </router-link>
                     </div>
                 </div>
                 <hr width="80%" size="3" align=center noshade="noshade"/>
                 <div class="customize-list">
-                    <div class="customize-item" v-for="customize in customizes" :key="customize.id">
-                        <router-link :to="customize.url">
+                    <div class="customize-item" v-for="customize in customizes" :key="customize._id">
+                        <router-link :to="{path: 'customizeList', query: {listid: customize._id}}">
                             <img v-bind:src="customize.icon">
-                            <span>{{customize.name}}</span>
+                            <span>{{customize.title}}</span>
                         </router-link>
                     </div>
                 </div>
@@ -40,6 +40,7 @@
 <script>
 import {debounce} from "../utils";
 import {store} from "../store";
+import {router} from "../router";
 
 export default {
 	name: "SideBar",
@@ -49,17 +50,63 @@ export default {
 			isSearchActive: false  // 是否处于search状态
 		};
 	},
-	beforeRouteEnter (to, from, next){
-		// 导航完成前获取数据
-		// 不能访问this
-		let arr = [store.dispatch("getAllList"), store.dispatch("getAllTodo")];
-		Promise.all(arr).then((result) => {
-			console.log(result);
+	beforeRouteEnter(to, from, next) {
+		// vuex中没有todo和list的相关信息，就从后台获得
+		if (store.state.builtinLists.length === 0) {
+			let arr = [store.dispatch("getAllList"), store.dispatch("getAllTodo")];
+			// 同步异步
+			Promise.all(arr).then(res => {
+				console.log(res);
+				// 获取路由中携带的参数 是url查询参数
+				let listid = to.query.listid; // 这里的listid是字符串
+				// 更改store中存储的currentList
+				console.log(listid);
+				if (listid) {
+					store.commit("updateListFilter", listid);
+					next();
+				}
+				else {// 否则重新登录
+					next({
+						path: "/login",
+					});
+				}
+			}).catch(err => {
+				console.log(err);
+				next({
+					path: "/login"
+				});
+			});
+		}
+		else {
+			// 获取路由中携带的参数 是url查询参数
+			let listid = to.query.listid; // 这里的listid是字符串
+			// 更改store中存储的currentList
+			console.log(listid);
+			if (listid) {
+				store.commit("updateListFilter", listid);
+				next();
+			}
+			else {// 否则重新登录
+				next({
+					path: "/login",
+				});
+			}
+		}
+	},
+	beforeRouteUpdate(to, from, next) {
+		// 获取路由中携带的参数 是url查询参数
+		let listid = to.query.listid; // 这里的listid是字符串
+		// 更改store中存储的currentList
+		console.log(listid);
+		if (listid) {
+			store.commit("updateListFilter", listid);
 			next();
-		}).catch(err => {
-			console.log(err);
-			next(false);
-		});
+		}
+		else {// 否则重新登录
+			next({
+				path: "/login",
+			});
+		}
 	},
 	mounted() {
 		if (window.ipcRender) {
@@ -100,17 +147,16 @@ export default {
 		},
 		addCustomizeList() {
 			// 不重名
-			// https://stackoverflow.com/questions/32649704/how-to-generate-hash-from-timestamp
-			let id = escape(Number(new Date).toString(36));
 			let newList = {
-				id: id,
-				name: "无标题清单" + this.$store.getters.noNameCustomListsSuffix,
-				icon: require("../assets/icons/folders.svg"),
-				url: "/customizeList?listid=".concat(id)
+				userId: this.$store.state.userId,
+				title: "无标题清单" + this.$store.getters.noNameCustomListsSuffix,
+				icon: "folders",
+				isCustomize: true
 			};
-			this.$store.commit("addCusList", newList);
-			// 跳转到新的list
-			this.$router.push({path: "/customizeList", query: {listid: id}});
+			this.$store.dispatch("addCusList", newList).then(resp => {
+				// 跳转到新的list
+				this.$router.push({path: "/customizeList", query: {listid: resp.data.todolist._id}});
+			});
 		}
 	}
 };

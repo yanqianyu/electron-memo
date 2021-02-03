@@ -30,9 +30,6 @@ export const router = new Router({
 				component: SideBar,
 				redirect: {
 					name: "builtinList",
-					query: {
-						listid: "1"
-					}
 				}, // 默认路由
 				meta: {
 					requireAuth: true
@@ -75,6 +72,7 @@ router.beforeEach((to, from, next) => {
 				query: {redirect: to.fullPath}
 			});
 		} else {
+			// vuex的顺序好像在router beforeEach前
 			next();
 		}
 	} else {

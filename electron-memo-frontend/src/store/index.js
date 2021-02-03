@@ -9,8 +9,8 @@ export const store = new Vuex.Store({
 		userId: localStorage.getItem("userId") || null,
 		token: localStorage.getItem("token") || null,
 		todos: [],
-		todoId: "", // 当前显示的是哪个todo
-		currentList: "1", // 当前显示的是哪个list
+		todoId: null, // 当前显示的是哪个todo
+		currentList: null, // 当前显示的是哪个list
 		customLists: [], // 所有自定义的list
 		builtinLists: [] // 内置list
 	},
@@ -19,15 +19,15 @@ export const store = new Vuex.Store({
 			// 根据当前list获取对应的title
 			let tmp = state.customLists.concat(state.builtinLists);
 			let id = tmp.findIndex(item => {
-				return item.id === state.currentList;
+				return item._id === state.currentList;
 			});
-			return tmp[id].name;
+			return tmp[id].title;
 		},
 		todosFilteredByLists(state) {
 			// 根据列表id获取todos
 			// 分builtinList和customList
 			let id = state.builtinLists.findIndex(item => {
-				return item.id === state.currentList;
+				return item._id === state.currentList;
 			});
 			if (id !== -1) {
 				return state.todos.filter(todo => todo.builtinList.includes(state.currentList));
@@ -41,8 +41,8 @@ export const store = new Vuex.Store({
 			// 无标题清单的最大后缀
 			let tmp = [];
 			for(let i = 0; i < state.customLists.length; i++) {
-				if(state.customLists[i].name.indexOf("无标题清单") !== -1) {
-					tmp.push(state.customLists[i].name);
+				if(state.customLists[i].title.indexOf("无标题清单") !== -1) {
+					tmp.push(state.customLists[i].title);
 				}
 			}
 			if(tmp.length === 0) {
@@ -73,7 +73,7 @@ export const store = new Vuex.Store({
 					state.customLists.push(e);
 				}
 				else {
-					state.customLists.push(e);
+					state.builtinLists.push(e);
 				}
 			});
 		},
@@ -100,14 +100,13 @@ export const store = new Vuex.Store({
 			state.customLists.push(newList);
 		},
 		deleteCusList(state, list) {
-			// todo: 删除一整个清单以及内部的todo
 			const listIdx = state.customLists.findIndex(item => item.id === list.id);
 			state.customLists.splice(listIdx, 1);
 			state.todos = state.todos.filter(item => !item.checklists.includes(list.id));
 		},
 		updateCusList(state, changeInfo) {
 			const listIdx = state.customLists.findIndex(item => item.id === changeInfo.listid);
-			state.customLists[listIdx].name = changeInfo.newTitle;
+			state.customLists[listIdx].title = changeInfo.newTitle;
 		},
 		uploadFile(state, fileInfo) {
 			const todoIdx = state.todos.findIndex(item => item.id === fileInfo.todoId);
@@ -129,8 +128,7 @@ export const store = new Vuex.Store({
 				}).then(resp => {
 					const token = "Bearer " + resp.data.token;
 					const userId = resp.data._id;
-					// access token
-					// refresh token
+					// todo: access token, refresh token
 					localStorage.setItem("token", token);
 					localStorage.setItem("userId", userId);
 					context.commit("login", {token, userId});
@@ -163,8 +161,8 @@ export const store = new Vuex.Store({
 			// 获取所有的列表
 			return new Promise((resolve, reject) => {
 				axios.get("/todolist/" + context.state.userId).then(resp => {
-					context.get("getAllList", resp.data.todolists);
-					resolve();
+					context.commit("getAllList", resp.data.todolists);
+					resolve(resp);
 				}).catch(err => {
 					console.log(err);
 					reject(err);
@@ -176,7 +174,7 @@ export const store = new Vuex.Store({
 			return new Promise((resolve, reject) => {
 				axios.get("/todos/" + context.state.userId).then(resp => {
 					context.commit("getAllTodo", resp.data.todos);
-					resolve();
+					resolve(resp);
 				}).catch(err => {
 					console.log(err);
 					reject(err);
@@ -187,9 +185,7 @@ export const store = new Vuex.Store({
 			// 新建todo
 			return new Promise((resolve, reject) => {
 				// https://vuex.vuejs.org/zh/guide/actions.html
-				axios.post("/todos/" + context.state.userId, {
-					todo
-				}).then(resp => {
+				axios.post("/todos/" + context.state.userId, todo).then(resp => {
 					context.commit("addTodo", resp.data.todo);
 					resolve();
 				}).catch(err => {
@@ -200,9 +196,7 @@ export const store = new Vuex.Store({
 		updateTodo(context, todo) {
 			// 更新todo 除文件外
 			return new Promise((resolve, reject) => {
-				axios.post("/todos/" + context.state.userId + "/" + context.state.todoId, {
-					todo
-				}).then(resp => {
+				axios.post("/todos/" + context.state.userId + "/" + context.state.todoId, todo).then(resp => {
 					context.commit("updateTodo", resp.data.todo);
 					resolve();
 				}).catch(err => {
@@ -229,11 +223,9 @@ export const store = new Vuex.Store({
 		addCusList(context, newList) {
 			// 增加自定义清单
 			return new Promise((resolve, reject) => {
-				axios.post("/todolist/" + context.state.userId, {
-					newList
-				}).then(resp => {
+				axios.post("/todolist/" + context.state.userId, newList).then(resp => {
 					context.commit("addCusList", resp.data.todolist);
-					resolve();
+					resolve(resp);
 				}).catch(err => {
 					reject(err);
 				});
@@ -244,7 +236,7 @@ export const store = new Vuex.Store({
 			return new Promise((resolve, reject) => {
 				axios.delete("/todolist/" + context.state.userId + "/" + list).then(resp => {
 					context.commit("deleteCusList", resp.body._id);
-					resolve();
+					resolve(resp);
 				}).catch(err => {
 					reject(err);
 				});

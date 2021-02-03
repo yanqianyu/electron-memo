@@ -35,13 +35,6 @@ import TodoSet from "@/components/TodoSet";
 export default {
 	name: "ToDoList",
 	components: {TodoSet, TodoItem, TodoAdd},
-	beforeCreate() {
-		// 获取路由中携带的参数 是url查询参数
-		this.listid = this.$route.query.listid; // 这里的listid是字符串
-		// 更改store中存储的currentList
-		this.$store.commit("updateListFilter", this.listid);
-		// 在store中查找对应的title
-	},
 	created() {
 		this.curTodo = this.todos[0];
 	},

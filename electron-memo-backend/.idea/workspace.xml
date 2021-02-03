@@ -3,9 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="e76f18a2-5707-418d-9ff9-3ea409c6ebe7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/todolists.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/todolists.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/todolists.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/todolists.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/init.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/init.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electron-memo-frontend/src/components/SideBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../electron-memo-frontend/src/components/SideBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electron-memo-frontend/src/components/ToDoList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../electron-memo-frontend/src/components/ToDoList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electron-memo-frontend/src/components/auth/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../electron-memo-frontend/src/components/auth/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electron-memo-frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../electron-memo-frontend/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../electron-memo-frontend/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../electron-memo-frontend/src/store/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +85,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1612157858399</updated>
-      <workItem from="1612157859991" duration="10819000" />
+      <workItem from="1612157859991" duration="16885000" />
     </task>
     <servers />
   </component>
@@ -96,25 +100,25 @@
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state x="293" y="207" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.800/-122.-1080.1920.1080@0.0.1280.800" timestamp="1612177975815" />
-    <state width="1259" height="180" key="GridCell.Tab.0.bottom" timestamp="1612273122250">
+    <state width="1259" height="244" key="GridCell.Tab.0.bottom" timestamp="1612354213480">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state width="1259" height="212" key="GridCell.Tab.0.bottom/0.0.1280.800/-122.-1080.1920.1080@0.0.1280.800" timestamp="1612176494438" />
-    <state width="1259" height="180" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1612273122250" />
-    <state width="1259" height="180" key="GridCell.Tab.0.center" timestamp="1612273122249">
+    <state width="1259" height="244" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1612354213480" />
+    <state width="1259" height="244" key="GridCell.Tab.0.center" timestamp="1612354213478">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state width="1259" height="212" key="GridCell.Tab.0.center/0.0.1280.800/-122.-1080.1920.1080@0.0.1280.800" timestamp="1612176494435" />
-    <state width="1259" height="180" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1612273122249" />
-    <state width="1259" height="180" key="GridCell.Tab.0.left" timestamp="1612273122248">
+    <state width="1259" height="244" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1612354213478" />
+    <state width="1259" height="244" key="GridCell.Tab.0.left" timestamp="1612354213476">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state width="1259" height="212" key="GridCell.Tab.0.left/0.0.1280.800/-122.-1080.1920.1080@0.0.1280.800" timestamp="1612176494433" />
-    <state width="1259" height="180" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1612273122248" />
-    <state width="1259" height="180" key="GridCell.Tab.0.right" timestamp="1612273122250">
+    <state width="1259" height="244" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1612354213476" />
+    <state width="1259" height="244" key="GridCell.Tab.0.right" timestamp="1612354213479">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state width="1259" height="212" key="GridCell.Tab.0.right/0.0.1280.800/-122.-1080.1920.1080@0.0.1280.800" timestamp="1612176494436" />
-    <state width="1259" height="180" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1612273122250" />
+    <state width="1259" height="244" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1612354213479" />
   </component>
 </project>
