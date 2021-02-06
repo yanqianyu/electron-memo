@@ -46,7 +46,7 @@ export default {
 			return this.$store.getters.todosFilteredByLists;
 		},
 		canEdit: function () {
-			let flag = this.$store.state.builtinLists.findIndex(item => item.id === this.$store.state.currentList);
+			let flag = this.$store.state.builtinLists.findIndex(item => item._id === this.$store.state.currentList);
 			return flag === -1;
 		}
 	},
@@ -68,8 +68,10 @@ export default {
 			this.showTodoDetail = true;
 		},
 		changeListTitle(newTitle) {
-			this.$store.commit("updateCusList", {
+			this.$store.dispatch("updateCusList", {
 				listid: this.listid, newTitle: newTitle
+			}).then(resp => {
+				console.log(resp);
 			});
 		},
 		changeWidth() {

@@ -55,8 +55,8 @@ export default {
 	},
 	computed: {
 		isImportant() {
-			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "重要");
-			let id = this.$store.state.builtinLists[idx].id;
+			let idx = this.$store.state.builtinLists.findIndex(item => item.title === "重要");
+			let id = this.$store.state.builtinLists[idx]._id;
 			return this.todo.builtinList.includes(id);
 		},
 		listInfo: function () {
@@ -64,15 +64,15 @@ export default {
 			let tmp = [];
 			for (let i = 0; i < this.$store.state.builtinLists.length; i++) {
 				if (this.$store.state.builtinLists[i].id !== this.$store.state.currentList) {
-					if (this.todo.builtinList.includes(this.$store.state.builtinLists[i].id)) {
+					if (this.todo.builtinList.includes(this.$store.state.builtinLists[i]._id)) {
 						tmp.push(this.$store.state.builtinLists[i].name);
 					}
 				}
 			}
 
 			for (let i = 0; i < this.$store.state.customLists.length; i++) {
-				if (this.$store.state.customLists[i].id !== this.$store.state.currentList) {
-					if (this.todo.customList.includes(this.$store.state.customLists[i].id)) {
+				if (this.$store.state.customLists[i]._id !== this.$store.state.currentList) {
+					if (this.todo.customList.includes(this.$store.state.customLists[i]._id)) {
 						tmp.push(this.$store.state.customLists[i].name);
 					}
 				}
@@ -117,14 +117,14 @@ export default {
 			// 点击图片时禁用setting部分显示的事件
 			this.todo.isDone = !this.todo.isDone;
 			this.$store.dispatch("updateTodo", this.todo).then(resp => {
-
+				console.log(resp);
 			}).catch(err => {
 				console.log(err);
 			});
 		},
 		changeImportantState() {
-			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "重要");
-			let id = this.$store.state.builtinLists[idx].id;
+			let idx = this.$store.state.builtinLists.findIndex(item => item.title === "重要");
+			let id = this.$store.state.builtinLists[idx]._id;
 			if (!this.isImportant) {
 				// 加入到"重要列表中"
 				this.todo.builtinList.push(id);
@@ -134,13 +134,13 @@ export default {
 				// 如果现在TodoSet绑定的todo和改变状态的todo相同
 				// 且在重要列表
 				if (this.$store.state.currentList === id) {
-					if (this.initTodo.id === this.$parent.$data.curTodo.id) {
+					if (this.initTodo._id === this.$parent.$data.curTodo._id) {
 						this.$parent.$data.showTodoDetail = false;
 					}
 				}
 			}
 			this.$store.dispatch("updateTodo", this.todo).then(resp => {
-
+				console.log(resp);
 			}).catch(err => {
 				console.log(err);
 			});

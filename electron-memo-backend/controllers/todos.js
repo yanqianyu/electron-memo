@@ -62,6 +62,14 @@ class TodoController {
 
 	async create(ctx) {
 		// 创建todo
+		ctx.verifyParams({
+			userId: {
+				type: 'string', required: true
+			},
+			title: {
+				type: 'string', required: true
+			}
+		});
 		const todo = await new Todo(ctx.request.body).save();
 		ctx.body = {
 			todo

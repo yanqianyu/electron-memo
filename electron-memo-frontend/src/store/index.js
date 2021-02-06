@@ -105,8 +105,8 @@ export const store = new Vuex.Store({
 			state.todos = state.todos.filter(item => !item.checklists.includes(list.id));
 		},
 		updateCusList(state, changeInfo) {
-			const listIdx = state.customLists.findIndex(item => item.id === changeInfo.listid);
-			state.customLists[listIdx].title = changeInfo.newTitle;
+			const listIdx = state.customLists.findIndex(item => item._id === changeInfo._id);
+			state.customLists[listIdx].title = changeInfo.title;
 		},
 		uploadFile(state, fileInfo) {
 			const todoIdx = state.todos.findIndex(item => item.id === fileInfo.todoId);
@@ -187,7 +187,7 @@ export const store = new Vuex.Store({
 				// https://vuex.vuejs.org/zh/guide/actions.html
 				axios.post("/todos/" + context.state.userId, todo).then(resp => {
 					context.commit("addTodo", resp.data.todo);
-					resolve();
+					resolve("add todo");
 				}).catch(err => {
 					reject(err);
 				});
@@ -242,16 +242,16 @@ export const store = new Vuex.Store({
 				});
 			});
 		},
-		updateCusList(context, oldList, newListName) {
+		updateCusList(context, payload) {
 			// 更新自定义清单
 			return new Promise((resolve, reject) => {
-				axios.put("/todolist/" + context.state.userId + "/" + oldList, {
-					_id: oldList,
+				axios.patch("/todolist/" + context.state.userId + "/" + payload.listid, {
+					_id: payload.listid,
 					userId: context.state.userId,
-					title: newListName
+					title: payload.newTitle
 				}).then(resp => {
-					context.commit("updateCusList", oldList, resp.body.todolist.title);
-					resolve();
+					context.commit("updateCusList", resp.data.todolist);
+					resolve("update list");
 				}).catch(err => {
 					reject(err);
 				});

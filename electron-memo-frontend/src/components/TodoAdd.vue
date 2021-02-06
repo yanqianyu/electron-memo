@@ -18,9 +18,10 @@ export default {
 			// 向对应的列表增加item
 			// 首先判断当前列表是不是builtin
 			// 所有不在customlist的todo都默认是task，同样的不在task中的todo一定是customlist中的
-			let flag = this.$store.state.builtinLists.findIndex(item => item.id === this.$store.state.currentList);
-			let taskid = this.$store.state.builtinLists[this.$store.state.builtinLists.findIndex(item => item.name === "任务")].id;
+			let flag = this.$store.state.builtinLists.findIndex(item => item._id === this.$store.state.currentList);
+			let taskid = this.$store.state.builtinLists[this.$store.state.builtinLists.findIndex(item => item.title === "任务")]._id;
 			let newTodo = {
+				userId: this.$store.state.userId,
 				title: this.todo,
 				isDone: false,
 				builtinList: flag === -1 ? [] : (this.$store.state.currentList === taskid ? [taskid] : [this.$store.state.currentList, taskid]),
@@ -37,7 +38,6 @@ export default {
 			};
 			this.$store.dispatch("addTodo", newTodo).then(resp => {
 				console.log(resp);
-				console.log("add todo");
 			}).catch(err => {
 				console.log(err);
 			});

@@ -138,13 +138,13 @@ export default {
 	},
 	computed: {
 		isOnMyDay() {
-			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "我的一天");
-			let id = this.$store.state.builtinLists[idx].id;
+			let idx = this.$store.state.builtinLists.findIndex(item => item.title === "我的一天");
+			let id = this.$store.state.builtinLists[idx]._id;
 			return this.todo.builtinList.includes(id);
 		},
 		isImportant() {
-			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "重要");
-			let id = this.$store.state.builtinLists[idx].id;
+			let idx = this.$store.state.builtinLists.findIndex(item => item.title === "重要");
+			let id = this.$store.state.builtinLists[idx]._id;
 			return this.todo.builtinList.includes(id);
 		},
 		formatFileSize() {
@@ -199,8 +199,8 @@ export default {
 			});
 		},
 		changeImportant() {
-			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "重要");
-			let id = this.$store.state.builtinLists[idx].id;
+			let idx = this.$store.state.builtinLists.findIndex(item => item.title === "重要");
+			let id = this.$store.state.builtinLists[idx]._id;
 			if (!this.isImportant) {
 				// 加入到"重要列表中"
 				this.todo.builtinList.push(id);
@@ -262,8 +262,8 @@ export default {
 			}
 		},
 		changeAddMyDay() {
-			let idx = this.$store.state.builtinLists.findIndex(item => item.name === "我的一天");
-			let id = this.$store.state.builtinLists[idx].id;
+			let idx = this.$store.state.builtinLists.findIndex(item => item.title === "我的一天");
+			let id = this.$store.state.builtinLists[idx]._id;
 			if (this.isOnMyDay !== true) {
 				// push的都是id 显示的是name
 				this.todo.builtinList.push(id);
@@ -340,7 +340,7 @@ export default {
 			// todo: show alert
 			// 删除后自动显示下一个
 			// 没有下一个则收回set部分
-			this.$store.dispatch("deleteTodo", this.todo.id).then(resp => {
+			this.$store.dispatch("deleteTodo", this.todo._id).then(resp => {
 				console.log(resp);
 			}).catch(err => {
 				console.log(err);

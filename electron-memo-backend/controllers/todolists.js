@@ -95,6 +95,8 @@ class TodoListController {
       new: true,
     });
 
+    // todo: 修改title不允许重名
+
     if (!todolist) {
       ctx.throw(404, '列表不存在');
     }
