@@ -11,7 +11,7 @@
                 <div class="builtin-list">
                     <div class="builtin-item" v-for="builtin in builtins" :key="builtin._id">
                         <router-link :to="{path: 'builtinList', query: {listid: builtin._id}}">
-                            <img v-bind:src="builtin.icon">
+                            <img v-bind:src="icon(builtin.icon)">
                             <span>{{builtin.title}}</span>
                         </router-link>
                     </div>
@@ -20,7 +20,7 @@
                 <div class="customize-list">
                     <div class="customize-item" v-for="customize in customizes" :key="customize._id">
                         <router-link :to="{path: 'customizeList', query: {listid: customize._id}}">
-                            <img v-bind:src="customize.icon">
+                            <img v-bind:src="icon(customize.icon)">
                             <span>{{customize.title}}</span>
                         </router-link>
                     </div>
@@ -40,7 +40,6 @@
 <script>
 import {debounce} from "../utils";
 import {store} from "../store";
-import {router} from "../router";
 
 export default {
 	name: "SideBar",
@@ -123,9 +122,12 @@ export default {
 		// 路由跳转不更新问题https://blog.csdn.net/w390058785/article/details/82813032
 		key() {
 			return this.$route.path + Math.random();
-		}
+		},
 	},
 	methods: {
+		icon(name) {
+			return "../assets/icons/" + name;
+		},
 		toSearch() {
 			// 绑定在了input的change事件上
 			debounce(this.search);

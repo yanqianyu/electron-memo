@@ -182,13 +182,15 @@ export default {
 			return this.type === "reminder" ? str + " " + "上午9:00" : str;
 		},
 		selectedTime: function () {
-			let time = this.finalTime.getHours().toString().padStart(2, "0") + ":" + this.finalTime.getMinutes().toString().padStart(2, "0");
+			let temp = new Date(this.finalTime);
+			let time = temp.getHours().toString().padStart(2, "0") + ":" + temp.getMinutes().toString().padStart(2, "0");
 			return "在" + time + "时提醒我";
 		},
 		selectedDate: function () {
-			let dates = this.finalTime.getFullYear().toString().padStart(4, "0") + "年"
-					+ (this.finalTime.getMonth() + 1).toString().padStart(2, "0") + "月"
-					+ this.finalTime.getDate().toString().padStart(2, "0") + "日";
+			let time = new Date(this.finalTime);
+			let dates = time.getFullYear().toString().padStart(4, "0") + "年"
+					+ (time.getMonth() + 1).toString().padStart(2, "0") + "月"
+					+ time.getDate().toString().padStart(2, "0") + "日";
 			return this.type === "reminder" ? dates : dates + "到期";
 		}
 	},

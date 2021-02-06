@@ -13,12 +13,12 @@
 
             <div class="todo-setting">
                 <div class="add-step">
-                    <div class="todo-steps" v-for="step in todo.steps" :key="step.id">
-                        <img src="../assets/icons/nodone.svg" v-if="!step.isDone" v-on:click="changeDoneStep(step.id)">
-                        <img src="../assets/icons/done.svg" v-else v-on:click="changeDoneStep(step.id)">
+                    <div class="todo-steps" v-for="step in todo.steps" :key="step._id">
+                        <img src="../assets/icons/nodone.svg" v-if="!step.isDone" v-on:click="changeDoneStep(step._id)">
+                        <img src="../assets/icons/done.svg" v-else v-on:click="changeDoneStep(step._id)">
                         <!--editable-->
                         <span>{{step.content}}</span>
-                        <img src="../assets/icons/cross.svg" v-on:click="deleteStep(step.id)">
+                        <img src="../assets/icons/cross.svg" v-on:click="deleteStep(step._id)">
                     </div>
                     <div class="add-steps-input" v-on:click="addStep">
                         <img src="../assets/icons/add.svg" class="add-button">
@@ -43,16 +43,13 @@
                 <hr width="100%" size="3" align=center noshade="noshade"/>
 
                 <div class="time-set">
-                    <time-choose type="reminder" :init-time="todo.times.reminder" @deleteTimeChoose="deleteTimeChoose"
+                    <time-choose type="reminder" :init-time="reminder" @deleteTimeChoose="deleteTimeChoose"
                                  @saveTimeChoose="saveTimeChoose">
                         <img src="../assets/icons/reminder.svg">
                     </time-choose>
-                    <time-choose type="ddl" :init-time="todo.times.ddl" @deleteTimeChoose="deleteTimeChoose"
+                    <time-choose type="ddl" :init-time="ddl" @deleteTimeChoose="deleteTimeChoose"
                                  @saveTimeChoose="saveTimeChoose">
                         <img src="../assets/icons/calender.svg">
-                    </time-choose>
-                    <time-choose type="repeat">
-                        <img src="../assets/icons/repeat.svg">
                     </time-choose>
                 </div>
 
@@ -60,7 +57,7 @@
 
                 <div class="add-file">
                     <div class="file-lists">
-                        <div class="file" v-for="file in todo.files" :key="file.id">
+                        <div class="file" v-for="file in todo.files" :key="file._id">
                             <img :src="file.content.iconimg">
                             <div class="file-center">
                                 <span class="file-name">{{file.content.filename}}</span>
@@ -78,7 +75,7 @@
                 <hr width="100%" size="3" align=center noshade="noshade"/>
 
                 <div class="add-notes">
-                    <textarea v-model="todo.notes" placeholder="添加备注"></textarea>
+                    <textarea v-model="todo.notes" placeholder="添加备注" @blur="addNote"></textarea>
                 </div>
 
                 <hr width="100%" size="3" align=center noshade="noshade"/>
@@ -174,6 +171,18 @@ export default {
                         + date.getDate().toString().padStart(2, "0") + "日";
 			}
 			return "";
+		},
+		reminder: function () {
+			if (this.todo.times.reminder) {
+				return new Date(this.todo.times.reminder);
+			}
+			return this.todo.times.reminder;
+		},
+		ddl: function () {
+			if (this.todo.times.ddl) {
+				return new Date(this.todo.times.ddl);
+			}
+			return this.todo.times.ddl;
 		}
 	},
 	methods: {
@@ -221,7 +230,7 @@ export default {
 		},
 		changeDoneStep(step_id) {
 			this.todo.steps.forEach(function (step) {
-				if (step.id === step_id) {
+				if (step._id === step_id) {
 					step.isDone = !step.isDone;
 				}
 			});
@@ -234,7 +243,7 @@ export default {
 		deleteStep(step_id) {
 			let idx = 0;
 			this.todo.steps.forEach(function (step, index) {
-				if (step.id === step_id) {
+				if (step._id === step_id) {
 					idx = index;
 				}
 			});
@@ -285,7 +294,7 @@ export default {
 		deleteFile(file_id) {
 			let idx = 0;
 			this.todo.files.forEach(function (file, index) {
-				if (file.id === file_id) {
+				if (file._id === file_id) {
 					idx = index;
 				}
 			});
@@ -297,12 +306,18 @@ export default {
 			});
 		},
 		showFileDialog() {
-			// 移除之前的事件监听
-			window.ipcRender.removeAllListeners("selectedItem");
-			// 打开文件对话框
-			window.ipcRender.send("open-directory-dialog", "openFile");
-			// 主进程返回的消息selectedItem的回调函数为getPath
-			window.ipcRender.on("selectedItem", this.addFile);
+			if (window.ipcRender) {
+				// electron
+				// 移除之前的事件监听
+				window.ipcRender.removeAllListeners("selectedItem");
+				// 打开文件对话框
+				window.ipcRender.send("open-directory-dialog", "openFile");
+				// 主进程返回的消息selectedItem的回调函数为getPath
+				window.ipcRender.on("selectedItem", this.addFile);
+			}
+			else {
+
+			}
 		},
 		addFile(e, fileObj) {
 			console.log("add file");
@@ -330,6 +345,14 @@ export default {
 		},
 		saveTimeChoose(date, type) {
 			this.todo.times[type] = date;
+			this.$store.dispatch("updateTodo", this.todo).then(resp => {
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
+		},
+		addNote() {
+			// 提交备注
 			this.$store.dispatch("updateTodo", this.todo).then(resp => {
 				console.log(resp);
 			}).catch(err => {

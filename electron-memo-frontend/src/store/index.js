@@ -83,13 +83,17 @@ export const store = new Vuex.Store({
 		},
 		updateTodo(state, todo) {
 			// 更新todo的信息
-			const index = state.todos.findIndex(item => item.id === todo.id);
-			state.todos[index] = todo;
+			const index = state.todos.findIndex(item => item._id === todo._id);
+			if (index !== -1) {
+				state.todos[index] = todo;
+			}
 		},
 		deleteTodo(state, id) {
 			// 删除todo
-			const index = state.todos.findIndex(item => item.id === id);
-			state.todos.splice(index, 1);
+			const index = state.todos.findIndex(item => item._id === id);
+			if (index !== -1) {
+				state.todos.splice(index, 1);
+			}
 		},
 		updateListFilter(state, curList) {
 			// 更新当前显示的list
@@ -100,22 +104,32 @@ export const store = new Vuex.Store({
 			state.customLists.push(newList);
 		},
 		deleteCusList(state, list) {
-			const listIdx = state.customLists.findIndex(item => item.id === list.id);
-			state.customLists.splice(listIdx, 1);
-			state.todos = state.todos.filter(item => !item.checklists.includes(list.id));
+			const listIdx = state.customLists.findIndex(item => item._id === list._id);
+			if (listIdx !== -1) {
+				state.customLists.splice(listIdx, 1);
+				state.todos = state.todos.filter(item => !item.customLists.includes(list._id));
+			}
 		},
 		updateCusList(state, changeInfo) {
 			const listIdx = state.customLists.findIndex(item => item._id === changeInfo._id);
-			state.customLists[listIdx].title = changeInfo.title;
+			if (listIdx !== -1) {
+				state.customLists[listIdx].title = changeInfo.title;
+			}
 		},
 		uploadFile(state, fileInfo) {
-			const todoIdx = state.todos.findIndex(item => item.id === fileInfo.todoId);
-			state.todos[todoIdx].files.push(fileInfo);
+			const todoIdx = state.todos.findIndex(item => item._id === fileInfo.todoId);
+			if (todoIdx !== -1) {
+				state.todos[todoIdx].files.push(fileInfo);
+			}
 		},
 		deleteFile(state, fileInfo) {
-			const todoIdx = state.todos.findIndex(item => item.id === fileInfo.todoId);
-			const fileIdx = state.todos[todoIdx].files.findIndex(item => item.id === fileInfo.id);
-			state.todos[todoIdx].files.splice(fileIdx, 1);
+			const todoIdx = state.todos.findIndex(item => item._id === fileInfo.todoId);
+			if (todoIdx !== -1) {
+				const fileIdx = state.todos[todoIdx].files.findIndex(item => item._id === fileInfo._id);
+				if (fileIdx !== -1) {
+					state.todos[todoIdx].files.splice(fileIdx, 1);
+				}
+			}
 		}
 	},
 	actions: {
@@ -196,9 +210,9 @@ export const store = new Vuex.Store({
 		updateTodo(context, todo) {
 			// 更新todo 除文件外
 			return new Promise((resolve, reject) => {
-				axios.post("/todos/" + context.state.userId + "/" + context.state.todoId, todo).then(resp => {
+				axios.patch("/todos/" + context.state.userId + "/" + todo._id, todo).then(resp => {
 					context.commit("updateTodo", resp.data.todo);
-					resolve();
+					resolve(resp);
 				}).catch(err => {
 					reject(err);
 				});

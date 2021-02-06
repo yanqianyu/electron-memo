@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 const {Schema, model} = mongoose;
 
 const step = new Schema({
-	content: {type: String}
+	content: {type: String},
+	isDone: {type: Boolean}
 });
 
 const file = new Schema({

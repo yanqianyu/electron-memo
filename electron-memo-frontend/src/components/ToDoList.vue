@@ -13,7 +13,7 @@
             <!--@click.stop取消事件冒泡-->
             <div class="todo-list-container">
                 <div @click.stop>
-                    <todo-item v-bind:init-todo="todo" v-for="todo in todos" v-bind:key="todo.id"
+                    <todo-item v-bind:init-todo="todo" v-for="todo in todos" v-bind:key="todo._id"
                                @click.native="changeCurTodo(todo)"></todo-item>
                 </div>
             </div>
