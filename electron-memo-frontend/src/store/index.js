@@ -9,7 +9,6 @@ export const store = new Vuex.Store({
 		userId: localStorage.getItem("userId") || null,
 		token: localStorage.getItem("token") || null,
 		todos: [],
-		todoId: null, // 当前显示的是哪个todo
 		currentList: null, // 当前显示的是哪个list
 		customLists: [], // 所有自定义的list
 		builtinLists: [] // 内置list
@@ -116,10 +115,10 @@ export const store = new Vuex.Store({
 				state.customLists[listIdx].title = changeInfo.title;
 			}
 		},
-		uploadFile(state, fileInfo) {
-			const todoIdx = state.todos.findIndex(item => item._id === fileInfo.todoId);
+		uploadFile(state, file) {
+			const todoIdx = state.todos.findIndex(item => item._id === file.todoId);
 			if (todoIdx !== -1) {
-				state.todos[todoIdx].files.push(fileInfo);
+				state.todos[todoIdx].files.push(file);
 			}
 		},
 		deleteFile(state, fileInfo) {
@@ -222,7 +221,6 @@ export const store = new Vuex.Store({
 			// 删除todo
 			return new Promise((resolve, reject) => {
 				axios.delete("/todos/" + context.state.userId + "/" + id).then(resp => {
-					const id = resp.data._id;
 					context.commit("deleteTodo", id);
 					resolve();
 				}).catch(err => {
@@ -276,24 +274,29 @@ export const store = new Vuex.Store({
 			// 上传文件
 			return new Promise((resolve, reject) => {
 				const param = new FormData();
-				param.append("file", file.data);
-				axios.post("/todos/upload/" + context.state.userId + "/" + context.state.todoId,
+				param.append("file", file.file);
+				axios.post("/todos/upload/" + context.state.userId + "/" + file.todoId,
 					param, {
 						"Content-Type": "multipart/form-data"
 					}).then(resp => {
-					context.commit("uploadFile", file);
+					// filename filesize fileid todoid
+					let fileObj = resp.data.file;
+					if (file.file.iconimg) {
+						fileObj.iconimg = file.file.iconimg;
+					}
+					context.commit("uploadFile", fileObj);
 					resolve(resp);
 				}).catch(err => {
 					reject(err);
 				});
 			});
 		},
-		deleteFile(context, fileId) {
+		deleteFile(context, file) {
 			// 删除文件
 			return new Promise((resolve, reject) => {
-				axios.delete("/todos/upload/" + context.state.userId + "/" + context.state.todoId + "/" + fileId)
+				axios.delete("/todos/files/" + context.state.userId + "/" + file.todoId + "/" + file._id)
 					.then(resp => {
-						context.commit("deleteFile", fileId);
+						context.commit("deleteFile", file);
 						resolve(resp);
 					}).catch(err => {
 						reject(err);

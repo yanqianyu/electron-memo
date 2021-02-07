@@ -58,17 +58,18 @@
                 <div class="add-file">
                     <div class="file-lists">
                         <div class="file" v-for="file in todo.files" :key="file._id">
-                            <img :src="file.content.iconimg">
+                            <img v-if="!!file.iconimg" :src="file.iconimg">
                             <div class="file-center">
-                                <span class="file-name">{{file.content.filename}}</span>
-                                <span class="file-size">{{formatFileSize(file.content.filesize)}}</span>
+                                <span class="file-name">{{file.filename}}</span>
+                                <span class="file-size">{{formatFileSize(file.filesize)}}</span>
                             </div>
-                            <img src="../assets/icons/cross.svg" class="delete-button" v-on:click="deleteFile">
+                            <img src="../assets/icons/cross.svg" class="delete-button" v-on:click="deleteFile(file._id)">
                         </div>
                     </div>
-                    <div class="add-file-button" v-on:click="showFileDialog">
+                    <div class="add-file-button">
                         <img src="../assets/icons/file.svg">
-                        <span>添加文件</span>
+                        <span v-if="isElectron" v-on:click="showFileDialog">添加文件</span>
+                        <input v-else type="file" @change="getFile($event)" >
                     </div>
                 </div>
 
@@ -134,6 +135,9 @@ export default {
 		};
 	},
 	computed: {
+		isElectron() {
+			return !!window.ipcRender;
+		},
 		isOnMyDay() {
 			let idx = this.$store.state.builtinLists.findIndex(item => item.title === "我的一天");
 			let id = this.$store.state.builtinLists[idx]._id;
@@ -291,6 +295,14 @@ export default {
 				console.log(err);
 			});
 		},
+		getFile(event) {
+			const file = event.target.files[0];
+			this.$store.dispatch("uploadFile", {file: file, todoId: this.todo._id}).then(resp => {
+				console.log(resp);
+			}).catch(err => {
+				console.log(err);
+			});
+		},
 		deleteFile(file_id) {
 			let idx = 0;
 			this.todo.files.forEach(function (file, index) {
@@ -298,12 +310,17 @@ export default {
 					idx = index;
 				}
 			});
-			this.todo.files.splice(idx, 1);
-			this.$store.dispatch("deleteFile", file_id).then(resp => {
-				console.log(resp);
-			}).catch(err => {
-				console.log(err);
-			});
+			if (idx !== -1) {
+				let payload = {
+					_id: this.todo.files[idx]._id,
+					todoId: this.todo._id
+				};
+				this.$store.dispatch("deleteFile", payload).then(resp => {
+					console.log(resp);
+				}).catch(err => {
+					console.log(err);
+				});
+			}
 		},
 		showFileDialog() {
 			if (window.ipcRender) {
@@ -315,15 +332,9 @@ export default {
 				// 主进程返回的消息selectedItem的回调函数为getPath
 				window.ipcRender.on("selectedItem", this.addFile);
 			}
-			else {
-
-			}
 		},
 		addFile(e, fileObj) {
-			console.log("add file");
-			this.todo.files.push({
-				content: fileObj
-			});
+			this.todo.files.push(fileObj);
 			this.$store.dispatch("uploadFile", fileObj).then(resp => {
 				console.log(resp);
 			}).catch(err => {

@@ -128,15 +128,33 @@ class TodoController {
 				_id: ctx.params.todoId
 			},
 			{
-				$push: {"files": {path: `${ctx.origin}/public/uploads/${newname}`}}
+				$push: {"files": {
+						path: `${ctx.origin}/public/uploads/${newname}`,
+						todoId: ctx.params.todoId,
+						filesize: file.size,
+						filename: file.name
+					}}
 			},
 			{
 				new: true
 			}); //ctx.origin是域名
 
+		// fileId
+		// todoId
+		let idx = todo.files.findIndex(e => e.path === `${ctx.origin}/public/uploads/${newname}`);
+		if (idx === -1) {
+			ctx.throw("404", "上传失败");
+		}
+
+		let respFile = {
+			_id: todo.files[idx]._id,
+			todoId: todo._id,
+			filesize: file.size,
+			filename: file.name
+		};
 		if (todo) {
 			ctx.body = {
-				todo: todo,
+				file: respFile
 			};
 		} else {
 			ctx.throw("404", "上传失败");
@@ -169,13 +187,17 @@ class TodoController {
 		}
 
 		const fileIndex = todoWithFile.files.findIndex(e => e._id === ctx.params.fileId);
+		console.log(fileIndex);
+		if (fileIndex === -1) {
+			ctx.throw(404, "文件不存在");
+		}
 		const filePath = path.resolve(`/public/uploads/${todoWithFile.files[fileIndex].path.split("/").pop()}`);
 
 		if (fs.existsSync(filePath)) {
 			fs.unlinkSync(filePath);
 		}
 		else {
-			ctx.throw(404, "文件不存在")
+			ctx.throw(404, "文件不存在");
 		}
 
 		const fileDelete = await Todo.findOneAndUpdate({
@@ -184,10 +206,10 @@ class TodoController {
 		}, {
 			$pull: {
 				"files": {
-					_id: ctx.params.todoId
+					_id: ctx.params.fileId
 				}
 			}
-		})
+		});
 
 		if (fileDelete) {
 			ctx.body = "文件删除成功"

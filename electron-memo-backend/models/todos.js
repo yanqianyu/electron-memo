@@ -10,7 +10,10 @@ const step = new Schema({
 });
 
 const file = new Schema({
-	path: {type: String}
+	path: {type: String},
+	filesize: {type: Number},
+	filename: {type: String},
+	todoId: {type: Schema.Types.ObjectId}
 });
 
 const times = new Schema({
