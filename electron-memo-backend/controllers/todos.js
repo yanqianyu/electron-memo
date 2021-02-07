@@ -186,13 +186,12 @@ class TodoController {
 			ctx.throw(404, "文件不存在")
 		}
 
-		const fileIndex = todoWithFile.files.findIndex(e => e._id === ctx.params.fileId);
-		console.log(fileIndex);
+		const fileIndex = todoWithFile.files.findIndex(e => e._id == ctx.params.fileId);
 		if (fileIndex === -1) {
 			ctx.throw(404, "文件不存在");
 		}
-		const filePath = path.resolve(`/public/uploads/${todoWithFile.files[fileIndex].path.split("/").pop()}`);
-
+		// todo
+		const filePath = path.resolve(`./public/uploads/${todoWithFile.files[fileIndex].path.split("/").pop()}`);
 		if (fs.existsSync(filePath)) {
 			fs.unlinkSync(filePath);
 		}

@@ -126,7 +126,7 @@ export default {
 	},
 	methods: {
 		icon(name) {
-			return "../assets/icons/" + name;
+			return "../assets/icons/" + name + ".svg";
 		},
 		toSearch() {
 			// 绑定在了input的change事件上
