@@ -1,0 +1,39 @@
+name: Memo Front End CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  # 发布到服务器
+  build-and-deploy-to-server:
+    runs-on: ubuntn-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install Dependencies
+        run: npm install
+        env:
+          CI: true
+
+      - name: Build Project
+        run: npm run build
+        env:
+          CI: true
+
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@v2.1.2
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SERVER_SSH_KEY}}
+          ARGS: '-avz --delete'
+          SOURCE: 'dist/'
+          REMOTE_HOST: ${{secrets.REMOTE_HOST}}
+          REMOTE_USER: ${{secrets.REMOTE_USER}}
+          TARGET: ${{secrets.REMOTE_TARGET}}
