@@ -189,7 +189,7 @@ describe('todo controller', () => {
 			.post('/todos/upload/' + userId + '/' + todoId)
 			.set('Authorization', token)
 			.set('Content-Type', 'multipart/form-data')
-			.attach('file', '/Users/YanQianyu/Desktop/myfrontprojects/electron-memo/electron-memo-backend/tests/test.md');
+			.attach('file', '/Users/YanQianyu/Desktop/myfrontprojects/electron-memo/server/tests/test.md');
 		console.log(fileUploadResp.body);
 
 		expect(fileUploadResp.body.todo.files.length).toBe(1);

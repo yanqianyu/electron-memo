@@ -2,13 +2,109 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f5d2d88-313d-4ecd-a431-e269450c1077" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/controllers/todolists.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-backend/controllers/todolists.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-backend/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoSet.vue" beforeDir="false" afterPath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoSet.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/electron-memo-backend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/server/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/babel.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/controllers/todolists.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/todolists.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/controllers/todos.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/todos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/controllers/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/db.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/db.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/jest.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/log.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/log.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/models/todolists.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/todolists.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/models/todos.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/todos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/models/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/public/uploads/upload_42aa1c2233ea498940e733e9860d5bd5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/server/public/uploads/upload_42aa1c2233ea498940e733e9860d5bd5.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/routes/todolists.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/todolists.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/routes/todos.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/todos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/tests/test.md" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/test.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/tests/todolists.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/todolists.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/tests/todos.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/todos.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/tests/users.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/users.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/utils/init.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/utils/init.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-backend/utils/logs.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/utils/logs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/electron-memo-frontend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/babel.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/dist_electron/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist_electron/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/dist_electron/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist_electron/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/dist_electron/preload.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist_electron/preload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/jest.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/data_organization_monochromatic.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/data_organization_monochromatic.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/add.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/add.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/calender.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/calender.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/cross.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/cross.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/delete.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/delete.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/done.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/done.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/file.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/file.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/folders.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/folders.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/important.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/important.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/myday.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/myday.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/nodone.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/nodone.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/notImportant.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/notImportant.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/note.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/note.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/reminder.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/reminder.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/repeat.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/repeat.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/right.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/right.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/search.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/search.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/icons/tasks.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/icons/tasks.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/assets/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/background.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/background.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/Buttons.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DatePicker/Buttons.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/Day.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DatePicker/Day.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/Picker.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DatePicker/Picker.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/Switcher.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DatePicker/Switcher.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/Time.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DatePicker/Time.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/DatePicker/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DatePicker/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/SideBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SideBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/TimeChoose.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TimeChoose.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/ToDoList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ToDoList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoAdd.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TodoAdd.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TodoItem.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/TodoSet.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TodoSet.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/auth/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/components/auth/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/auth/Register.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/http/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/http/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/mock/builtins.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/mock/builtins.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/mock/mock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/mock/mock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/mock/todolist.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/mock/todolist.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/router/asyncRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/router/asyncRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/src/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Buttons.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tests/unit/datepicker/Buttons.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Day.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tests/unit/datepicker/Day.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Picker.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tests/unit/datepicker/Picker.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Switched.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tests/unit/datepicker/Switched.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/tests/unit/datepicker/Time.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tests/unit/datepicker/Time.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/electron-memo-frontend/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vue.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,8 +137,13 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="RunManager" selected="Node.js.index.js">
-    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/electron-memo-backend/index.js" working-dir="$PROJECT_DIR$/electron-memo-backend">
+    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/index.js" working-dir="$PROJECT_DIR$/server">
       <method v="2" />
     </configuration>
     <configuration name="electron:serve" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
@@ -91,6 +192,7 @@
       <workItem from="1611319993693" duration="379000" />
       <workItem from="1611970642847" duration="23850000" />
       <workItem from="1612143256975" duration="2160000" />
+      <workItem from="1613701280558" duration="3362000" />
     </task>
     <servers />
   </component>

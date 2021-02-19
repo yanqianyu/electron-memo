@@ -1,6 +1,6 @@
-name: Memo Front End CI
+name: Memo CI
 
-on:
+on: # 监听master分支上的push事件
   push:
     branches:
       - master
@@ -8,7 +8,7 @@ on:
 jobs:
   # 发布到服务器
   build-and-deploy-to-server:
-    runs-on: ubuntn-18.04
+    runs-on: ubuntn-latest
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -18,15 +18,11 @@ jobs:
         with:
           node-version: 12.x
 
-      - name: Install Dependencies
-        run: npm install
-        env:
-          CI: true
-
-      - name: Build Project
-        run: npm run build
-        env:
-          CI: true
+      - name: FE Install Dependencies and Build Project
+        run: |
+        cd frontend
+        npm install
+        npm run build
 
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@v2.1.2
@@ -37,3 +33,4 @@ jobs:
           REMOTE_HOST: ${{secrets.REMOTE_HOST}}
           REMOTE_USER: ${{secrets.REMOTE_USER}}
           TARGET: ${{secrets.REMOTE_TARGET}}
+
