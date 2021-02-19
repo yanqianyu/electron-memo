@@ -20,9 +20,9 @@ jobs:
 
       - name: FE Install Dependencies and Build Project
         run: |
-        cd frontend
-        npm install
-        npm run build
+          cd frontend
+          npm install
+          npm run build
 
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@v2.1.2
