@@ -5,7 +5,7 @@
                 <!--    todo: add border -> position change -->
                 <div :class="['search', isSearchActive? 'active': 'unactive']">
                     <img src="../assets/icons/search.svg">
-                    <input type="text" v-model="searchEntry" placeholder="搜索" @change="toSearch" @focus="toFocus('search')"
+                    <input type="text" v-model="searchEntry" placeholder="搜索" @focus="toFocus('search')"
                            @blur="toBlur('search')">
                 </div>
                 <div class="builtin-list">
@@ -46,7 +46,8 @@ export default {
 	data: function () {
 		return {
 			searchEntry: "", // 搜索词条
-			isSearchActive: false  // 是否处于search状态
+			isSearchActive: false,  // 是否处于search状态
+            timer: null // 搜索的定时器
 		};
 	},
 	beforeRouteEnter(to, from, next) {
@@ -124,18 +125,26 @@ export default {
 			return this.$route.path + Math.random();
 		},
 	},
+    watch: {
+		// todo: 一旦输入searchEntry右侧渲染就发生变化, searchEntry为空的时候回归先前列表
+		searchEntry() {
+			// 节流
+            let list = [];
+            if (this.timer) {
+            	clearTimeout(this.timer);
+            }
+            if (!this.searchEntry) {
+            	list = [];
+            	return;
+            }
+            this.timer = setTimeout(() => {
+            	this.$store.getters.todosFiltererBySearchEntry(this.searchEntry);
+            }, 100);
+        }
+    },
 	methods: {
 		icon(name) {
 			return "../assets/icons/" + name + ".svg";
-		},
-		toSearch() {
-			// 绑定在了input的change事件上
-			debounce(this.search);
-			this.$router.push({name: "searchList", query: {entry: this.searchEntry}});
-		},
-		search() {
-			// 搜索逻辑
-			// 向后端发送词条，获得todo列表 渲染在页面上
 		},
 		toFocus(input) {
 			if (input === "search") {

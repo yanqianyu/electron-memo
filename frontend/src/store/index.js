@@ -14,6 +14,13 @@ export const store = new Vuex.Store({
 		builtinLists: [] // 内置list
 	},
 	getters: {
+		todosFiltererBySearchEntry(state) {
+			return function (searchEntry) {
+				return state.todos.find(todo => {
+					return todo.title.includes(searchEntry);
+				})
+			}
+		},
 		titleByList(state) {
 			// 根据当前list获取对应的title
 			let tmp = state.customLists.concat(state.builtinLists);
