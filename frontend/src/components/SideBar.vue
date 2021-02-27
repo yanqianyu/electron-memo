@@ -33,7 +33,7 @@
         </div>
 
 
-        <router-view class="todo-lists" :key="key"></router-view>
+        <router-view class="todo-lists" :searchEntry="searchEntry" :key="key"></router-view>
     </div>
 </template>
 
@@ -125,23 +125,21 @@ export default {
 			return this.$route.path + Math.random();
 		},
 	},
-    watch: {
-		// todo: 一旦输入searchEntry右侧渲染就发生变化, searchEntry为空的时候回归先前列表
-		searchEntry() {
-			// 节流
-            let list = [];
-            if (this.timer) {
-            	clearTimeout(this.timer);
-            }
-            if (!this.searchEntry) {
-            	list = [];
-            	return;
-            }
-            this.timer = setTimeout(() => {
-            	this.$store.getters.todosFiltererBySearchEntry(this.searchEntry);
-            }, 100);
-        }
-    },
+    // watch: {
+	// 	searchEntry() {
+	// 		// 节流
+    //         if (this.timer) {
+    //         	clearTimeout(this.timer);
+    //         }
+    //         if (!this.searchEntry) {
+    //         	// searchEntry为空的时候回归先前列表
+	// 			this.$router.push({path: "/customizeList", query: {listid: this.$store.state.currentList}});
+	// 			return;
+    //         }
+    //         this.timer = setTimeout(() => {
+    //         }, 100);
+    //     }
+    // },
 	methods: {
 		icon(name) {
 			return "../assets/icons/" + name + ".svg";

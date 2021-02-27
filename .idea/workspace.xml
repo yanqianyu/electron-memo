@@ -2,15 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f5d2d88-313d-4ecd-a431-e269450c1077" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/SideBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SideBar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ToDoList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ToDoList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/router/asyncRouter.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -111,7 +118,8 @@
       <workItem from="1613701280558" duration="4512000" />
       <workItem from="1613723088291" duration="4000" />
       <workItem from="1613737848178" duration="2097000" />
-      <workItem from="1613810366152" duration="5001000" />
+      <workItem from="1613810366152" duration="5788000" />
+      <workItem from="1614410237891" duration="3761000" />
     </task>
     <servers />
   </component>

@@ -2,7 +2,7 @@
     <div class="todo-list">
         <div class="list-left-part">
             <!--自定义列表title可以点击编辑-->
-            <div class="todo-title">
+            <div class="todo-title" v-if="!searchMode">
                 <!--将文字内容赋值给隐藏的span，然后将input的宽度设置为span的宽度-->
                 <span ref="spanTitle"></span>
                 <!--禁止回车-->
@@ -17,7 +17,7 @@
                                @click.native="changeCurTodo(todo)"></todo-item>
                 </div>
             </div>
-            <div class="todo-add" @click.stop>
+            <div class="todo-add" @click.stop v-if="!searchMode">
                 <todo-add></todo-add>
             </div>
         </div>
@@ -41,9 +41,23 @@ export default {
 	mounted() {
 		this.$refs.inputTitle.style.width = this.$refs.inputTitle.value.length * 25 + "px";
 	},
+    props: {
+		searchEntry: {
+			type: String,
+            default: ""
+        }
+    },
 	computed: {
+		searchMode: function() {
+			return !!this.searchEntry;
+        },
 		todos: function () {
-			return this.$store.getters.todosFilteredByLists;
+			if (!!this.searchEntry) {
+				return this.$store.getters.todosFiltererBySearchEntry(this.searchEntry);
+            }
+			else {
+				return this.$store.getters.todosFilteredByLists;
+            }
 		},
 		canEdit: function () {
 			let flag = this.$store.state.builtinLists.findIndex(item => item._id === this.$store.state.currentList);
