@@ -1,29 +1,35 @@
 <template>
     <div class="todo-list">
-        <div class="list-left-part">
-            <!--自定义列表title可以点击编辑-->
-            <div class="todo-title" v-if="!searchMode">
-                <!--将文字内容赋值给隐藏的span，然后将input的宽度设置为span的宽度-->
-                <span ref="spanTitle"></span>
-                <!--禁止回车-->
-                <input ref="inputTitle" :disabled="!canEdit" name="title" type="text" :value="title"
-                       @input="changeWidth"
-                       @change="changeListTitle($event.currentTarget.value)"/>
-            </div>
-            <!--@click.stop取消事件冒泡-->
-            <div class="todo-list-container">
-                <div @click.stop>
-                    <todo-item v-bind:init-todo="todo" v-for="todo in todos" v-bind:key="todo._id"
-                               @click.native="changeCurTodo(todo)"></todo-item>
+        <transition name="fade">
+            <div class="list-left-part">
+                <!--自定义列表title可以点击编辑-->
+                <div class="todo-title" v-if="!searchMode">
+                    <!--将文字内容赋值给隐藏的span，然后将input的宽度设置为span的宽度-->
+                    <span ref="spanTitle"></span>
+                    <!--禁止回车-->
+                    <input ref="inputTitle" :disabled="!canEdit" name="title" type="text" :value="title"
+                           @input="changeWidth"
+                           @change="changeListTitle($event.currentTarget.value)"/>
+                </div>
+                <!--@click.stop取消事件冒泡-->
+                <div class="todo-list-container">
+                    <div @click.stop>
+                        <todo-item v-bind:init-todo="todo" v-for="todo in todos" v-bind:key="todo._id"
+                                   @click.native="changeCurTodo(todo)"></todo-item>
+                    </div>
+                </div>
+                <div class="todo-add" @click.stop v-if="!searchMode">
+                    <todo-add></todo-add>
                 </div>
             </div>
-            <div class="todo-add" @click.stop v-if="!searchMode">
-                <todo-add></todo-add>
+        </transition>
+
+        <transition name="fade">
+            <div class="list-right-part" v-if="showTodoDetail">
+                <todo-set v-bind:init-todo="curTodo" v-on:no-show-todo-detail="noShowTodoDetail"></todo-set>
             </div>
-        </div>
-        <div class="list-right-part" v-if="showTodoDetail">
-            <todo-set v-bind:init-todo="curTodo" v-on:no-show-todo-detail="noShowTodoDetail"></todo-set>
-        </div>
+        </transition>
+
     </div>
 </template>
 
@@ -137,6 +143,18 @@ export default {
 
         .list-right-part {
             width: 300px;
+        }
+
+        .fade-enter-active {
+            transition: all .3s ease;
+        }
+        .fade-leave-active {
+            transition: all .3s ease;
+        }
+        .fade-enter, .fade-leave-to
+            /* .slide-fade-leave-active for below version 2.1.8 */ {
+            transform: translateX(300px);
+            opacity: 0;
         }
     }
 </style>
