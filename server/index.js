@@ -36,7 +36,8 @@ app.use(async (ctx, next) => {
 });
 
 // 静态资源
-app.use(koaStatic(path.join(__dirname, 'public')));
+// 关掉防止直接通过url访问
+// app.use(koaStatic(path.join(__dirname, 'public')));
 
 // 错误处理
 app.use(error({
@@ -60,6 +61,8 @@ app.use(parameter(app));
 // 路由处理放在解析的后面！如果解析的中间件放在后面，那么每一次的请求都没有执行解析
 // app.use(router.routes()).use(router.allowedMethods());
 routing(app);
+
+// 拦截对uploads静态文件夹的访问
 
 // export default
 app.listen(3000, () => {

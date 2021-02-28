@@ -16,7 +16,7 @@ export const store = new Vuex.Store({
 	getters: {
 		todosFiltererBySearchEntry(state) {
 			return function (searchEntry) {
-				return state.todos.find(todo => {
+				return state.todos.filter(todo => {
 					return todo.title.includes(searchEntry);
 				})
 			}

@@ -53,9 +53,12 @@ export default {
         },
 		todos: function () {
 			if (!!this.searchEntry) {
-				return this.$store.getters.todosFiltererBySearchEntry(this.searchEntry);
+                const res = this.$store.getters.todosFiltererBySearchEntry(this.searchEntry);
+                console.log(res);
+                return res;
             }
 			else {
+				console.log(this.searchEntry);
 				return this.$store.getters.todosFilteredByLists;
             }
 		},
