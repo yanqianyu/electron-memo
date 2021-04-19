@@ -110,10 +110,10 @@ export const store = new Vuex.Store({
 			state.customLists.push(newList);
 		},
 		deleteCusList(state, list) {
-			const listIdx = state.customLists.findIndex(item => item._id === list._id);
+			const listIdx = state.customLists.findIndex(item => item._id === list);
 			if (listIdx !== -1) {
 				state.customLists.splice(listIdx, 1);
-				state.todos = state.todos.filter(item => !item.customLists.includes(list._id));
+				state.todos = state.todos.filter(item => !item.customList.includes(list));
 			}
 		},
 		updateCusList(state, changeInfo) {
@@ -254,7 +254,7 @@ export const store = new Vuex.Store({
 			// 删除自定义清单
 			return new Promise((resolve, reject) => {
 				axios.delete("/todolist/" + context.state.userId + "/" + list).then(resp => {
-					context.commit("deleteCusList", resp.body._id);
+					context.commit("deleteCusList", list);
 					resolve(resp);
 				}).catch(err => {
 					reject(err);

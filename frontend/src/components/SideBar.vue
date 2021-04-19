@@ -23,6 +23,7 @@
                             <img v-bind:src="icon(customize.icon)">
                             <span>{{customize.title}}</span>
                         </router-link>
+                        <img src="@/assets/icons/delete.svg" v-on:click="deleteList(customize._id)">
                     </div>
                 </div>
             </div>
@@ -37,10 +38,9 @@
 </template>
 
 <script>
-import {debounce} from "../utils";
-import {store} from "../store";
+	import {store} from "../store";
 
-export default {
+	export default {
 	name: "SideBar",
 	data: function () {
 		return {
@@ -126,7 +126,7 @@ export default {
 	},
 	methods: {
 		icon(name) {
-			return "../assets/icons/" + name + ".svg";
+			return require("@/assets/icons/" + name + ".svg");
 		},
 		toFocus(input) {
 			if (input === "search") {
@@ -150,7 +150,12 @@ export default {
 				// 跳转到新的list
 				this.$router.push({path: "/customizeList", query: {listid: resp.data.todolist._id}});
 			});
-		}
+		},
+        deleteList(listId) {
+			this.$store.dispatch("deleteCusList", listId).then(resp => {
+				console.log(resp);
+            })
+        }
 	}
 };
 </script>
@@ -245,10 +250,13 @@ export default {
 
                         img {
                             vertical-align: middle;
-                            order: -1;
                             width: 20px;
                             height: 20px;
                             margin: 5px;
+                        }
+
+                        img:first-child {
+                            order: -1;
                         }
                         span {
                             vertical-align: middle;

@@ -116,7 +116,7 @@ class TodoListController {
       ctx.throw(404, '列表不存在');
     }
 
-    const todoList = await Todo.deleteOne({
+    const todoList = await TodoList.deleteOne({
       userId: ctx.params.userId,
       _id: ctx.params.listId,
     });
